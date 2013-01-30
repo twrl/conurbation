@@ -971,8 +971,8 @@ dwarf_search_unwind_table_ (unw_addr_space_t as, unw_word_t ip,
 #endif
   int ret;
 
-  Debug(15, "dwarf_search_unwind_table_: ip=0x%lx, segbase=%x, "
-            "table_len=%d, table=%x, debug_frame_base=%x",
+  Debug(15, "dwarf_search_unwind_table_: ip=0x%lx, segbase=%lx, "
+            "table_len=%zu, table=%p, debug_frame_base=%lx",
         ip, segbase, table_len, table, debug_frame_base);
 
   a = unw_get_accessors (as);
