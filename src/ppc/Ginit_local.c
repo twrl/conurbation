@@ -37,6 +37,7 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.  */
 PROTECTED int
 unw_init_local (unw_cursor_t *cursor, ucontext_t *uc)
 {
+  abort();
   /* XXX: empty stub.  */
   return -UNW_EINVAL;
 }
@@ -55,6 +56,8 @@ unw_init_local (unw_cursor_t *cursor, ucontext_t *uc)
 
   c->dwarf.as = unw_local_addr_space;
   c->dwarf.as_arg = uc;
+  c->uc = uc;
+  Debug (1, "(c->uc=%p)\n", uc);
   #ifdef UNW_TARGET_PPC64
     return common_init_ppc64 (c, 1);
   #else

@@ -34,6 +34,8 @@ _Unwind_Resume (struct _Unwind_Exception *exception_object)
   if (_Unwind_InitContext (&context, &uc) < 0)
     abort ();
 
+  Debug (1, "(exception_object=%p private_2=%lx)\n", exception_object, exception_object->private_2);
+
   _Unwind_Phase2 (exception_object, &context);
   abort ();
 }

@@ -37,10 +37,10 @@ _Unwind_RaiseException (struct _Unwind_Exception *exception_object)
   unw_word_t ip;
   int ret;
 
-  Debug (1, "(exception_object=%p)\n", exception_object);
-
   if (_Unwind_InitContext (&context, &uc) < 0)
     return _URC_FATAL_PHASE1_ERROR;
+
+  Debug (1, "(exception_object=%p)\n", exception_object);
 
   /* Phase 1 (search phase) */
 

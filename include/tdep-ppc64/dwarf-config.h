@@ -32,10 +32,10 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.  */
 #ifndef dwarf_config_h
 #define dwarf_config_h
 
-/* For PPC64, 48 GPRs + 33 FPRs + 33 AltiVec + 1 SPE  */
-#define DWARF_NUM_PRESERVED_REGS	115
+/* For PPC64, see register numbers in include/libunwind-ppc64.h, that is equal to /usr/include/asm/ptrace.h  */
+#define DWARF_NUM_PRESERVED_REGS	214
 
-#define DWARF_REGNUM_MAP_LENGTH		115
+#define DWARF_REGNUM_MAP_LENGTH		(DWARF_NUM_PRESERVED_REGS)
 
 /* Return TRUE if the ADDR_SPACE uses big-endian byte-order.  */
 #define dwarf_is_big_endian(addr_space) 1

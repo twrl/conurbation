@@ -62,6 +62,21 @@ static const char *regname[] =
     [UNW_PPC64_R30]="GPR30",
     [UNW_PPC64_R31]="GPR31",
 
+    [UNW_PPC64_NIP]	= "NIP",
+    [UNW_PPC64_MSR]	= "MSR",
+    [UNW_PPC64_ORIG_R3]	= "ORIG_R3",
+    [UNW_PPC64_CTR]	= "CTR",
+    [UNW_PPC64_LR]	= "LR",
+    [UNW_PPC64_XER]	= "XER",
+    [UNW_PPC64_CCR]	= "CCR",
+    [UNW_PPC64_SOFTE]	= "SOFTE",
+    [UNW_PPC64_TRAP]	= "TRAP",
+    [UNW_PPC64_DAR]	= "DAR",
+    [UNW_PPC64_DSISR]	= "DSISR",
+    [UNW_PPC64_RESULT]	= "RESULT",
+    [UNW_PPC64_REGS_COUNT] = "REGS_COUNT",
+    [UNW_PPC64_ARG_POINTER] = "ARG_POINTER",
+
     [UNW_PPC64_F0]="FPR0",
     [UNW_PPC64_F1]="FPR1",
     [UNW_PPC64_F2]="FPR2",
@@ -95,10 +110,6 @@ static const char *regname[] =
     [UNW_PPC64_F30]="FPR30",
     [UNW_PPC64_F31]="FPR31",
 
-    [UNW_PPC64_LR]="LR",
-    [UNW_PPC64_CTR]="CTR",
-    [UNW_PPC64_ARG_POINTER]="ARG_POINTER",
-
     [UNW_PPC64_CR0]="CR0",
     [UNW_PPC64_CR1]="CR1",
     [UNW_PPC64_CR2]="CR2",
@@ -107,8 +118,6 @@ static const char *regname[] =
     [UNW_PPC64_CR5]="CR5",
     [UNW_PPC64_CR6]="CR6",
     [UNW_PPC64_CR7]="CR7",
-
-    [UNW_PPC64_XER]="XER",
 
     [UNW_PPC64_V0]="VR0",
     [UNW_PPC64_V1]="VR1",

@@ -432,5 +432,6 @@ unw_step (unw_cursor_t * cursor)
 	  ret = 1;
 	}
     }
+  Debug (2, "returning %d with last return statement\n", ret);
   return ret;
 }

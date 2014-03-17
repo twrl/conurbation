@@ -71,6 +71,7 @@ struct cursor
   }
   sigcontext_format;
   unw_word_t sigcontext_addr;
+  ucontext_t *uc;
 };
 
 #define DWARF_GET_LOC(l)	((l).val)
