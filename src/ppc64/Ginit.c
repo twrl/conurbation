@@ -79,7 +79,7 @@ uc_addr (ucontext_t *uc, int reg)
 	case UNW_PPC64_XER:
 	  gregs_idx = XER_IDX;
 	  break;
-	case UNW_PPC64_CR0:
+	case UNW_PPC64_CCR:
 	  gregs_idx = CCR_IDX;
 	  break;
 	default:

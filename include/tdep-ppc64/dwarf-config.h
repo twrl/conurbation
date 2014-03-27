@@ -33,7 +33,7 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.  */
 #define dwarf_config_h
 
 /* For PPC64, see register numbers in include/libunwind-ppc64.h, that is equal to /usr/include/asm/ptrace.h  */
-#define DWARF_NUM_PRESERVED_REGS	214
+#define DWARF_NUM_PRESERVED_REGS	218
 
 #define DWARF_REGNUM_MAP_LENGTH		(DWARF_NUM_PRESERVED_REGS)
 

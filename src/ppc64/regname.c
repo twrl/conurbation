@@ -110,14 +110,7 @@ static const char *regname[] =
     [UNW_PPC64_F30]="FPR30",
     [UNW_PPC64_F31]="FPR31",
 
-    [UNW_PPC64_CR0]="CR0",
-    [UNW_PPC64_CR1]="CR1",
-    [UNW_PPC64_CR2]="CR2",
-    [UNW_PPC64_CR3]="CR3",
-    [UNW_PPC64_CR4]="CR4",
-    [UNW_PPC64_CR5]="CR5",
-    [UNW_PPC64_CR6]="CR6",
-    [UNW_PPC64_CR7]="CR7",
+    [UNW_PPC64_FPSCR]="UNW_PPC64_FPSCR",
 
     [UNW_PPC64_V0]="VR0",
     [UNW_PPC64_V1]="VR1",

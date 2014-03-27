@@ -232,7 +232,10 @@ unw_step (unw_cursor_t * cursor)
 	  /* This CR0 assignment is probably wrong.  There are 8 dwarf columns
 	     assigned to the CR registers, but only one CR register in the
 	     mcontext structure */
-	  c->dwarf.loc[UNW_PPC64_CR0] =
+	  // Thats all right, accordingly to A2 Processor manual, "2.4.2.3 Condition Register"
+	  // The Condition Register (CR) is a 32-bit register of its own unique type 
+	  // and is divided up into eight, independent 4-bit fields (CR0-CR7). 
+	  c->dwarf.loc[UNW_PPC64_CCR] =
 	    DWARF_LOC (ucontext + UC_MCONTEXT_GREGS_CCR, 0);
 	  c->dwarf.loc[UNW_PPC64_XER] =
 	    DWARF_LOC (ucontext + UC_MCONTEXT_GREGS_XER, 0);
@@ -243,8 +246,27 @@ unw_step (unw_cursor_t * cursor)
 	     pseudo frame pointer (which is sp + some fixed offset, I
 	     assume), based on the contents of the ucontext record
 	     structure?  For now, set this loc to null. */
-	  c->dwarf.loc[UNW_PPC64_FRAME_POINTER] = DWARF_NULL_LOC;
+	  /*
+             wtf is physical FRAME_POINTER? ABI declares it logically as R1
+	     c->dwarf.loc[UNW_PPC64_FRAME_POINTER] = DWARF_NULL_LOC;
+	  */
 
+	  /* It seems the following registers doesnt need to be restored    
+	   *     UNW_PPC64_MSR,
+ 	   *     UNW_PPC64_ORIG_R3,
+ 	   *     UNW_PPC64_SOFTE,
+ 	   *     UNW_PPC64_TRAP,
+ 	   *     UNW_PPC64_DAR,
+ 	   *     UNW_PPC64_DSISR,
+ 	   *     UNW_PPC64_RESULT,
+ 	   *     UNW_PPC64_REGS_COUNT,
+ 	   *     UNW_PPC64_ARG_POINTER,
+ 	   *     UNW_PPC64_FPSCR	
+ 	   *     UNW_PPC64_VSCR
+ 	   *     UNW_PPC64_VRSAVE	
+ 	   *     UNW_PPC64_SPE_ACC
+ 	   *     UNW_PPC64_SPEFSCR
+ 	   */
 	  c->dwarf.loc[UNW_PPC64_F0] =
 	    DWARF_LOC (ucontext + UC_MCONTEXT_FREGS_R0, 0);
 	  c->dwarf.loc[UNW_PPC64_F1] =

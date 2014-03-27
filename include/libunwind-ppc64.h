@@ -228,7 +228,9 @@ typedef enum
     UNW_PPC64_VSR30 = 210,
     UNW_PPC64_VSR31 = 212,
 
-#define UNW_PPC64_REGS_AMOUNT 214
+    UNW_PPC64_SPE_ACC = 214,
+    UNW_PPC64_SPEFSCR = 216,
+#define UNW_PPC64_REGS_AMOUNT 218
 
     UNW_TDEP_LAST_REG = UNW_PPC64_NIP, // maybe it should be some some more registers to restore
 
