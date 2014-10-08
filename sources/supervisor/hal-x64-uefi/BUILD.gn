@@ -1,7 +1,7 @@
 static_library("hal-x64-uefi") {
     
     sources = [
-        "src/start.asm",
+        "src/start.s",
         "src/halmain.cc"
     ]
     

@@ -19,12 +19,13 @@ namespace Conurbation {
             virtual void run();
     };
     
+#define ACTIVITY_QUEUE_MAXSIZE 128
+    
     class activity_queue_t {
         private:
-            const uint64_t  capacity = 128;
-            uint64_t        start;
-            uint64_t        end;
-            activity_i*     queue[capacity];
+            uint64_t        _start = 0;
+            uint64_t        _end = 0;
+            activity_i*     _queue[ACTIVITY_QUEUE_MAXSIZE];
         public:
             void            queue(activity_i* activity);
     };

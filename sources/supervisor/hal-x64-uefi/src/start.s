@@ -3,7 +3,7 @@
 [SECTION .text]
 
 [EXTERN halmain]
-
+[GLOBAL _start:function]
 _start:
         call halmain
         cli

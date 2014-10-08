@@ -45,7 +45,7 @@ executable("ukernel") {
         allow_circular_includes_from += [ "//sources/supervisor/hal-x64-uefi" ]
     }
     
-    output_extension = ".sys"
+    output_extension = "sys"
     
 }
 

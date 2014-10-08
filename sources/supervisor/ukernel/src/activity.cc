@@ -1,6 +1,6 @@
 #include "activity.h"
 
-activity_queue_t aq = activity_queue_t();
+Conurbation::activity_queue_t aq = Conurbation::activity_queue_t();
 
 namespace Conurbation {
     
@@ -9,7 +9,7 @@ namespace Conurbation {
     }
     
     void activity_queue_t::queue(activity_i* activity) {
-        this->queue[this->end++] = activity;
+        this->_queue[this->_end++] = activity;
     }
     
 }

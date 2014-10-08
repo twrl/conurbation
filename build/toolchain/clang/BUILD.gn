@@ -23,7 +23,7 @@ toolchain("clang") {
     }
     tool("asm") {
         depfile = "{{output}}.d"
-        command = "nasm -MF $depfile {{defines}} -f elf64 -o {{output}} {{source}}"
+        command = "nasm -MD $depfile {{defines}} -f elf64 -o {{output}} {{source}}"
         depsformat = "gcc"
         description = "ASM {{output}}"
         outputs = [
