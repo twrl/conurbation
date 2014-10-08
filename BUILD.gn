@@ -1,0 +1,18 @@
+group("root") {
+    deps = [
+        ":supervisor",
+        ":user"
+    ]
+}    
+
+group("supervisor") {
+    deps = [
+        "//sources/supervisor/ukernel"
+        ]
+}
+
+group("user") {
+    deps = [
+        "//sources/libraries/libparkour"
+    ]
+}

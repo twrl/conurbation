@@ -1,0 +1,54 @@
+executable("ukernel") {
+    
+    sources = [
+        "src/activity.cc",
+        "src/mem.cc",
+        "src/syscall.asm"
+    ]
+    
+    public = [
+        "inc/types.h",
+        "inc/activity.h",
+        "inc/hal/diagnostic.h",
+        "inc/hal/firmware.h",
+        "inc/hal/hwevent.h",
+        "inc/hal/topology.h",
+        "inc/hal/virtmem.h"
+    ]
+    
+    public_configs = [ ":depend" ]
+    
+    deps = [
+        "//sources/supervisor/supercxx"
+    ]
+    allow_circular_includes_from = [
+        "//sources/supervisor/supercxx"
+    ]
+    
+    configs = [
+        "//build/subsystem/supervisor",
+        
+        "//build/toolchain/clang:nostdinc",
+        "//build/toolchain/clang:nostdlib",
+        "//build/toolchain/clang:mno-red-zone",
+        "//build/toolchain/clang:mcmodel--large",
+        "//build/toolchain/clang:ffreestanding",
+        "//build/toolchain/clang:fno-rtti",
+        "//build/toolchain/clang:fno-exceptions",
+        "//build/toolchain/clang:std-14",
+        "//build/toolchain/clang:Wall",
+        "//build/toolchain/clang:pedantic"
+    ]
+    
+    if (hal == "x64-uefi") {
+        deps += [ "//sources/supervisor/hal-x64-uefi" ]
+        allow_circular_includes_from += [ "//sources/supervisor/hal-x64-uefi" ]
+    }
+    
+    output_extension = ".sys"
+    
+}
+
+config("depend") {
+    include_dirs = ["./inc"]
+}

@@ -1,0 +1,7 @@
+config("mno-red-zone") {
+    cflags = ["-mno-red-zone"]
+}
+
+config("mcmodel--large") {
+    cflags = ["-mcmodel=large"]
+}

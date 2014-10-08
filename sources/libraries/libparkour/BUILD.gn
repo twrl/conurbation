@@ -1,0 +1,17 @@
+component("libparkour") {
+
+    sources = [
+        "src/syscall.asm"
+    ]
+    public = [
+        "inc/stdint.h"
+    ]
+    
+    public_configs = [ ":depend" ]
+    configs = []
+
+}
+
+config("depend") {
+    include_dirs = ["./inc"]
+}

@@ -1,0 +1,27 @@
+config("faltivec") {
+    cflags = ["-faltivec"]
+}
+
+config("fansi-escape-codes") {
+    cflags = ["-fansi-escape-codes"]
+}
+
+config("fapple-kext") {
+    cflags = ["-fapple-kext"]
+}
+
+config("fapple-pragma-pack") {
+    cflags = ["-fapple-pragma-pack"]
+}
+
+
+
+
+config("fno-rtti") {
+    cflags = ["-fno-rtti"]
+}
+
+config("fno-exceptions") {
+    cflags = ["-fno-exceptions"]
+}
+

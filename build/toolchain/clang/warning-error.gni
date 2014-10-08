@@ -1,0 +1,8 @@
+config("Wall") {
+    cflags = ["-Wall"]
+}
+
+config("pedantic") {
+    cflags = ["-pedantic"]
+}
+

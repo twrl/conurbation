@@ -1,0 +1,10 @@
+config("std-14") {
+    cflags_c = ["-std=c11"]
+    cflags_cpp = ["-std=c++14"]
+}
+
+config("std-11") {
+    cflags_c = ["-std=c11"]
+    cflags_cpp = ["-std=c++11"]
+}
+

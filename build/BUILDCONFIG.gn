@@ -1,0 +1,8 @@
+set_default_toolchain("//build/toolchain/clang")
+
+declare_args() {
+
+    # Specify the Hardware Abstraction Layer
+    hal = "x64-uefi"
+
+}

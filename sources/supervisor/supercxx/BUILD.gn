@@ -1,0 +1,38 @@
+static_library("supercxx") {
+    
+    sources = [
+        "src/atexit.cc",
+        "src/guard.cc",
+        "src/virtual.cc"
+    ]
+    
+    public = [
+        "inc/icxxabi.h"
+    ]
+    
+    public_configs = [ ":depend" ]
+    
+    complete_static_lib = true
+    
+    configs = [
+        "//build/subsystem/supervisor",
+        "//sources/supervisor/ukernel:depend",
+        
+        "//build/toolchain/clang:nostdinc",
+        "//build/toolchain/clang:nostdlib",
+        "//build/toolchain/clang:mno-red-zone",
+        "//build/toolchain/clang:mcmodel--large",
+        "//build/toolchain/clang:ffreestanding",
+        "//build/toolchain/clang:fno-rtti",
+        "//build/toolchain/clang:fno-exceptions",
+        "//build/toolchain/clang:std-14",
+        "//build/toolchain/clang:Wall",
+        "//build/toolchain/clang:pedantic"
+        
+    ]
+    
+}
+
+config("depend") {
+    include_dirs = ["./inc"]
+}

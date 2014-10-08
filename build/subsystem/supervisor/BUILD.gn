@@ -1,0 +1,20 @@
+config("supervisor") {
+
+#    configs = [
+#        "//build/toolchain/clang:nostdinc",
+#        "//build/toolchain/clang:nostdlib",
+#        "//build/toolchain/clang:mno-red-zone",
+#        "//build/toolchain/clang:mcmodel--large",
+#        "//build/toolchain/clang:ffreestanding",
+#        "//build/toolchain/clang:fno-rtti",
+#        "//build/toolchain/clang:fno-exceptions",
+#        "//build/toolchain/clang:std-14",
+#        "//build/toolchain/clang:Wall",
+#        "//build/toolchain/clang:pedantic"
+#    ]
+    
+    cflags = [ "-target", "x86_64-elf" ]
+    defines = [ "__conurbation", "__conurbation_super" ]
+
+}
+

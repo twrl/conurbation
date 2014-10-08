@@ -1,0 +1,37 @@
+static_library("hal-x64-uefi") {
+    
+    sources = [
+        "src/start.asm",
+        "src/halmain.cc"
+    ]
+    
+    public = [
+        "inc/hal/x64-uefi/diagnostic.h"
+    ]
+    
+    public_configs = [ ":depend" ]
+    
+    deps = [
+        "//sources/supervisor/supercxx"
+    ]
+    configs = [
+        "//build/subsystem/supervisor",
+        "//sources/supervisor/ukernel:depend",
+        
+        "//build/toolchain/clang:nostdinc",
+        "//build/toolchain/clang:nostdlib",
+        "//build/toolchain/clang:mno-red-zone",
+        "//build/toolchain/clang:mcmodel--large",
+        "//build/toolchain/clang:ffreestanding",
+        "//build/toolchain/clang:fno-rtti",
+        "//build/toolchain/clang:fno-exceptions",
+        "//build/toolchain/clang:std-14",
+        "//build/toolchain/clang:Wall",
+        "//build/toolchain/clang:pedantic"
+    ]
+    
+}
+
+config("depend") {
+    include_dirs = ["./inc"]
+}
