@@ -13,6 +13,6 @@ group("supervisor") {
 
 group("user") {
     deps = [
-        "//sources/libraries/libparkour"
+#        "//sources/libraries/libparkour"
     ]
 }
