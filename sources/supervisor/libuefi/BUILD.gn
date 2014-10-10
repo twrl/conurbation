@@ -1,22 +1,16 @@
-static_library("hal-x64-uefi") {
-    
+static_library("libuefi") {
     sources = [
-        "src/start.cc",
-        "src/halmain.cc"
+        "src/vsprintf.cc"
     ]
-    
     public = [
-        "inc/hal/x64-uefi/diagnostic.h"
+        "inc/uefi/tables.h",
+        "inc/uefi/types.h",
+        "inc/uefi/protocol/simple_text_input.h",
+        "inc/uefi/protocol/simple_text_output.h"
     ]
-    
     public_configs = [ ":depend" ]
     
-    deps = [
-        "//sources/supervisor/supercxx",
-        "//sources/supervisor/libuefi"
-    ]
     configs = [
-        "//build/subsystem/supervisor",
         "//sources/supervisor/ukernel:depend",
         
         "//build/toolchain/clang:nostdinc",
@@ -30,7 +24,6 @@ static_library("hal-x64-uefi") {
         "//build/toolchain/clang:Wall",
         "//build/toolchain/clang:pedantic"
     ]
-    
 }
 
 config("depend") {
