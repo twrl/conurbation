@@ -14,7 +14,7 @@ extern "C" {
     
 }
 
-extern "C" void _start [[gnu::naked]] (void* efiSystemTable) {
+extern "C" void _start [[gnu::naked]] (efi_system_table_t* efiSystemTable) {
     
     iterate_global_fn(&__preinit_array_start, &__preinit_array_end);
     iterate_global_fn(&__init_array_start, &__init_array_end);

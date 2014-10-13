@@ -3,7 +3,7 @@ executable("ukernel") {
     sources = [
         "src/activity.cc",
         "src/mem.cc",
-        "src/syscall.asm"
+        "src/syscall.s"
     ]
     
     public = [
@@ -23,6 +23,10 @@ executable("ukernel") {
     ]
     allow_circular_includes_from = [
         "//sources/supervisor/supercxx"
+    ]
+    
+    inputs = [
+        "./ukernel.lds"
     ]
     
     configs = [
@@ -46,6 +50,9 @@ executable("ukernel") {
     }
     
     output_extension = "sys"
+    
+    #ldscript = rebase_path("ukernel.lds", root_build_dir)
+    ldflags = [ "-Wl,-zmax-page-size=4096", "-Wl,-M", "-Wl,--cref"] #, "-Wl,-T$ldscript" ]
     
 }
 

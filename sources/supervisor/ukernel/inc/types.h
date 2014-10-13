@@ -26,3 +26,10 @@ struct guid_t {
     uint16_t                data3;
     uint8_t                 data4[8];
 };
+
+typedef bool                bool_t;
+
+//typedef uint16_t            char16_t;
+
+typedef uintptr_t           paddr_t;
+typedef uintptr_t           vaddr_t;

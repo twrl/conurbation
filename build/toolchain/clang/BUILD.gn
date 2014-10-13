@@ -99,6 +99,32 @@ config("fno-exceptions") {
     cflags = ["-fno-exceptions"]
 }
 
+config("fno-stack-protector") {
+    cflags = ["-fno-stack-protector"]
+}
+
+config("fshort-wchar") {
+    cflags = ["-fshort-wchar"]
+}
+
+config("fpic") {
+    cflags = ["-fpic"]
+    ldflags = ["-Wl,-PIE"]
+}
+
+## Linking flags
+
+config("znocombreloc") {
+    ldflags = ["-Wl,-znocombreloc"]
+}
+
+config("shared") {
+    ldflags = ["-Wl,-shared"]
+}
+
+config("Bsymbolic") {
+    ldflags = ["-Wl,-Bsymbolic"]
+}
 
 ## Warning/Error handling flags
 

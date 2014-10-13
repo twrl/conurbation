@@ -1,0 +1,21 @@
+import("//sources/supervisor/libuefi/efiproj.gni")
+
+efi_application("loadelf") {
+
+    public = [
+        "inc/elf.h"
+    ]
+    
+    sources = [
+        "src/loadelf.cc"
+    ]
+    
+    deps = [
+        "//sources/supervisor/libuefi"
+    ]
+    
+    include_dirs = [ "inc/" ]
+    
+    configs = []
+
+}

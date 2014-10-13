@@ -1,0 +1,41 @@
+template("efi_application") {
+
+    assert(defined(invoker.sources), "An application needs Sources")
+    
+    intermediate_name = target_name + "_so"
+    
+    shared_library(intermediate_name) {
+        sources = invoker.sources
+        
+        public = invoker.public
+        
+        deps = invoker.deps
+        deps += [ "//sources/supervisor/libuefi:efirt" ]
+        
+        public_deps = [ "//sources/supervisor/libuefi" ]
+        
+        configs = invoker.configs
+        configs += [
+            "//build/toolchain/clang:nostdlib",
+            "//build/toolchain/clang:fno-stack-protector",
+            "//build/toolchain/clang:fpic",
+            "//build/toolchain/clang:fshort-wchar",
+            "//build/toolchain/clang:mno-red-zone",
+            "//build/toolchain/clang:Wall",
+            "//build/toolchain/clang:pedantic",
+            "//build/toolchain/clang:znocombreloc",
+            "//build/toolchain/clang:shared",
+            "//build/toolchain/clang:Bsymbolic",
+            "//build/toolchain/clang:std-14"
+        ]
+        
+        include_dirs = invoker.include_dirs
+        
+    }
+    
+    #action(target_name) {
+    #   This action will ultimately convert <intermediate_name>.so into <target_name>.efi 
+    #}
+    
+}
+

@@ -2,13 +2,15 @@
 
 #include "types.h"
 
-#define efiapi [[gnu::ms_abi]]
-//define efiapi __attribute__((ms_abi))
+//define efiapi [[gnu::ms_abi]]
+#define efiapi __attribute__((ms_abi))
 
 typedef void*       efi_handle_t;
 typedef void*       efi_event_t;
 
-enum class efi_status_t: intptr_t {
+typedef uintptr_t   efi_tpl_t;
+
+enum efi_status_t: intptr_t {
     Success             = 0,
     LoadError           = 1,
     InvalidParameter    = 2,
@@ -44,28 +46,36 @@ enum class efi_status_t: intptr_t {
     WarnDeleteFailure   = 2,
     WarnWriteFailure    = 3,
     
-    static inline char16_t* toString(efi_status_t status) {
-        switch (status) {
-            case Success:
-                return L"Success";
-            case LoadError:
-                return L"Load Error";
-            case InvalidParameter:
-                return L"Invalid Parameter";
-            case Unsupported:
-                return L"Unsupported";
-            case BadBufferSize:
-                return L"Bad Buffer Size";
-            case BufferTooSmall:
-                return L"Buffer Too Small";
-            case NotReady:
-                return L"Not Ready";
-                
-            default:
-                return L"Unknown Error";
-        }
+};
+
+static inline const char16_t* efiStatusToString(efi_status_t status) {
+    switch (status) {
+        case Success:
+            return u"Success";
+        case LoadError:
+            return u"Load Error";
+        case InvalidParameter:
+            return u"Invalid Parameter";
+        case Unsupported:
+            return u"Unsupported";
+        case BadBufferSize:
+            return u"Bad Buffer Size";
+        case BufferTooSmall:
+            return u"Buffer Too Small";
+        case NotReady:
+            return u"Not Ready";
+            
+        default:
+            return u"Unknown Error";
     }
-    
+}
+
+struct efi_memory_descriptor_t {
+    uint32_t            Type;
+    paddr_t             PhysicalStart;
+    vaddr_t             VirtualStart;
+    uint64_t            NumberOfPages;
+    uint64_t            Attribute;
 };
 
 struct efi_time_t {
@@ -81,3 +91,41 @@ struct efi_time_t {
     uint8_t             Daylight;
     uint8_t             Pad2;
 };
+
+struct efi_time_capabilities_t {
+    uint32_t            Resolution;
+    uint32_t            Accuracy;
+    bool_t              SetsToZero;
+};
+
+enum efi_reset_type_t {
+    EfiResetCold,
+    EfiResetWarm,
+    EfiResetShutdown
+};
+
+struct efi_capsule_header_t {
+    guid_t              CapsuleGuid;
+    uint32_t            HeaderSize;
+    uint32_t            Flags;
+    uint32_t            CapsuleImageSize;
+};
+
+enum efi_memory_type_t {
+    EfiReservedMemoryType,
+    EfiLoaderCode,
+    EfiLoaderData,
+    EfiBootServicesCode,
+    EfiVootServicesData,
+    EfiRuntimeServicesCode,
+    EfiRuntimeServicesData,
+    EfiConventionalMemory,
+    EfiUnusableMemory,
+    EfiACPIReclaimMemory,
+    EfiACPIMemoryNVS,
+    EfiMemoryMappedIO,
+    EfiMemoryMappedIOPortSpace,
+    EfiPalCode,
+    EfiMaxMemoryType
+};
+

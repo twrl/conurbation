@@ -3,6 +3,7 @@ static_library("supercxx") {
     sources = [
         "src/atexit.cc",
         "src/guard.cc",
+        "src/init.cc",
         "src/virtual.cc"
     ]
     

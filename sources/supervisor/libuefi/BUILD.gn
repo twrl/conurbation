@@ -8,21 +8,40 @@ static_library("libuefi") {
         "inc/uefi/protocol/simple_text_input.h",
         "inc/uefi/protocol/simple_text_output.h"
     ]
-    public_configs = [ ":depend" ]
+    public_configs = [ "//sources/supervisor/ukernel:depend", ":depend" ]
     
     configs = [
-        "//sources/supervisor/ukernel:depend",
         
-        "//build/toolchain/clang:nostdinc",
+        
         "//build/toolchain/clang:nostdlib",
-        "//build/toolchain/clang:mno-red-zone",
-        "//build/toolchain/clang:mcmodel--large",
-        "//build/toolchain/clang:ffreestanding",
-        "//build/toolchain/clang:fno-rtti",
-        "//build/toolchain/clang:fno-exceptions",
-        "//build/toolchain/clang:std-14",
-        "//build/toolchain/clang:Wall",
-        "//build/toolchain/clang:pedantic"
+        "//build/toolchain/clang:fno-stack-protector",
+            "//build/toolchain/clang:fpic",
+            "//build/toolchain/clang:fshort-wchar",
+            "//build/toolchain/clang:mno-red-zone",
+            "//build/toolchain/clang:Wall",
+            "//build/toolchain/clang:pedantic",
+            "//build/toolchain/clang:znocombreloc",
+            "//build/toolchain/clang:shared",
+            "//build/toolchain/clang:Bsymbolic",
+            "//build/toolchain/clang:std-14"
+    ]
+}
+
+static_library("efirt") {
+    sources = []
+    
+    configs = [
+        "//build/toolchain/clang:nostdlib",
+            "//build/toolchain/clang:fno-stack-protector",
+            "//build/toolchain/clang:fpic",
+            "//build/toolchain/clang:fshort-wchar",
+            "//build/toolchain/clang:mno-red-zone",
+            "//build/toolchain/clang:Wall",
+            "//build/toolchain/clang:pedantic",
+            "//build/toolchain/clang:znocombreloc",
+            "//build/toolchain/clang:shared",
+            "//build/toolchain/clang:Bsymbolic",
+            "//build/toolchain/clang:std-14"
     ]
 }
 
