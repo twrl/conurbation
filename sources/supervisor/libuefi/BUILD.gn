@@ -21,8 +21,6 @@ static_library("libuefi") {
             "//build/toolchain/clang:Wall",
             "//build/toolchain/clang:pedantic",
             "//build/toolchain/clang:znocombreloc",
-            "//build/toolchain/clang:shared",
-            "//build/toolchain/clang:Bsymbolic",
             "//build/toolchain/clang:std-14"
     ]
 }
@@ -39,8 +37,6 @@ static_library("efirt") {
             "//build/toolchain/clang:Wall",
             "//build/toolchain/clang:pedantic",
             "//build/toolchain/clang:znocombreloc",
-            "//build/toolchain/clang:shared",
-            "//build/toolchain/clang:Bsymbolic",
             "//build/toolchain/clang:std-14"
     ]
 }

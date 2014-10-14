@@ -129,3 +129,39 @@ enum efi_memory_type_t {
     EfiMaxMemoryType
 };
 
+enum efi_allocate_type_t {
+    AllocateAnyPages,
+    AllocateMaxAddress,
+    AllocateAddress,
+    MaxAllocateType
+};
+
+typedef void (efiapi *efi_event_notify_t)(efi_event_t event, void* context);
+
+enum efi_interface_type_t {
+    EFI_NATIVE_INTERFACE
+};
+
+enum efi_locate_search_type_t {
+    AllHandles,
+    ByRegisterNotify,
+    ByProtocol
+};
+
+struct efi_open_protocol_information_entry_t {
+    efi_handle_t        AgentHandle;
+    efi_handle_t        ControllerHandle;
+    uint32_t            Attributes;
+    uint32_t            OpenCount;
+};
+
+struct efi_input_key_t {
+    uint16_t            ScanCode;
+    char16_t            UnicodeChar;
+};
+
+enum efi_timer_delay_t {
+    TimerCancel,
+    TimerPeriodic,
+    TimerRelative
+};

@@ -103,6 +103,19 @@ extern "C" {
     typedef efi_status_t (efi_uninstall_protocol_interface_f)(efi_handle_t handle, guid_t* protocol, void* interface);
     typedef efi_status_t (efi_wait_for_event_f)(uintptr_t numberOfEvents, efi_event_t* event, uintptr_t* index);
     
+    typedef efi_status_t (efi_check_event_f)(efi_event_t event);
+    typedef efi_status_t (efi_unload_image_f)(efi_handle_t imageHandle);
+    //typedef EFI_STATUS(EFIAPI * EFI_CONNECT_CONTROLLER)(IN EFI_HANDLE ControllerHandle, IN EFI_HANDLE *DriverImageHandle, OPTIONAL IN EFI_DEVICE_PATH_PROTOCOL *RemainingDevicePath, OPTIONAL IN BOOLEAN Recursive)
+    typedef efi_status_t (efi_connect_controller_f)(efi_handle_t ControllerHandle, efi_handle_t* driverImageHandle, efi_device_path_p* remainingDevicePath, bool_t recursive);
+    //typedef EFI_STATUS(EFIAPI * EFI_DISCONNECT_CONTROLLER)(IN EFI_HANDLE ControllerHandle, IN EFI_HANDLE DriverImageHandle, OPTIONAL IN EFI_HANDLE ChildHandle OPTIONAL)
+    typedef efi_status_t (efi_disconnect_controller_f)(efi_handle_t ControllerHandle, efi_handle_t driverImageHandle, efi_handle_t ChildHandle);
+    //typedef EFI_STATUS(EFIAPI * EFI_PROTOCOLS_PER_HANDLE)(IN EFI_HANDLE Handle, OUT EFI_GUID ***ProtocolBuffer, OUT UINTN *ProtocolBufferCount)
+    typedef efi_status_t (efi_protocols_per_handle_f)(efi_handle_t handle, guid_t*** protocolBuffer, uintptr_t* protocolBufferCount);
+    //typedef EFI_STATUS(EFIAPI * EFI_LOCATE_HANDLE_BUFFER)(IN EFI_LOCATE_SEARCH_TYPE SearchType, IN EFI_GUID *Protocol, OPTIONAL IN VOID *SearchKey, OPTIONAL IN OUT UINTN *NoHandles, OUT EFI_HANDLE **Buffer)
+    typedef efi_status_t (efi_locate_handle_buffer_f)(efi_locate_search_type_t searchType, guid_t* protocol, void* searchKey, uintptr_t* noHandles, efi_handle_t** buffer);
+    typedef efi_status_t (efi_install_multiple_protocol_interfaces_f)(efi_handle_t* handle, ...);
+    typedef efi_status_t (efi_uninstall_multiple_protocol_interfaces_f)(efi_handle_t* handle, ...);
+    
 }
 
 struct efi_boot_services_t {
