@@ -58,4 +58,5 @@ executable("ukernel") {
 
 config("depend") {
     include_dirs = ["./inc"]
+    cflags = ["-g"]
 }

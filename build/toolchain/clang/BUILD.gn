@@ -42,7 +42,7 @@ toolchain("clang") {
     }
     tool("solink") {
         rspfile = "{{output}}.rsp"
-        command = "clang++ -fuse-ld=gold {{ldflags}} -Wl,-Bshared -Wl,-soname={{target_output_name}}{{output_extension}} @$rspfile -o {{output}}"
+        command = "clang++ -fuse-ld=gold {{ldflags}} -Wl,-shared -Wl,-soname={{target_output_name}}{{output_extension}} @$rspfile -o {{output}}"
         description = "LD {{output}}"
         rspfile_content = "{{libs}} {{solibs}} {{inputs}}"
         outputs = [
