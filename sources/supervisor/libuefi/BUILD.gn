@@ -27,8 +27,11 @@ static_library("libuefi") {
 
 static_library("efirt") {
     sources = [
-        "src/crt0.s"
+        "src/crt0.s",
+        "src/selfreloc.cc"
     ]
+    
+    public_configs = [ "//sources/supervisor/ukernel:depend", ":depend" ]
     
     configs = [
         "//build/toolchain/clang:nostdlib",

@@ -5,6 +5,11 @@
 //define efiapi [[gnu::ms_abi]]
 #define efiapi __attribute__((ms_abi))
 
+
+#ifndef NULL
+#define NULL (void*)0
+#endif
+
 typedef void*       efi_handle_t;
 typedef void*       efi_event_t;
 
@@ -116,7 +121,7 @@ enum efi_memory_type_t {
     EfiLoaderCode,
     EfiLoaderData,
     EfiBootServicesCode,
-    EfiVootServicesData,
+    EfiBootServicesData,
     EfiRuntimeServicesCode,
     EfiRuntimeServicesData,
     EfiConventionalMemory,

@@ -29,6 +29,9 @@ template("efi_application") {
             "//build/toolchain/clang:std-14"
         ]
         
+        cflags = ["-mcmodel=small"]
+        ldflags = ["-Wl,--strip-debug", "-Wl,-M", "-Wl,--cref"]
+        
         include_dirs = invoker.include_dirs
         
     }
