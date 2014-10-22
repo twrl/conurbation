@@ -1,0 +1,8 @@
+source_set("utilities") {
+    sources = ["utaddress.c", "utalloc.c", "utbuffer.c", "utcache.c", "utclib.c", "utcopy.c", "utdebug.c", "utdecode.c", "utdelete.c", "uterror.c", "uteval.c",
+"utexcep.c", "utfileio.c", "utglobal.c", "uthex.c", "utids.c", "utinit.c", "utlock.c", "utmath.c", "utmisc.c", "utmutex.c", "utobject.c", "utosi.c",
+"utownerid.c", "utpredef.c", "utprint.c", "utresrc.c", "utstate.c", "utstring.c", "uttrack.c", "utuuid.c", "utxface.c", "utxferror.c", "utxfinit.c",
+"utxfmutex.c"]
+    configs = ["//build/subsystem/supervisor"]
+    include_dirs = [ "../../inc/acpica" ]
+}

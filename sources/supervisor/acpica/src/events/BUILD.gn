@@ -1,0 +1,6 @@
+source_set("events") {
+    sources = [ "evevent.c", "evglock.c", "evgpeblk.c", "evgpe.c", "evgpeinit.c", "evgpeutil.c", "evhandler.c", "evmisc.c", "evregion.c", "evrgnini.c", "evsci.c",
+"evxface.c", "evxfevnt.c", "evxfgpe.c", "evxfregn.c" ]
+    configs = [ "//build/subsystem/supervisor" ]
+    include_dirs = [ "../../inc/acpica" ]
+}

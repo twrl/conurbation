@@ -1,0 +1,5 @@
+source_set("hardware") {
+    sources = [ "hwacpi.c", "hwesleep.c", "hwgpe.c", "hwpci.c", "hwregs.c", "hwsleep.c", "hwtimer.c", "hwvalid.c", "hwxface.c", "hwxfsleep.c" ]
+    configs = [ "//build/subsystem/supervisor" ]
+    include_dirs = [ "../../inc/acpica" ]
+}

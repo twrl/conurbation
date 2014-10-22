@@ -1,0 +1,5 @@
+source_set("parser") {
+    sources = ["psargs.c", "psloop.c", "psobject.c", "psopcode.c", "psopinfo.c", "psparse.c", "psscope.c", "pstree.c", "psutils.c", "pswalk.c", "psxface.c"]
+    configs = ["//build/subsystem/supervisor"]
+    include_dirs = [ "../../inc/acpica" ]
+}

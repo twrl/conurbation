@@ -1,0 +1,6 @@
+source_set("dispatcher") {
+    sources = ["dsargs.c", "dscontrol.c", "dsfield.c", "dsinit.c", "dsmethod.c", "dsmthdat.c", "dsobject.c", "dsopcode.c", "dsutils.c", "dswexec.c", "dswload2.c",
+"dswload.c", "dswscope.c", "dswstate.c"]
+    configs = [ "//build/subsystem/supervisor" ]
+    include_dirs = [ "../../inc/acpica" ]
+}

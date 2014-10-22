@@ -7,7 +7,11 @@
 
 
 #ifndef NULL
-#define NULL (void*)0
+#if __has_feature(cxx_nullptr)
+#define NULL nullptr
+#else
+#define NULL 0
+#endif
 #endif
 
 typedef void*       efi_handle_t;

@@ -1,0 +1,6 @@
+source_set("debugger") {
+    sources = ["dbcmds.c", "dbconvert.c", "dbdisply.c", "dbexec.c", "dbfileio.c", "dbhistry.c", "dbinput.c", "dbmethod.c", "dbnames.c", "dbstats.c", "dbtest.c",
+"dbutils.c", "dbxface.c"]
+    configs = [ "//build/subsystem/supervisor" ]
+    include_dirs = [ "../../inc/acpica" ]
+}

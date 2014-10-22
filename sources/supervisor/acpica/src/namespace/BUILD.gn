@@ -1,0 +1,6 @@
+source_set("namespace") {
+    sources = [ "nsaccess.c", "nsalloc.c", "nsarguments.c", "nsconvert.c", "nsdump.c", "nsdumpdv.c", "nseval.c", "nsinit.c", "nsload.c", "nsnames.c", "nsobject.c",
+"nsparse.c", "nspredef.c", "nsprepkg.c", "nsrepair2.c", "nsrepair.c", "nssearch.c", "nsutils.c", "nswalk.c", "nsxfeval.c", "nsxfname.c", "nsxfobj.c" ]
+    configs = [ "//build/subsystem/supervisor" ]
+    include_dirs = [ "../../inc/acpica" ]
+}

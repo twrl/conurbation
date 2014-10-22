@@ -1,0 +1,5 @@
+source_set("disassembler") {
+    sources = ["dmbuffer.c", "dmdeferred.c", "dmnames.c", "dmobject.c", "dmopcode.c", "dmresrc.c", "dmresrcl2.c", "dmresrcl.c", "dmresrcs.c", "dmutils.c", "dmwalk.c"]
+    configs = [ "//build/subsystem/supervisor" ]
+    include_dirs = [ "../../inc/acpica" ]
+}

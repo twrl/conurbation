@@ -23,6 +23,8 @@ static_library("libuefi") {
             "//build/toolchain/clang:znocombreloc",
             "//build/toolchain/clang:std-14"
     ]
+    
+    data_deps = [ ":efirt" ]
 }
 
 static_library("efirt") {

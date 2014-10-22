@@ -1,0 +1,6 @@
+source_set("resources") {
+    sources = ["rsaddr.c", "rscalc.c", "rscreate.c", "rsdump.c", "rsdumpinfo.c", "rsinfo.c", "rsio.c", "rsirq.c", "rslist.c", "rsmemory.c", "rsmisc.c", "rsserial.c",
+"rsutils.c", "rsxface.c"]
+    configs = ["//build/subsystem/supervisor"]
+    include_dirs = [ "../../inc/acpica" ]
+}

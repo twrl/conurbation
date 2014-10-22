@@ -1,0 +1,5 @@
+source_set("tables") {
+    sources = ["tbdata.c", "tbfadt.c", "tbfind.c", "tbinstal.c", "tbprint.c", "tbutils.c", "tbxface.c", "tbxfload.c", "tbxfroot.c"]
+    configs = ["//build/subsystem/supervisor"]
+    include_dirs = [ "../../inc/acpica" ]
+}
