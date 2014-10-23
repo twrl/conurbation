@@ -1,0 +1,6 @@
+#!/bin/sh
+find ./sources/supervisor/ukernel \( -name *.cc -o -name *.h \) -exec clang-format-3.5 -i -style=file \{\} \;
+find ./sources/supervisor/hal-x64-uefi \( -name *.cc -o -name *.h \) -exec clang-format-3.5 -i -style=file \{\} \;
+find ./sources/supervisor/supercxx \( -name *.cc -o -name *.h \) -exec clang-format-3.5 -i -style=file \{\} \;
+find ./sources/common \( -name *.cc -o -name *.h \) -exec clang-format-3.5 -i -style=file \{\} \;
+find ./sources/libraries/libparkour \( -name *.cc -o -name *.h \) -exec clang-format-3.5 -i -style=file \{\} \;

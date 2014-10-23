@@ -14,7 +14,7 @@ config("supervisor") {
 #    ]
     
     cflags = [ "-target", "x86_64-elf" ]
-    defines = [ "__conurbation", "__conurbation_super" ]
+    defines = [ "__conurbation=1", "__conurbation_super=`date +%Y%j%H`" ]
 
 }
 

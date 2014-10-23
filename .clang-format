@@ -1,0 +1,29 @@
+---
+Language: Cpp
+Standard: Cpp11
+ColumnLimit: 100
+TabWidth: 4
+IndentWidth: 4
+UseTab: Never
+
+NamespaceIndentation: All
+AccessModifierOffset: 0
+IndentCaseLabels: true
+IndentFunctionDeclarationAfterType: true
+
+AlignTrailingComments: true
+
+PointerBindsToType: true
+
+SpaceBeforeParens: ControlStatements
+
+
+AllowShortFunctionsOnASingleLine: false
+AllowShortIfStatementsOnASingleLine: false
+AllowShortLoopsOnASingleLine: false
+
+AlwaysBreakTemplateDeclarations: true
+BinPackParameters: true
+BreakBeforeBraces: Attach
+ConstructorInitializerAllOnOneLineOrOnePerLine: true
+BreakBeforeBinaryOperators: true

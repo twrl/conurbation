@@ -1,18 +1,16 @@
 #pragma once
 
-namespace Conurbation{
+namespace Conurbation {
     namespace HAL {
-    
-    class diagnostic_i {
-        public:
+
+        class diagnostic_i {
+            public:
             virtual void Write(char* string) = 0;
-            
-            diagnostic_i operator << (char* string) {
+
+            diagnostic_i operator<<(char* string) {
                 Write(string);
                 return this;
             }
-            
+        }
     }
-    
-}
 }

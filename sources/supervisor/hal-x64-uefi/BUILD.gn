@@ -1,4 +1,4 @@
-static_library("hal-x64-uefi") {
+source_set("hal-x64-uefi") {
     
     sources = [
         "src/start.cc",
@@ -12,7 +12,9 @@ static_library("hal-x64-uefi") {
     public_configs = [ ":depend" ]
     
     deps = [
+        "//sources/common/cstd",
         "//sources/supervisor/supercxx",
+#        "//sources/supervisor/acpica",
         "//sources/supervisor/libuefi"
     ]
     configs = [

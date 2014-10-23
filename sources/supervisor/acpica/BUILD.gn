@@ -1,6 +1,6 @@
-static_library("acpica") {
+source_set("acpica") {
 
-    complete_static_lib = true
+#    complete_static_lib = true
     
     deps = [
         "src/debugger", 

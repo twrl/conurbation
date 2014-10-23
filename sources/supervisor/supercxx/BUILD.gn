@@ -1,9 +1,9 @@
-static_library("supercxx") {
+source_set("supercxx") {
     
     sources = [
         "src/atexit.cc",
         "src/guard.cc",
-        "src/init.cc",
+#        "src/init.cc",
         "src/virtual.cc"
     ]
     
@@ -13,7 +13,11 @@ static_library("supercxx") {
     
     public_configs = [ ":depend" ]
     
-    complete_static_lib = true
+#    complete_static_lib = true
+    
+    deps = [
+        "//sources/common/cstd"
+    ]
     
     configs = [
         "//build/subsystem/supervisor",

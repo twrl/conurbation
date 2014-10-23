@@ -1,11 +1,6 @@
 #include "types.h"
 
 namespace Conurbation {
-    
-    namespace HAL {
-        
-        
-        
-    }
-    
+
+    namespace HAL {}
 }

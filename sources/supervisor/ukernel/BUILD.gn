@@ -2,7 +2,9 @@ executable("ukernel") {
     
     sources = [
         "src/activity.cc",
-        "src/mem.cc",
+        "src/malloc.cc",
+        "src/mib.cc",
+        "src/string.cc",
         "src/syscall.s"
     ]
     
@@ -19,6 +21,7 @@ executable("ukernel") {
     public_configs = [ ":depend" ]
     
     deps = [
+        "//sources/common/cstd",
         "//sources/supervisor/supercxx"
     ]
     allow_circular_includes_from = [
@@ -58,5 +61,5 @@ executable("ukernel") {
 
 config("depend") {
     include_dirs = ["./inc"]
-    cflags = ["-g"]
+    
 }

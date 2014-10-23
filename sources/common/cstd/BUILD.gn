@@ -1,0 +1,16 @@
+source_set("cstd") {
+    public = [
+        "inc/cstddef.h",
+        "inc/cstdint.h",
+        "inc/stdarg.h",
+        "inc/stddef.h",
+        "inc/stdint.h"
+    ]
+    
+    public_configs = [ ":depend" ]
+        
+}
+
+config("depend") {
+    include_dirs = [ "./inc" ]
+}
