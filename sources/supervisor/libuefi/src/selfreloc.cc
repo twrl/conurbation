@@ -1,7 +1,8 @@
 #include "uefi/efitypes.h"
+#include "uefi/tables.h"
 #include "elf.h"
 
-extern "C" efi_status_t _self_relocate(efi_handle_t imageHandle, systemTable efiSystemTable, uintptr_t loadBase, elf64_dyn_t* dynamic) {
+extern "C" efi_status_t _self_relocate(efi_handle_t imageHandle, efi_system_table_t, uintptr_t loadBase, elf64_dyn_t* dynamic) {
     // Locate dynamic section
     // Get relocation sections from dynamic table
     // Apply relocations
