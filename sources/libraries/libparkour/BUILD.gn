@@ -1,4 +1,4 @@
-component("libparkour") {
+static_library("libparkour") {
 
     sources = [
         "src/syscall.asm"
