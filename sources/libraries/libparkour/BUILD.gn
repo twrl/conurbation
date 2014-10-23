@@ -1,14 +1,25 @@
-component("libparkour") {
+static_library("libparkour") {
 
     sources = [
-        "src/syscall.asm"
+        "src/syscall.s",
+        "src/Promise.cc"
     ]
     public = [
-        "inc/stdint.h"
     ]
     
+    deps = [
+        "//sources/common/cstd"
+        ]
+    
     public_configs = [ ":depend" ]
-    configs = []
+    configs = [
+        "//build/toolchain/clang:std-14",
+        "//build/toolchain/clang:ffreestanding",
+        "//build/toolchain/clang:nostdinc",
+        "//build/toolchain/clang:nostdlib",
+        "//build/toolchain/clang:fno-exceptions",
+        "//build/toolchain/clang:fno-rtti"
+    ]
 
 }
 
