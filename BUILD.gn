@@ -1,20 +1,20 @@
 group("root") {
     deps = [
         ":supervisor",
-        ":user"
+#        ":user"
     ]
 }    
 
 group("supervisor") {
     deps = [
         "//sources/supervisor/ukernel",
-        "//sources/supervisor/loadelf:loadelf_so"
+#        "//sources/supervisor/loadelf:loadelf_so"
         ]
 }
 
 group("user") {
     deps = [
 #        "//sources/libraries/libcxxrt",
-        "//sources/libraries/libparkour"
+#        "//sources/libraries/libparkour"
     ]
 }
