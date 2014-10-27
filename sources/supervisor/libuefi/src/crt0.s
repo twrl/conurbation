@@ -10,13 +10,3 @@ _start:
         call _self_relocate
         call efi_main
     .end:
-
-    
-[SECTION .data]
-dummy: dq 0
-
-[SECTION .reloc]
-r0:
-        dq (dummy - r0)
-        dq 10
-        dw 0
