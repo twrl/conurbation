@@ -3,11 +3,11 @@ import("//sources/supervisor/libuefi/efiproj.gni")
 efi_application("loadelf") {
 
     public = [
-        "inc/elf.h"
     ]
     
     sources = [
-        "src/loadelf.cc"
+        "src/loadelf.cc",
+        "src/elf64.cc"
     ]
     
     deps = [

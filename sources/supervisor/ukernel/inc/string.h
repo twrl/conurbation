@@ -64,9 +64,9 @@ static inline char *memset32(uint32_t *s, uint32_t c, size_t count)
    : "=&c" (d0), "=&D" (d1)
    :"a" (c),"1" (s),"0" (count)
    :"memory");*/ /*
-                        for (size_t i = 0; i < count; i ++) {
-                           s[i]=c;
-                        }
-                        return s;
-                     }
-                     */
+                                  for (size_t i = 0; i < count; i ++) {
+                                     s[i]=c;
+                                  }
+                                  return s;
+                               }
+                               */
