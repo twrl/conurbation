@@ -1,0 +1,27 @@
+ARCH            = x86_64
+
+EFIINC          = /usr/local/include/efi
+EFIINCS         = -I${EFIINC} -I${EFIINC}/${ARCH} -I${EFIINC}/protocol
+LIB             = /usr/local/lib
+EFILIB          = /usr/local/lib
+EFI_CRT_OBJS    = ${EFILIB}/crt0-efi-${ARCH}.o
+EFI_LDS         = ${EFILIB}/elf_${ARCH}_efi.lds
+
+CFLAGS          = ${EFIINCS} -fno-stack-protector -fpic -fshort-wchar -mno-red-zone -Wall  -DEFI_FUNCTION_WRAPPER
+
+LDFLAGS         = -nostdlib -znocombreloc -T ${EFI_LDS} -shared -Bsymbolic -L ${EFILIB} -L ${LIB} ${EFI_CRT_OBJS}
+
+
+OBJS = obj/main.o
+
+elf64ldr.efi: obj/elf64ldr.so
+  objcopy -j .text -j .sdata -j .data -j .dynamic -j .dynsym  -j .rel -j .rela -j .reloc --target=efi-app-$ARCH $prereq $target
+
+objdir:V:
+  mkdir -p obj
+
+obj/%.o: src/%.c objdir
+  clang-3.7 $CFLAGS -c src/$stem.c -o obj/$stem.o
+
+obj/elf64ldr.so: $OBJS
+  ld $LDFLAGS $OBJS -o $target -lefi -lgnuefi

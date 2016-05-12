@@ -1,0 +1,5 @@
+-std=c++1z
+-nostdinc
+-I./inc
+-I../klibcore/inc
+-I../klibuefi/inc

@@ -1,0 +1,11 @@
+config("gnu-efi") {
+
+    include_dirs = [ "/usr/local/include/efi", "/usr/local/include/efi/x86_64", "/usr/local/include/efi/protocol" ]
+    libs = [ "efi", "gnuefi" ]
+    lib_dirs = [ "/usr/local/lib" ]
+    defines = [ "EFI_FUNCTION_WRAPPER" ]
+
+    cflags = [ "-fno-stack-protector", "-fpic", "-fshort-wchar", "-mno-red-zone", "-Wall"]
+    ldflags = [ "-nostdlib", "-znocombreloc", "-T", "/usr/local/lib/elf_x86_64_efi.lds", "-Bsymbolic", "/usr/local/lib/crt0-efi-x86_64.o" ]
+
+}

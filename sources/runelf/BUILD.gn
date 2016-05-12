@@ -1,0 +1,20 @@
+executable("runelf") {
+
+    output_extension = "efi"
+
+    public = []
+    sources = [
+        "src/main.cc"
+    ]
+
+    cflags_cc = [ "-std=c++1z" ]
+    cflags = [ "-ffreestanding", "-fno-rtti", "-fno-cxx-exceptions", "-nostdinc", "-mno-red-zone", "-fshort-wchar", "-fno-stack-protector" ]
+    ldflags = [ "--cref", "-Map", "runelf.efi.map", "-nostdlib", "-e", "efi_main", "-m", "i386pep", "--oformat=pei-x86-64", "--subsystem", "10", "--disable-runtime-pseudo-reloc" ]
+
+    deps = [ "//sources/klibuefi" ]
+    configs = [ ":depend" ]
+}
+
+config("depend") {
+    include_dirs = [ "inc" ]
+}

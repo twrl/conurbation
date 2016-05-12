@@ -1,0 +1,22 @@
+executable("kernel") {
+
+    sources = [
+        "src/start.asm",
+        "src/main.cc",
+        "src/hwres/addrspace.cc",
+        "src/mem/liballoc.cc"
+
+    ]
+
+    include_dirs = [ "inc" ]
+
+    deps = [ "//sources/klibcore", "//sources/klibuefi" ]
+
+    configs = [ "//build/config/conurbation" ]
+
+    cflags = [ "-gline-tables-only", "-mfpmath=sse", "-msse2" ]
+    cflags_cc = [ "-std=c++1z", "-nostdinc", "-ffreestanding", "-fno-exceptions", "-fno-rtti", "-fblocks" ]
+    ldflags = [ "-fuse-ld=gold", "-nostdlib", "-S", "-zmax-page-size=4096", "-gc-sections", "--no-ld-generated-unwind-info" ]
+
+
+}

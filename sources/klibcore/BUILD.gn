@@ -1,0 +1,28 @@
+source_set("klibcore") {
+
+    public = [
+        "inc/_superapi.h",
+        "inc/guid.h",
+        "inc/stdarg.h",
+        "inc/stdbool.h",
+        "inc/stddef.h",
+        "inc/stdint.h",
+        "inc/string.h"
+    ]
+
+    sources = [
+        "src/cstrings.cc",
+        #"src/cxxabi.cc",
+        "src/mem.asm"
+    ]
+
+    all_dependent_configs = [ ":depend" ]
+
+    cflags = [ "-gline-tables-only", "-mfpmath=sse", "-msse2" ]
+    cflags_cc = [ "-std=c++1z", "-nostdinc", "-ffreestanding", "-fno-exceptions", "-fno-rtti", "-fblocks" ]
+
+}
+
+config("depend") {
+    include_dirs = [ "inc" ]
+}

@@ -1,0 +1,71 @@
+toolchain("clang") {
+
+    lib_switch = "-l"
+    lib_dir_switch = "-L"
+
+    tool("cc") {
+        depfile = "{{output}}.d"
+        command = "clang-3.7 -MMD -MF $depfile {{defines}} {{include_dirs}} {{cflags}} {{cflags_c}} -c {{source}} -o {{output}}"
+        #depsformat = "gcc"
+        description = "CC {{output}}"
+        outputs = [
+            "{{source_out_dir}}/{{target_output_name}}.{{source_name_part}}.o"
+        ]
+    }
+    tool("cxx") {
+        depfile = "{{output}}.d"
+        command = "clang++-3.7 -MMD -MF $depfile {{defines}} {{include_dirs}} {{cflags}} {{cflags_cc}} -c {{source}} -o {{output}}"
+        #depsformat = "gcc"
+        description = "CXX {{output}}"
+        outputs = [
+            "{{source_out_dir}}/{{target_output_name}}.{{source_name_part}}.o"
+        ]
+    }
+    tool("asm") {
+        depfile = "{{output}}.d"
+        command = "nasm -MD $depfile {{defines}} -f elf64 -o {{output}} {{source}}"
+        #depsformat = "gcc"
+        description = "ASM {{output}}"
+        outputs = [
+            "{{source_out_dir}}/{{target_output_name}}.{{source_name_part}}.o"
+        ]
+    }
+    tool("alink") {
+        rspfile = "{{output}}.rsp"
+        command = "ld -r @$rspfile -o {{output}}"
+        description = "LD {{output}}"
+        rspfile_content = "{{inputs}}"
+        outputs = [
+            "{{root_out_dir}}/{{target_output_name}}{{output_extension}}"
+        ]
+        default_output_extension = ".lib"
+    }
+    tool("solink") {
+        rspfile = "{{output}}.rsp"
+        command = "ld -shared {{ldflags}} @$rspfile -o {{output}}"
+        description = "LD {{output}}"
+        rspfile_content = "{{inputs}} {{libs}} {{solibs}} "
+        outputs = [
+            "{{root_out_dir}}/{{target_output_name}}{{output_extension}}"
+        ]
+        default_output_extension = ".so"
+    }
+    tool("link") {
+        rspfile = "{{output}}.rsp"
+        command = "ld {{ldflags}} @$rspfile -o {{output}}"
+        description = "LD {{output}}"
+        rspfile_content = "{{inputs}} {{libs}} {{solibs}}"
+        outputs = [
+            "{{root_out_dir}}/{{target_output_name}}{{output_extension}}"
+        ]
+    }
+    tool("copy") {
+        command = "cp {{source}} {{output}}"
+        description = "CP {{source}} -> {{output}}"
+    }
+    tool("stamp") {
+        command = "touch {{output}}"
+        description = "STAMP {{output}}"
+    }
+
+}

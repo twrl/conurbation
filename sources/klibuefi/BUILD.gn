@@ -1,0 +1,13 @@
+source_set("klibuefi") {
+
+    public = []
+    sources = []
+
+    public_deps = [ "//sources/klibcore" ]
+    all_dependent_configs = [ ":depend" ]
+
+}
+
+config("depend") {
+    include_dirs = ["inc"]
+}

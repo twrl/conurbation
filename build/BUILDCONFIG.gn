@@ -1,0 +1,19 @@
+set_default_toolchain("//build/toolchain/clang")
+
+declare_args() {
+
+    # Firmware environment to assume
+    target_firmware = "uefi"
+
+    # Specify the Hardware Abstraction Layer
+    conurbation_hal = "hal-" + target_cpu + "-" + target_firmware
+
+    # Size of the free-page stack in the kernel page-frame allocator
+    Conurbation_PageAllocator_StackSize = 510
+    # Maximum number of contiguous pages that are freed by pushing
+    Conurbation_PageAllocator_PushThreshold = 4
+    # Consolidation of the free-page stack to the memory map will be triggered at the highest and lowest this-ile of stack fullness
+    Conurbation_PageAllocator_CondenseRatio = 5
+
+
+}

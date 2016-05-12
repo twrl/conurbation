@@ -1,0 +1,10 @@
+import("//build/config/gnu-efi/targets.gni")
+
+efi_application("elf64ldr") {
+
+    sources = [ "src/main.c",
+    "src/load.c" ]
+
+    cflags = [ "-Wno-incompatible-library-redeclaration" ]
+
+}

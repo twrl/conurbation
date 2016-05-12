@@ -1,0 +1,40 @@
+template("efi_application") {
+
+    intermediate_name = target_name + "_so"
+
+    shared_library(intermediate_name) {
+
+        if (defined(invoker.sources)) {
+            sources = invoker.sources
+        }
+
+        if (defined(invoker.public)) {
+            public = invoker.public
+        }
+
+        configs = ["//build/config/gnu-efi"]
+        if (defined(invoker.configs)) {
+            configs += invoker.configs
+        }
+
+        if (defined(invoker.cflags)) {
+            cflags = invoker.cflags
+        }
+
+    }
+
+    action(target_name) {
+        script = "//build/tools/objcopy.py"
+
+        deps = [ ":" + intermediate_name ]
+
+        inputs = [ "$root_out_dir/$intermediate_name.so" ]
+        outputs = [ "$root_out_dir/$target_name.efi" ]
+
+        args = [ "-j", ".text", "-j", ".sdata", "-j", ".data", "-j", ".dynamic",
+        "-j", ".dynsym", "-j", ".rel", "-j", ".rela", "-j", ".reloc",
+        "--target=efi-app-x86_64"] + rebase_path(inputs, root_build_dir) + rebase_path(outputs, root_build_dir)
+
+    }
+
+}
