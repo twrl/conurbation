@@ -6,7 +6,7 @@ before_install:
   - wget -O - http://llvm.org/apt/llvm-snapshot.gpg.key|sudo apt-key add -
   - sudo apt-get update -qq
 install:
-  - sudo apt-get install -qq clang-3.8 ninja-build nasm
+  - sudo apt-get install -qq clang-3.8 ninja-build nasm gnu-efi binutils
   - python ./build/depot_tools/download_from_google_storage.py -b chromium-gn -s ./build/tools/gn.sha1
 before_script:
   - ./build/tools/gn gen build/out
