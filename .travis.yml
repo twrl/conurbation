@@ -11,4 +11,4 @@ install:
 before_script:
   - ./build/tools/gn gen build/out
 script:
-  - ninja -C out
+  - ninja -C build/out
