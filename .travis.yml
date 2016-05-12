@@ -1,8 +1,10 @@
 language: cpp
 before_install:
+  - sudo add-apt-repository "deb http://llvm.org/apt/trusty/ llvm-toolchain-trusty-3.8 main"
+  - sudo add-apt-repository "deb-src http://llvm.org/apt/trusty/ llvm-toolchain-trusty-3.8 main"
   - sudo apt-get update -qq
 install:
-  - sudo apt-get install -qq clang-3.7 ninja-build nasm
+  - sudo apt-get install -qq clang-3.8 ninja-build nasm
   - python ./build/depot_tools/download_from_google_storage.py -b chromium-gn -s ./build/tools/gn.sha1
 before_script:
   - ./build/tools/gn gen build/out

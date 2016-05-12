@@ -5,7 +5,7 @@ toolchain("clang") {
 
     tool("cc") {
         depfile = "{{output}}.d"
-        command = "clang-3.7 -MMD -MF $depfile {{defines}} {{include_dirs}} {{cflags}} {{cflags_c}} -c {{source}} -o {{output}}"
+        command = "clang-3.8 -MMD -MF $depfile {{defines}} {{include_dirs}} {{cflags}} {{cflags_c}} -c {{source}} -o {{output}}"
         #depsformat = "gcc"
         description = "CC {{output}}"
         outputs = [
@@ -14,7 +14,7 @@ toolchain("clang") {
     }
     tool("cxx") {
         depfile = "{{output}}.d"
-        command = "clang++-3.7 -MMD -MF $depfile {{defines}} {{include_dirs}} {{cflags}} {{cflags_cc}} -c {{source}} -o {{output}}"
+        command = "clang++-3.8 -MMD -MF $depfile {{defines}} {{include_dirs}} {{cflags}} {{cflags_cc}} -c {{source}} -o {{output}}"
         #depsformat = "gcc"
         description = "CXX {{output}}"
         outputs = [
