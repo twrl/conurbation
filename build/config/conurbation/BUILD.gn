@@ -1,10 +1,7 @@
 config("conurbation") {
 
     defines = [
-        "_Conurbation_Kernel_",
-        "CFG_Conurbation_PageAllocator_StackSize=" + Conurbation_PageAllocator_StackSize,
-        "CFG_Conurbation_PageAllocator_PushThreshold=" + Conurbation_PageAllocator_PushThreshold,
-        "CFG_Conurbation_PageAllocator_CondenseRatio=" + Conurbation_PageAllocator_CondenseRatio
+        "_Conurbation_Kernel_"
 
     ]
 

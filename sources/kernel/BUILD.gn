@@ -5,6 +5,7 @@ executable("kernel") {
         "src/main.cc",
         "src/printf.cc",
         "src/cpu.asm",
+        "src/cxxabi.cc",
         "src/hwres/addrspace.cc",
         "src/mem/liballoc.cc"
 

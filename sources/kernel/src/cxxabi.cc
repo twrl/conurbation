@@ -1,5 +1,5 @@
-#include "stddef.h"
-#include "stdbool.h"
+#include "conurbation/numeric_types.hh"
+#include "conurbation/mem/liballoc.h"
 
 typedef void(destructor_f)(void*);
 
@@ -11,7 +11,7 @@ struct atexit_func_entry_t {
     destructor_f* dtor;
     void* dtor_obj;
     void* dso;
-    std::bool_t called;
+    bool_t called;
 };
 
 static atexit_func_entry_t* first = nullptr;
