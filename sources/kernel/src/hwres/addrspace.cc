@@ -1,4 +1,4 @@
-#include "conurbation/hwres/addrspace.h"
+#include "conurbation/hwres/addrspace.hh"
 
 namespace Conurbation::HwRes
 {

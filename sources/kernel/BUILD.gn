@@ -4,6 +4,7 @@ executable("kernel") {
         "src/start.asm",
         "src/main.cc",
         "src/printf.cc",
+        "src/cpu.asm",
         "src/hwres/addrspace.cc",
         "src/mem/liballoc.cc"
 
@@ -17,7 +18,7 @@ executable("kernel") {
 
     cflags = [ "-gline-tables-only", "-mfpmath=sse", "-msse2" ]
     cflags_cc = [ "-std=c++1z", "-nostdinc", "-ffreestanding", "-fno-exceptions", "-fno-rtti", "-fblocks" ]
-    ldflags = [ "-fuse-ld=gold", "-nostdlib", "-S", "-zmax-page-size=4096", "-gc-sections", "--no-ld-generated-unwind-info" ]
+    ldflags = [  "-fuse-ld=gold", "-nostdlib", "-S", "-zmax-page-size=4096", "-gc-sections", "--no-ld-generated-unwind-info" ]
 
 
 }

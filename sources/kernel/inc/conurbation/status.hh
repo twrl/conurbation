@@ -1,5 +1,9 @@
 #pragma once
 
+#ifndef __cplusplus
+#error "Cannot include pure C++ header in C code"
+#endif
+
 #include "conurbation/numeric_types.hh"
 
 namespace Conurbation {

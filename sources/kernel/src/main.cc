@@ -1,14 +1,16 @@
 #include "uefi/tables.h"
-#include "conurbation/hwres/addrspace.h"
+#include "conurbation/hwres/addrspace.hh"
 #include "conurbation/mem/liballoc.h"
-#include "conurbation/status.h"
+#include "conurbation/status.hh"
 
 int sprintf(char16_t* buf, const char16_t* fmt, ...);
+extern "C" auto get_cpuid(uint32_t leaf, uint32_t subleaf, uint32_t* returns) -> void;
 
 namespace Conurbation {
 
     auto uefi_address_map_import(UEFI::efi_system_table_t* SystemTable, Conurbation::HwRes::address_space_t* Phy,
         Conurbation::HwRes::address_space_t* Virt) -> _<std::uintptr_t>;
+    auto print_cpuid_info(UEFI::efi_system_table_t* SystemTable) -> void;
 
     extern "C" auto kernel_main(UEFI::handle_t ImageHandle, UEFI::efi_system_table_t* SystemTable) -> UEFI::status_t
     {
@@ -34,8 +36,12 @@ namespace Conurbation {
             u"                             [Euler-Mascheroni]\r\n\r\n");
 
         SystemTable->ConOut->SetAttribute(SystemTable->ConOut, 0x07);
-        SystemTable->ConOut->OutputString(SystemTable->ConOut,
-            u"For sanity: we're running on an x86-64 compatible with SSE enabled and UEFI 2.x compatible firmware.\r\n");
+        SystemTable->ConOut->OutputString(SystemTable->ConOut, u"For sanity: we're supposed to be running on an x86-64 "
+                                                               u"compatible with SSE enabled and UEFI 2.x compatible "
+                                                               u"firmware. If you can still see this without meeting that "
+                                                               u"spec then something unholy strange is happening...\r\n");
+
+        print_cpuid_info(SystemTable);
 
         HwRes::address_space_t* Phy = new HwRes::address_space_t(0, -1);
         HwRes::address_space_t* Virt = new HwRes::address_space_t(0, -1);
@@ -45,6 +51,34 @@ namespace Conurbation {
         _<std::uintptr_t> efi_map_key = uefi_address_map_import(SystemTable, Phy, Virt);
 
         return UEFI::status_t::Success;
+    }
+
+    auto print_cpuid_info(UEFI::efi_system_table_t* SystemTable) -> void
+    {
+        uint32_t _buf[4];
+        uint8_t* _buf_byte = reinterpret_cast<uint8_t*>(_buf);
+
+        get_cpuid(0, 0, _buf);
+        char16_t _vendor[15];
+
+        _vendor[0] = _buf_byte[4];
+        _vendor[1] = _buf_byte[5];
+        _vendor[2] = _buf_byte[6];
+        _vendor[3] = _buf_byte[7];
+        _vendor[4] = _buf_byte[12];
+        _vendor[5] = _buf_byte[13];
+        _vendor[6] = _buf_byte[14];
+        _vendor[7] = _buf_byte[15];
+        _vendor[8] = _buf_byte[8];
+        _vendor[9] = _buf_byte[9];
+        _vendor[10] = _buf_byte[10];
+        _vendor[11] = _buf_byte[11];
+        _vendor[12] = u'\r';
+        _vendor[13] = u'\n';
+        _vendor[14] = u'\0';
+
+        SystemTable->ConOut->OutputString(SystemTable->ConOut, u"CPUID Vendor String: ");
+        SystemTable->ConOut->OutputString(SystemTable->ConOut, _vendor);
     }
 
     auto uefi_address_map_import(UEFI::efi_system_table_t* SystemTable, Conurbation::HwRes::address_space_t* Phy,
@@ -72,6 +106,8 @@ namespace Conurbation {
         SystemTable->ConOut->OutputString(SystemTable->ConOut, u"UEFI Memory Map: \r\n");
         SystemTable->ConOut->OutputString(
             SystemTable->ConOut, u"    Base-Limit                         | Pages   | Type      | Attributes \r\n");
+        SystemTable->ConOut->OutputString(
+            SystemTable->ConOut, u"  -------------------------------------+---------+-----------+------------------- \r\n");
 
         char16_t* strbuf = reinterpret_cast<char16_t*>(kmalloc(256));
 
@@ -84,8 +120,8 @@ namespace Conurbation {
             HwRes::address_region_t* vr = Virt->define_region(descriptor->VirtualStart, descriptor->NumberOfPages * 4096);
 
             sprintf(strbuf, u"    %16x-%16x  | %6d  | %8x  | %16x\r\n", descriptor->PhysicalStart,
-                descriptor->PhysicalStart + (4096 * descriptor->NumberOfPages), descriptor->NumberOfPages, descriptor->Type,
-                descriptor->Attribute);
+                descriptor->PhysicalStart + (4096 * descriptor->NumberOfPages) - 1, descriptor->NumberOfPages,
+                descriptor->Type, descriptor->Attribute);
             SystemTable->ConOut->OutputString(SystemTable->ConOut, strbuf);
 
             switch (descriptor->Type) {

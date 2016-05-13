@@ -1,6 +1,10 @@
 #pragma once
 
-#include "conurbation/status.h"
+#ifndef __cplusplus
+#error "Cannot include pure C++ header in C code"
+#endif
+
+#include "conurbation/status.hh"
 #include "conurbation/numeric_types.hh"
 
 namespace Conurbation::HwRes
