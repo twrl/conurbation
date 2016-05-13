@@ -42,7 +42,7 @@ void* elf_pt_load(e64l_load_info* loaderInfo, Elf64_Phdr* phdr)
     UINTN num_pages = (phdr->p_memsz + 4095) >> 12;
     void* alloc = (void*)(base & ~0x7FF);
     void* load = (void*)base;
-    status = uefi_call_wrapper(BS->AllocatePages, 4, AllocateAddress, 2, num_pages, &alloc);
+    status = uefi_call_wrapper(BS->AllocatePages, 4, AllocateAddress, 0x80000000, num_pages, &alloc);
 
     // FIXME: Handle allocation issues
 

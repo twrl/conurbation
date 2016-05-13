@@ -1,0 +1,7 @@
+copy("vm") {
+
+    sources = [ "static/startup.nsh" ] #, "$target_out_dir/elf64ldr.efi", "$target_out_dir/kernel" ]
+
+    outputs = [ "$root_out_dir/{{source_file_part}}" ]
+
+}

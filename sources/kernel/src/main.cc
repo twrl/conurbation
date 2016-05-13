@@ -3,6 +3,8 @@
 #include "conurbation/mem/liballoc.h"
 #include "conurbation/status.h"
 
+int sprintf(char16_t* buf, const char16_t* fmt, ...);
+
 namespace Conurbation {
 
     auto uefi_address_map_import(UEFI::efi_system_table_t* SystemTable, Conurbation::HwRes::address_space_t* Phy,
@@ -67,6 +69,12 @@ namespace Conurbation {
         SystemTable->BootServices->GetMemoryMap(
             &map_size, reinterpret_cast<UEFI::memory_descriptor_t*>(map), &map_key, &descr_size, &descr_version);
 
+        SystemTable->ConOut->OutputString(SystemTable->ConOut, u"UEFI Memory Map: \r\n");
+        SystemTable->ConOut->OutputString(
+            SystemTable->ConOut, u"    Base-Limit                         | Pages   | Type      | Attributes \r\n");
+
+        char16_t* strbuf = reinterpret_cast<char16_t*>(kmalloc(256));
+
         std::uintptr_t map_offset = reinterpret_cast<std::uintptr_t>(map);
         std::uintptr_t map_limit = map_offset + map_size;
         while (map_offset < map_limit) {
@@ -74,6 +82,11 @@ namespace Conurbation {
             HwRes::address_region_t* pr = Phy->define_region(descriptor->PhysicalStart, descriptor->NumberOfPages * 4096)
                                               ->backing_mode(HwRes::address_backing_t::self);
             HwRes::address_region_t* vr = Virt->define_region(descriptor->VirtualStart, descriptor->NumberOfPages * 4096);
+
+            sprintf(strbuf, u"    %16x-%16x  | %6d  | %8x  | %16x\r\n", descriptor->PhysicalStart,
+                descriptor->PhysicalStart + (4096 * descriptor->NumberOfPages), descriptor->NumberOfPages, descriptor->Type,
+                descriptor->Attribute);
+            SystemTable->ConOut->OutputString(SystemTable->ConOut, strbuf);
 
             switch (descriptor->Type) {
                 case UEFI::memory_type_t::EfiConventionalMemory:
@@ -120,6 +133,9 @@ namespace Conurbation {
 
             map_offset += descr_size;
         }
+
+        kfree(map_buffer);
+        kfree(strbuf);
 
         return map_key;
     }

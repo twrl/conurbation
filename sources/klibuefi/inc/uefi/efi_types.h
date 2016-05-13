@@ -1,22 +1,9 @@
 #pragma once
 
-#include "stdint.h"
-#include "stdbool.h"
+#include "conurbation/numeric_types.hh"
 #include "guid.h"
 
 namespace UEFI {
-
-    using std::uintptr_t;
-    using std::intptr_t;
-    using std::uint64_t;
-    using std::uint32_t;
-    using std::uint16_t;
-    using std::uint8_t;
-    using std::int64_t;
-    using std::int32_t;
-    using std::int16_t;
-    using std::int8_t;
-    using std::bool_t;
 
     typedef void* handle_t;
     typedef void* event_t;

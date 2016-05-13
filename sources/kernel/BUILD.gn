@@ -3,6 +3,7 @@ executable("kernel") {
     sources = [
         "src/start.asm",
         "src/main.cc",
+        "src/printf.cc",
         "src/hwres/addrspace.cc",
         "src/mem/liballoc.cc"
 
