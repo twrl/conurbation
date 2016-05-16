@@ -1,8 +1,8 @@
 config("conurbation") {
 
     defines = [
-        "_Conurbation_Kernel_"
-
+        "_Conurbation_Kernel_",
+        "_Conurbation_Preinit_Heap_Pages=" + Conurbation_Preinit_Heap_Pages
     ]
 
 }

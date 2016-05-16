@@ -1,6 +1,7 @@
 #pragma once
 
 #include "conurbation/numeric_types.hh"
+#include "conurbation/obmodel/svclocate.hh"
 
 /*******************************************************************************
  * This is liballoc 1.1 taken from https://github.com/blanham/liballoc and originally by Durand Miller. I have modified it a
@@ -59,7 +60,14 @@ inline int liballoc_unlock()
  * \return NULL if the pages were not allocated.
  * \return A pointer to the allocated memory.
  */
-inline void* liballoc_alloc(size_t size) { return nullptr; };
+inline void* liballoc_alloc(size_t size)
+{
+    Conurbation::_<uintptr_t> s = Conurbation::ObModel::service_locator_t::page_alloc_service()->allocate(size);
+    if (s)
+        return reinterpret_cast<void*>(s.value());
+    else
+        return nullptr;
+};
 
 /** This frees previously allocated memory. The void* parameter passed
  * to the function is the exact same value returned from a previous
@@ -69,7 +77,11 @@ inline void* liballoc_alloc(size_t size) { return nullptr; };
  *
  * \return 0 if the memory was successfully freed.
  */
-inline int liballoc_free(void* base, size_t num) { return -1; };
+inline int liballoc_free(void* base, size_t num)
+{
+    Conurbation::ObModel::service_locator_t::page_alloc_service()->deallocate(num, reinterpret_cast<uintptr_t>(base));
+    return 0;
+};
 
 extern void* PREFIX(malloc)(size_t); ///< The standard function.
 extern void* PREFIX(realloc)(void*, size_t); ///< The standard function.

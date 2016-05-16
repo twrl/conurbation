@@ -100,7 +100,7 @@ namespace {
                     }
                     break;
                 case u'c': /* Single character */
-                    *b++ = (char)va_arg(args, int);
+                    *b++ = (char16_t)va_arg(args, int);
                     break;
                 case u'x': /* Hexadecimal number */
                     i = b - buf;

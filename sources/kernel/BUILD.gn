@@ -4,10 +4,12 @@ executable("kernel") {
         "src/start.asm",
         "src/main.cc",
         "src/printf.cc",
-        "src/cpu.asm",
         "src/cxxabi.cc",
         "src/hwres/addrspace.cc",
-        "src/mem/liballoc.cc"
+        "src/hwres/cpu.asm",
+        "src/mem/liballoc.cc",
+        "src/mem/efi_alloc_service.cc",
+        "src/obmodel/svclocate.cc"
 
     ]
 

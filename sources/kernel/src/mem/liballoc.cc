@@ -209,15 +209,19 @@ static struct liballoc_major* allocate_new_page(unsigned int size)
 #endif
 
     return maj;
-}
+};
 
 extern "C" auto preinit_liballoc(UEFI::handle_t ImageHandle, UEFI::efi_system_table_t* SystemTable) -> void
 {
     std::uint64_t initial_heap_addr;
     // typedef status_t(efiabi efi_allocate_pages_f)(allocate_type_t type, memory_type_t memoryType, uintptr_t pages, uint64_t*
     // memory);
-    UEFI::status_t st = SystemTable->BootServices->AllocatePages(
-        UEFI::allocate_type_t::AllocateAnyPages, UEFI::memory_type_t::OsData, 512, &initial_heap_addr);
+
+    SystemTable->ConOut->OutputString(
+        SystemTable->ConOut, u"preinit: Initializing liballoc with pages from EFI AllocatePages\r\n");
+
+    UEFI::status_t st = SystemTable->BootServices->AllocatePages(UEFI::allocate_type_t::AllocateAnyPages,
+        UEFI::memory_type_t::OsData, _Conurbation_Preinit_Heap_Pages, &initial_heap_addr);
 
     if (st != UEFI::status_t::Success) {
         SystemTable->ConOut->OutputString(SystemTable->ConOut, u"Unable to intialize kernel heap from UEFI memory\r\n");
@@ -227,8 +231,8 @@ extern "C" auto preinit_liballoc(UEFI::handle_t ImageHandle, UEFI::efi_system_ta
     liballoc_major* maj = reinterpret_cast<liballoc_major*>(initial_heap_addr);
     maj->next = NULL;
     maj->prev = NULL;
-    maj->pages = 512;
-    maj->size = 512 * 4096;
+    maj->pages = _Conurbation_Preinit_Heap_Pages;
+    maj->size = _Conurbation_Preinit_Heap_Pages * 4096;
     maj->usage = sizeof(liballoc_major);
     maj->first = NULL;
 

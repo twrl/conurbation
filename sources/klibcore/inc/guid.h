@@ -10,7 +10,7 @@ struct guid_t {
     std::uint8_t data4[8];
 
     constexpr guid_t(const char*);
-    constexpr bool operator==(guid_t&);
+    constexpr bool operator==(const guid_t&);
 };
 
 // Hex-digit to integer helper func
@@ -83,7 +83,7 @@ constexpr guid_t::guid_t(const char* string)
 {
 }
 
-constexpr bool guid_t::operator==(guid_t& that)
+constexpr bool guid_t::operator==(const guid_t& that)
 {
     return this->data1 == that.data1 && this->data2 == that.data2 && this->data3 == that.data3
         && this->data4[0] == that.data4[0] && this->data4[1] == that.data4[1] && this->data4[2] == that.data4[2]

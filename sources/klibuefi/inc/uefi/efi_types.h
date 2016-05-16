@@ -22,7 +22,7 @@ namespace UEFI {
 
     };
 
-    enum struct status_t : intptr_t {
+    enum struct status_t : int32_t { // intptr_t {
         Success = 0,
         LoadError = 1,
         InvalidParameter = 2,
@@ -82,6 +82,8 @@ namespace UEFI {
         OsCode = 0x80000000,
         OsData
     };
+
+    __attribute__((pure)) const char16_t* efiMemoryTypeToString(memory_type_t type);
 
     struct memory_descriptor_t {
         memory_type_t Type;
