@@ -1,6 +1,6 @@
 #pragma once
 
-#include "conurbation/util/numeric_types.hh"
+#include "conurbation/numeric_types.hh"
 
 #ifndef __cplusplus
 #error "Cannot include pure C++ header in C code"

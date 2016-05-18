@@ -178,7 +178,7 @@ namespace Conurbation {
         SystemTable->ConOut->OutputString(
             SystemTable->ConOut, u"    Base-Limit                         | Pages   | Attributes        | Type    \r\n");
         SystemTable->ConOut->OutputString(SystemTable->ConOut,
-            u"  -------------------------------------+---------+-------------------+------------------------- \r\n");
+            u"  -------------------------------------+---------+--------------------+------------------------- \r\n");
 
         std::uintptr_t map_offset = reinterpret_cast<std::uintptr_t>(map);
         std::uintptr_t map_limit = map_offset + map_size;
@@ -188,7 +188,7 @@ namespace Conurbation {
                                               ->backing_mode(HwRes::address_backing_t::self);
             HwRes::address_region_t* vr = Virt->define_region(descriptor->VirtualStart, descriptor->NumberOfPages * 4096);
 
-            sprintf(strbuf, u"    %16x-%16x  | %6d  | %16x  | %s\r\n", descriptor->PhysicalStart,
+            sprintf(strbuf, u"    %16x-%16x  | %6d  | 0x%16x | %s\r\n", descriptor->PhysicalStart,
                 descriptor->PhysicalStart + (4096 * descriptor->NumberOfPages) - 1, descriptor->NumberOfPages,
                 descriptor->Attribute, UEFI::efiMemoryTypeToString(descriptor->Type));
             SystemTable->ConOut->OutputString(SystemTable->ConOut, strbuf);
