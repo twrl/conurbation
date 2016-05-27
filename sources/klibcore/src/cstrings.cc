@@ -3,14 +3,9 @@
 // These functions are lifted verbatim from PDCLib
 //
 
-#include "numeric_types.hh"
+#define compat extern "C" auto
 
-#ifdef __cplusplus
-#define restrict
-extern "C" {
-#endif
-
-size_t strlen(const char* s)
+compat strlen(const char* s)->size_t
 {
     size_t rc = 0;
     while (s[rc]) {
@@ -19,7 +14,7 @@ size_t strlen(const char* s)
     return rc;
 }
 
-char* strncat(char* restrict s1, const char* restrict s2, size_t n)
+compat strncat(char* s1, const char* s2, size_t n)->char *
 {
     char* rc = s1;
     while (*s1) {
@@ -34,7 +29,7 @@ char* strncat(char* restrict s1, const char* restrict s2, size_t n)
     return rc;
 }
 
-char* strcat(char* restrict s1, const char* restrict s2)
+compat strcat(char* s1, const char* s2)->char *
 {
     char* rc = s1;
     if (*s1) {
@@ -46,7 +41,7 @@ char* strcat(char* restrict s1, const char* restrict s2)
     return rc;
 }
 
-char* strchr(const char* s, int c)
+compat strchr(const char* s, size_t c)->char *
 {
     do {
         if (*s == (char)c) {
@@ -56,7 +51,7 @@ char* strchr(const char* s, int c)
     return nullptr;
 }
 
-int strcmp(const char* s1, const char* s2)
+compat strcmp(const char* s1, const char* s2)->uint32_t
 {
     while ((*s1) && (*s1 == *s2)) {
         ++s1;
@@ -65,7 +60,7 @@ int strcmp(const char* s1, const char* s2)
     return (*(unsigned char*)s1 - *(unsigned char*)s2);
 }
 
-char* strcpy(char* restrict s1, const char* restrict s2)
+compat strcpy(char* s1, char* s2)->char *
 {
     char* rc = s1;
     while ((*s1++ = *s2++))
@@ -73,7 +68,7 @@ char* strcpy(char* restrict s1, const char* restrict s2)
     return rc;
 }
 
-char* strncpy(char* restrict s1, const char* restrict s2, size_t n)
+compat srtncpy(char* s1, char* s2, size_t n)->char *
 {
     char* rc = s1;
     while ((n > 0) && (*s1++ = *s2++)) {
@@ -90,7 +85,7 @@ char* strncpy(char* restrict s1, const char* restrict s2, size_t n)
     return rc;
 }
 
-int strncmp(const char* s1, const char* s2, size_t n)
+compat strncmp(const char* s1, const char* s2, size_t n)->uint32_t
 {
     while (*s1 && n && (*s1 == *s2)) {
         ++s1;
@@ -105,7 +100,7 @@ int strncmp(const char* s1, const char* s2, size_t n)
     }
 }
 
-int memcmp(const void* s1, const void* s2, size_t n)
+compat memcmp(const void* s1, const void* s2, size_t n)->uint32_t
 {
     const unsigned char* p1 = (const unsigned char*)s1;
     const unsigned char* p2 = (const unsigned char*)s2;
@@ -118,8 +113,3 @@ int memcmp(const void* s1, const void* s2, size_t n)
     }
     return 0;
 }
-
-#ifdef __cplusplus
-}
-#undef restrict
-#endif

@@ -13,7 +13,9 @@ compat strlen(const char* s)->size_t;
 compat strncat(char* s1, const char* s2, size_t n)->char*;
 compat strcat(char* s1, const char* s2)->char*;
 compat strchr(const char* s, size_t c)->char*;
-compat strcmp(const char* s1, const char* s2)->char*;
+compat strcmp(const char* s1, const char* s2)->uint32_t;
 compat strcpy(char* s1, char* s2)->char*;
 compat srtncpy(char* s1, char* s2, size_t n)->char*;
 compat strncmp(const char* s1, const char* s2, size_t n)->uint32_t;
+
+#undef compat
