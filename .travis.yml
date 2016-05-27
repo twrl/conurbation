@@ -1,19 +1,22 @@
 sudo: required
 dist: trusty
-language: cpp
-before_install:
-  - sudo add-apt-repository "deb http://llvm.org/apt/trusty/ llvm-toolchain-trusty-3.8 main"
-  - wget -O - http://llvm.org/apt/llvm-snapshot.gpg.key|sudo apt-key add -
-  - sudo apt-get update -qq
+language: generic
+addons:
+    apt:
+        sources:
+            sourceline: "deb http://llvm.org/apt/trusty/ llvm-toolchain-trusty-3.8 main"
+            key_url: "http://llvm.org/apt/llvm-snapshot.gpg.key"
+        packages:
+          - clang-3.8
+          - ninja-build
+          - nasm
 install:
   - wget http://ftp.uk.debian.org/debian/pool/main/g/gnu-efi/gnu-efi_3.0.3-2_amd64.deb
   - wget http://ftp.uk.debian.org/debian/pool/main/b/binutils/binutils_2.26-9_amd64.deb
   - sudo dpkg -i gnu-efi_3.0.3-2_amd64.deb
   - sudo dpkg -i binutils_2.26-9_amd64.deb
-  - sudo apt-get install -qq clang-3.8 ninja-build nasm qemu-system-x86
   - python ./build/depot_tools/download_from_google_storage.py -b chromium-gn -s ./build/tools/gn.sha1
 before_script:
   - ./build/tools/gn gen build/out
 script:
   - ninja -C build/out
-  - timeout 60 qemu-system-x86_64 -pflash build/vm/OVMF/OVMF.fd -drive file=fat:build/out,if=ide -net none -nographic
