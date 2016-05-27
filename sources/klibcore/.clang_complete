@@ -1,0 +1,5 @@
+-std=c++1z
+-nostdinc
+-ffreestanding
+-msse3
+-I./inc

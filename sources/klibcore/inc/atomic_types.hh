@@ -1,13 +1,10 @@
 #pragma once
 
-#include "conurbation/numeric_types.hh"
+#include "numeric_types.hh"
 
 #ifndef __cplusplus
 #error "Cannot include pure C++ header in C code"
 #endif
-
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wunused-const-variable"
 
 typedef _Atomic(uint8_t) atomic_uint8_t;
 typedef _Atomic(uint16_t) atomic_uint16_t;
@@ -27,5 +24,3 @@ typedef _Atomic(size_t) atomic_size_t;
 typedef _Atomic(ptrdiff_t) atomic_ptrdiff_t;
 
 typedef _Atomic(bool_t) atomic_bool_t;
-
-#pragma clang diagnostic pop

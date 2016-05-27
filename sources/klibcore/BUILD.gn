@@ -18,7 +18,7 @@ source_set("klibcore") {
 
     all_dependent_configs = [ ":depend" ]
 
-    cflags = [ "-gline-tables-only", "-mfpmath=sse", "-msse2" ]
+    cflags = [ "-gline-tables-only", "-mfpmath=sse", "-msse3" ]
     cflags_cc = [ "-std=c++1z", "-nostdinc", "-ffreestanding", "-fno-exceptions", "-fno-rtti", "-fblocks" ]
 
 }

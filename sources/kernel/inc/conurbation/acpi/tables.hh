@@ -4,8 +4,8 @@
 #error "Cannot include pure C++ header in C code"
 #endif
 
-#include "conurbation/numeric_types.hh"
-#include "conurbation/char_types.hh"
+#include "numeric_types.hh"
+#include "char_types.hh"
 
 namespace Conurbation::ACPI
 {

@@ -1,8 +1,6 @@
 #ifndef _STRING_H_
 #define _STRING_H_
 
-#include "stddef.h"
-
 #ifdef __cplusplus
 #define restrict
 extern "C" {

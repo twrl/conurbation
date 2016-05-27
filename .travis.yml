@@ -16,4 +16,4 @@ before_script:
   - ./build/tools/gn gen build/out
 script:
   - ninja -C build/out
-  - timeout 60 qemu-system-x86_64 -pflash build/vm/OVMF/OVMF.fd -drive file=fat:build/out,if=ide -net none -display none -serial stdio
+  - timeout 60 qemu-system-x86_64 -pflash build/vm/OVMF/OVMF.fd -drive file=fat:build/out,if=ide -net none -nographic

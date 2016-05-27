@@ -12,7 +12,7 @@ extern "C" auto get_cpuid(uint32_t leaf, uint32_t subleaf, uint32_t* returns) ->
 namespace Conurbation {
 
     auto uefi_address_map_import(UEFI::efi_system_table_t* SystemTable, Conurbation::HwRes::address_space_t* Phy,
-        Conurbation::HwRes::address_space_t* Virt) -> _<std::uintptr_t>;
+        Conurbation::HwRes::address_space_t* Virt) -> _<uintptr_t>;
     auto print_cpuid_info(UEFI::efi_system_table_t* SystemTable) -> void;
     auto enumerate_acpi_tables(UEFI::efi_system_table_t* SystemTable) -> void;
 
@@ -55,7 +55,7 @@ namespace Conurbation {
         Phy->first()->usage(HwRes::address_usage_t::noexist)->backing_mode(HwRes::address_backing_t::none);
         Virt->first()->usage(HwRes::address_usage_t::noexist)->backing_mode(HwRes::address_backing_t::none);
 
-        _<std::uintptr_t> efi_map_key = uefi_address_map_import(SystemTable, Phy, Virt);
+        _<uintptr_t> efi_map_key = uefi_address_map_import(SystemTable, Phy, Virt);
 
         return UEFI::status_t::Success;
     }
@@ -139,12 +139,12 @@ namespace Conurbation {
     }
 
     auto uefi_address_map_import(UEFI::efi_system_table_t* SystemTable, Conurbation::HwRes::address_space_t* Phy,
-        Conurbation::HwRes::address_space_t* Virt) -> _<std::uintptr_t>
+        Conurbation::HwRes::address_space_t* Virt) -> _<uintptr_t>
     {
-        std::uintptr_t map_size = 2048;
-        std::uintptr_t descr_size;
-        std::uintptr_t map_key;
-        std::uint32_t descr_version;
+        uintptr_t map_size = 2048;
+        uintptr_t descr_size;
+        uintptr_t map_key;
+        uint32_t descr_version;
         void* map = kmalloc(map_size);
 
         UEFI::status_t st = UEFI::status_t::BufferTooSmall;
@@ -180,8 +180,8 @@ namespace Conurbation {
         SystemTable->ConOut->OutputString(SystemTable->ConOut,
             u"  -------------------------------------+---------+--------------------+------------------------- \r\n");
 
-        std::uintptr_t map_offset = reinterpret_cast<std::uintptr_t>(map);
-        std::uintptr_t map_limit = map_offset + map_size;
+        uintptr_t map_offset = reinterpret_cast<uintptr_t>(map);
+        uintptr_t map_limit = map_offset + map_size;
         while (map_offset < map_limit) {
             UEFI::memory_descriptor_t* descriptor = reinterpret_cast<UEFI::memory_descriptor_t*>(map_offset);
             HwRes::address_region_t* pr = Phy->define_region(descriptor->PhysicalStart, descriptor->NumberOfPages * 4096)

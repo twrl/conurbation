@@ -1,6 +1,6 @@
 #pragma once
 
-#include "conurbation/numeric_types.hh"
+#include "numeric_types.hh"
 #include "conurbation/obmodel/svclocate.hh"
 
 /*******************************************************************************

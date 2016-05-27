@@ -1,7 +1,7 @@
 #pragma once
 
-#include "conurbation/util/numeric_types.hh"
-#include "conurbation/util/char_types.hh"
+#include "numeric_types.hh"
+#include "char_types.hh"
 
 #ifndef __cplusplus
 #error "Cannot include pure C++ header in C code"
@@ -92,12 +92,10 @@ namespace Conurbation {
     template <> constexpr bool_t is_integral_v<uint16_t> = true;
     template <> constexpr bool_t is_integral_v<uint32_t> = true;
     template <> constexpr bool_t is_integral_v<uint64_t> = true;
-    template <> constexpr bool_t is_integral_v<uint128_t> = true;
     template <> constexpr bool_t is_integral_v<int8_t> = true;
     template <> constexpr bool_t is_integral_v<int16_t> = true;
     template <> constexpr bool_t is_integral_v<int32_t> = true;
     template <> constexpr bool_t is_integral_v<int64_t> = true;
-    template <> constexpr bool_t is_integral_v<int128_t> = true;
     template <> constexpr bool_t is_integral_v<bool_t> = true;
     template <> constexpr bool_t is_integral_v<char8_t> = true;
     template <> constexpr bool_t is_integral_v<char16_t> = true;

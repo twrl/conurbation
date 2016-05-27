@@ -5,7 +5,7 @@
 #endif
 
 #include "conurbation/status.hh"
-#include "conurbation/numeric_types.hh"
+#include "numeric_types.hh"
 
 namespace Conurbation::HwRes
 {

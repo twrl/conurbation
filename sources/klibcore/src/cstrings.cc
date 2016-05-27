@@ -3,7 +3,7 @@
 // These functions are lifted verbatim from PDCLib
 //
 
-using std::size_t;
+#include "numeric_types.hh"
 
 #ifdef __cplusplus
 #define restrict

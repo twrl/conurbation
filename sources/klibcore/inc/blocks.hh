@@ -1,6 +1,6 @@
 #pragma once
 
-#include "conurbation/numeric_types.hh"
+#include "numeric_types.hh"
 
 enum class block_field_flags_t : int32_t { Object = 3, Block = 7, ByRef = 8, IsWeak = 16, ByRef_Caller = 128 };
 enum class block_layout_flags_t : int32_t {

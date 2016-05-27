@@ -1,8 +1,9 @@
 
 // FIXME: This is a bit (a lot) of a rip-off of the sprintf from ToaruOS
 
-#include "conurbation/numeric_types.hh"
-#include "stdarg.h"
+#include "numeric_types.hh"
+#include "conurbation/numeric_traits.hh"
+#include "variadic.hh"
 
 namespace {
 
@@ -71,7 +72,7 @@ namespace {
     /*
      * vasprintf()
      */
-    size_t vasprintf(char16_t* buf, const char16_t* fmt, std::va_list args)
+    size_t vasprintf(char16_t* buf, const char16_t* fmt, va_list args)
     {
         int i = 0;
         char16_t* s;
@@ -128,7 +129,7 @@ namespace {
 
 int sprintf(char16_t* buf, const char16_t* fmt, ...)
 {
-    std::va_list args;
+    va_list args;
     va_start(args, fmt);
     int out = vasprintf(buf, fmt, args);
     va_end(args);
