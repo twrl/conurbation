@@ -1,2 +1,4 @@
 build/out
 build/tools/gn
+.c9
+*.deb
