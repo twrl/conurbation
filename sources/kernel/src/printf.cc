@@ -68,63 +68,62 @@ namespace {
             *ptr += +1;
         }
     }
-
-    /*
-     * vasprintf()
-     */
-    size_t vasprintf(char16_t* buf, const char16_t* fmt, va_list args)
-    {
-        int i = 0;
-        char16_t* s;
-        char16_t* b = buf;
-        for (const char16_t* f = fmt; *f; f++) {
-            if (*f != u'%') {
-                *b++ = *f;
-                continue;
-            }
-            ++f;
-            unsigned int arg_width = 0;
-            while (*f >= u'0' && *f <= u'9') {
-                arg_width *= 10;
-                arg_width += *f - u'0';
-                ++f;
-            }
-            /* fmt[i] == '%' */
-            switch (*f) {
-                case u's': /* String pointer -> String */
-                    s = (char16_t*)va_arg(args, char16_t*);
-                    if (s == nullptr) {
-                        s = const_cast<char16_t*>(u"(null)");
-                    }
-                    while (*s) {
-                        *b++ = *s++;
-                    }
-                    break;
-                case u'c': /* Single character */
-                    *b++ = (char16_t)va_arg(args, int);
-                    break;
-                case u'x': /* Hexadecimal number */
-                    i = b - buf;
-                    print_hex((unsigned long)va_arg(args, unsigned long), arg_width, buf, &i);
-                    b = buf + i;
-                    break;
-                case u'd': /* Decimal number */
-                    i = b - buf;
-                    print_dec((unsigned long)va_arg(args, unsigned long), arg_width, buf, &i);
-                    b = buf + i;
-                    break;
-                case u'%': /* Escape */
-                    *b++ = u'%';
-                    break;
-                default: /* Nothing at all, just dump it */
-                    *b++ = *f;
-                    break;
-            }
+}
+/*
+ * vasprintf()
+ */
+size_t vasprintf(char16_t* buf, const char16_t* fmt, va_list args)
+{
+    int i = 0;
+    char16_t* s;
+    char16_t* b = buf;
+    for (const char16_t* f = fmt; *f; f++) {
+        if (*f != u'%') {
+            *b++ = *f;
+            continue;
         }
-        /* Ensure the buffer ends in a null */
-        *b = u'\0';
-        return b - buf;
+        ++f;
+        unsigned int arg_width = 0;
+        while (*f >= u'0' && *f <= u'9') {
+            arg_width *= 10;
+            arg_width += *f - u'0';
+            ++f;
+        }
+        /* fmt[i] == '%' */
+        switch (*f) {
+            case u's': /* String pointer -> String */
+                s = (char16_t*)va_arg(args, char16_t*);
+                if (s == nullptr) {
+                    s = const_cast<char16_t*>(u"(null)");
+                }
+                while (*s) {
+                    *b++ = *s++;
+                }
+                break;
+            case u'c': /* Single character */
+                *b++ = (char16_t)va_arg(args, int);
+                break;
+            case u'x': /* Hexadecimal number */
+                i = b - buf;
+                print_hex((unsigned long)va_arg(args, unsigned long), arg_width, buf, &i);
+                b = buf + i;
+                break;
+            case u'd': /* Decimal number */
+                i = b - buf;
+                print_dec((unsigned long)va_arg(args, unsigned long), arg_width, buf, &i);
+                b = buf + i;
+                break;
+            case u'%': /* Escape */
+                *b++ = u'%';
+                break;
+            default: /* Nothing at all, just dump it */
+                *b++ = *f;
+                break;
+        }
     }
+    /* Ensure the buffer ends in a null */
+    *b = u'\0';
+    return b - buf;
 }
 
 int sprintf(char16_t* buf, const char16_t* fmt, ...)

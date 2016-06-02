@@ -1,10 +1,13 @@
 executable("kernel") {
 
+    output_extension = "sys"
+
     sources = [
         "src/start.asm",
         "src/main.cc",
         "src/printf.cc",
         "src/cxxabi.cc",
+        "src/logging.cc",
         #"src/graphics/canvas.cc",
         "src/hwres/addrspace.cc",
         "src/hwres/cpu.asm",
