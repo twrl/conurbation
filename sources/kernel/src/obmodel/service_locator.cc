@@ -2,7 +2,9 @@
 
 namespace Conurbation {
 
-    auto service_locator_t::get(service_type_t type) -> _<service_p*>
+    service_locator_p* service_locator_p::default_ = nullptr;
+
+    auto service_locator_t::get(guid_t type) -> _<service_p*>
     {
         svcs_t* current = services_;
         while (true) {

@@ -1,6 +1,6 @@
 set_default_toolchain("//build/toolchain/clang")
 
 declare_args() {
-    Conurbation_Preinit_Heap_Pages = 1
+    Conurbation_Preinit_Heap_Pages = 16
 
 }

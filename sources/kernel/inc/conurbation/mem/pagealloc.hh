@@ -3,12 +3,17 @@
 #include "numeric_types.hh"
 #include "conurbation/status.hh"
 #include "uefi/tables.h"
+#include "conurbation/obmodel/service.hh"
 
-namespace Conurbation::Mem
-{
+namespace Conurbation {
 
-    class page_alloc_service_p {
+    class page_alloc_service_p;
+
+    template <> constexpr guid_t service_type_v<page_alloc_service_p> = "0ad0aece-1dad-4b4d-9ded-d13ce551fcab"_guid;
+
+    class page_alloc_service_p : public service_p {
     public:
+        inline virtual auto service_type() -> guid_t const final { return service_type_v<page_alloc_service_p>; };
         virtual _<uintptr_t> allocate(size_t num_pages) = 0;
         virtual void deallocate(size_t num_pages, uintptr_t base_address) = 0;
     };

@@ -1,7 +1,6 @@
 #include "conurbation/mem/pagealloc.hh"
 
-namespace Conurbation::Mem
-{
+namespace Conurbation {
 
     _<uintptr_t> efi_alloc_service_t::allocate(size_t num_pages)
     {

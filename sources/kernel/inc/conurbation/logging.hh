@@ -15,11 +15,11 @@ namespace Conurbation {
     enum class log_level_t { panic, error, warn, info, trace, debug };
 
     class logging_p;
-    template <> constexpr service_type_t service_type_v<logging_p> = service_type_t::logging;
+    template <> constexpr guid_t service_type_v<logging_p> = "7eb6332e-5fe5-497f-ab69-56161ccd1b56"_guid;
 
     class logging_p : public service_p {
     public:
-        inline virtual auto service_type() -> service_type_t final { return service_type_v<logging_p>; };
+        inline virtual auto service_type() -> guid_t const final { return service_type_v<logging_p>; };
 
         virtual auto begin_group(const char16_t* title) -> logging_p& = 0;
         virtual auto end_group() -> logging_p& = 0;

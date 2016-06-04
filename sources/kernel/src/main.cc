@@ -1,10 +1,12 @@
 #include "uefi/tables.h"
 #include "conurbation/hwres/addrspace.hh"
 #include "conurbation/mem/liballoc.h"
-#include "conurbation/obmodel/svclocate.hh"
+#include "conurbation/mem/pagealloc.hh"
+//#include "conurbation/obmodel/svclocate.hh"
 #include "conurbation/obmodel/service.hh"
 #include "conurbation/status.hh"
 #include "conurbation/logging.hh"
+#include "conurbation/rng.hh"
 
 #include "conurbation/acpi/tables.hh"
 
@@ -22,9 +24,11 @@ namespace Conurbation {
     {
 
         service_locator_p& services_ = *new service_locator_t();
+        services_.set(*new efi_alloc_service_t(SystemTable));
         services_.set(*new logging_t(SystemTable));
+        services_.set(*new lfsr_rng_service_t());
 
-        ObModel::service_locator_t::page_alloc_service(new Mem::efi_alloc_service_t(SystemTable));
+        // ObModel::service_locator_t::page_alloc_service(new Mem::efi_alloc_service_t(SystemTable));
 
         logging_p& log = *static_cast<logging_p*>(services_.get<logging_p>());
 
@@ -53,6 +57,16 @@ namespace Conurbation {
         SystemTable->RuntimeServices->GetTime(&time, nullptr);
         log.info(u"UEFI", u"Current time: %d/%d/%d %d:%d:%d:%d", time.Day, time.Month, time.Year, time.Hour, time.Minute,
             time.Second, time.Nanosecond);
+
+        rng_service_p& rng = *static_cast<rng_service_p*>(services_.get<rng_service_p>());
+
+        log.begin_group(u"RNG test");
+        log.debug(u"test", u"0x%16x", rng.generate());
+        log.debug(u"test", u"0x%16x", rng.generate());
+        log.debug(u"test", u"0x%16x", rng.generate());
+        log.debug(u"test", u"0x%16x", rng.generate());
+        log.debug(u"test", u"0x%16x", rng.generate());
+        log.end_group();
 
         log.begin_group(u"test");
         log.panic(u"test", u"PANIC!");
