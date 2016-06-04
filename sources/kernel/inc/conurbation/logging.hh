@@ -8,12 +8,33 @@
 #include "char_types.hh"
 #include "variadic.hh"
 #include "uefi/tables.h"
+#include "conurbation/obmodel/service.hh"
 
 namespace Conurbation {
 
     enum class log_level_t { panic, error, warn, info, trace, debug };
 
-    class logging_t {
+    class logging_p;
+    template <> constexpr service_type_t service_type_v<logging_p> = service_type_t::logging;
+
+    class logging_p : public service_p {
+    public:
+        inline virtual auto service_type() -> service_type_t final { return service_type_v<logging_p>; };
+
+        virtual auto begin_group(const char16_t* title) -> logging_p& = 0;
+        virtual auto end_group() -> logging_p& = 0;
+        virtual auto log(log_level_t level, const char16_t* source, const char16_t* message, va_list args) -> logging_p& = 0;
+        virtual auto log(log_level_t level, const char16_t* source, const char16_t* message, ...) -> logging_p& = 0;
+
+        virtual auto debug(const char16_t* source, const char16_t* message, ...) -> logging_p& = 0;
+        virtual auto trace(const char16_t* source, const char16_t* message, ...) -> logging_p& = 0;
+        virtual auto info(const char16_t* source, const char16_t* message, ...) -> logging_p& = 0;
+        virtual auto warn(const char16_t* source, const char16_t* message, ...) -> logging_p& = 0;
+        virtual auto error(const char16_t* source, const char16_t* message, ...) -> logging_p& = 0;
+        virtual auto panic(const char16_t* source, const char16_t* message, ...) -> logging_p& = 0;
+    };
+
+    class logging_t : public logging_p {
 
     private:
         log_level_t current_log_level_ = log_level_t::info;
@@ -26,11 +47,11 @@ namespace Conurbation {
         {
         }
 
-        auto begin_group(const char16_t* title) -> logging_t&;
-        auto end_group() -> logging_t&;
-        auto log(log_level_t level, const char16_t* source, const char16_t* message, va_list args) -> logging_t&;
+        virtual auto begin_group(const char16_t* title) -> logging_t&;
+        virtual auto end_group() -> logging_t&;
+        virtual auto log(log_level_t level, const char16_t* source, const char16_t* message, va_list args) -> logging_t&;
 
-        inline auto log(log_level_t level, const char16_t* source, const char16_t* message, ...) -> logging_t &
+        virtual inline auto log(log_level_t level, const char16_t* source, const char16_t* message, ...) -> logging_t& final
         {
             va_list args;
             va_start(args, message);
@@ -39,7 +60,7 @@ namespace Conurbation {
             return *this;
         }
 
-        inline auto debug(const char16_t* source, const char16_t* message, ...) -> logging_t &
+        virtual inline auto debug(const char16_t* source, const char16_t* message, ...) -> logging_t& final
         {
             va_list args;
             va_start(args, message);
@@ -47,7 +68,7 @@ namespace Conurbation {
             va_end(args);
             return *this;
         }
-        inline auto trace(const char16_t* source, const char16_t* message, ...) -> logging_t &
+        virtual inline auto trace(const char16_t* source, const char16_t* message, ...) -> logging_t& final
         {
             va_list args;
             va_start(args, message);
@@ -55,7 +76,7 @@ namespace Conurbation {
             va_end(args);
             return *this;
         }
-        inline auto info(const char16_t* source, const char16_t* message, ...) -> logging_t &
+        virtual inline auto info(const char16_t* source, const char16_t* message, ...) -> logging_t& final
         {
             va_list args;
             va_start(args, message);
@@ -63,7 +84,7 @@ namespace Conurbation {
             va_end(args);
             return *this;
         }
-        inline auto warn(const char16_t* source, const char16_t* message, ...) -> logging_t &
+        virtual inline auto warn(const char16_t* source, const char16_t* message, ...) -> logging_t& final
         {
             va_list args;
             va_start(args, message);
@@ -71,7 +92,7 @@ namespace Conurbation {
             va_end(args);
             return *this;
         }
-        inline auto error(const char16_t* source, const char16_t* message, ...) -> logging_t &
+        virtual inline auto error(const char16_t* source, const char16_t* message, ...) -> logging_t& final
         {
             va_list args;
             va_start(args, message);
@@ -79,7 +100,7 @@ namespace Conurbation {
             va_end(args);
             return *this;
         }
-        inline auto panic(const char16_t* source, const char16_t* message, ...) -> logging_t &
+        virtual inline auto panic(const char16_t* source, const char16_t* message, ...) -> logging_t& final
         {
             va_list args;
             va_start(args, message);

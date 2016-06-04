@@ -71,6 +71,13 @@ namespace Conurbation {
         template <typename T> struct remove_pointer_t<T* const volatile> {
             typedef T type;
         };
+
+        template <typename T> struct add_pointer_t {
+            typedef T* type;
+        };
+        template <typename T> struct add_pointer_t<T*> {
+            typedef T* type;
+        };
     }
 
     template <typename T> using remove_const_t = typename _traits_internal::remove_const_t<T>::type;
@@ -86,6 +93,8 @@ namespace Conurbation {
     template <typename T> using add_rvalue_reference_t = remove_reference_t<T>&&;
 
     template <typename T> using remove_pointer_t = typename _traits_internal::remove_pointer_t<T>;
+
+    template <typename T> using add_pointer_t = typename _traits_internal::add_pointer_t<T>;
 
     template <typename T> constexpr bool_t is_integral_v = false;
     template <> constexpr bool_t is_integral_v<uint8_t> = true;

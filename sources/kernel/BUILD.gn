@@ -13,7 +13,8 @@ executable("kernel") {
         "src/hwres/cpu.asm",
         "src/mem/liballoc.cc",
         "src/mem/efi_alloc_service.cc",
-        "src/obmodel/svclocate.cc"
+        "src/obmodel/svclocate.cc",
+        "src/obmodel/service_locator.cc"
 
     ]
 

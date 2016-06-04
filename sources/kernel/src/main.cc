@@ -2,6 +2,7 @@
 #include "conurbation/hwres/addrspace.hh"
 #include "conurbation/mem/liballoc.h"
 #include "conurbation/obmodel/svclocate.hh"
+#include "conurbation/obmodel/service.hh"
 #include "conurbation/status.hh"
 #include "conurbation/logging.hh"
 
@@ -13,15 +14,19 @@ extern "C" auto get_cpuid(uint32_t leaf, uint32_t subleaf, uint32_t* returns) ->
 namespace Conurbation {
 
     auto uefi_address_map_import(UEFI::efi_system_table_t* SystemTable, Conurbation::HwRes::address_space_t* Phy,
-        Conurbation::HwRes::address_space_t* Virt, logging_t& log) -> _<uintptr_t>;
-    auto print_cpuid_info(UEFI::efi_system_table_t* SystemTable, logging_t& log) -> void;
-    auto enumerate_acpi_tables(UEFI::efi_system_table_t* SystemTable, logging_t& log) -> void;
+        Conurbation::HwRes::address_space_t* Virt, logging_p& log) -> _<uintptr_t>;
+    auto print_cpuid_info(UEFI::efi_system_table_t* SystemTable, logging_p& log) -> void;
+    auto enumerate_acpi_tables(UEFI::efi_system_table_t* SystemTable, logging_p& log) -> void;
 
     extern "C" auto kernel_main(UEFI::handle_t ImageHandle, UEFI::efi_system_table_t* SystemTable) -> UEFI::status_t
     {
+
+        service_locator_p& services_ = *new service_locator_t();
+        services_.set(*new logging_t(SystemTable));
+
         ObModel::service_locator_t::page_alloc_service(new Mem::efi_alloc_service_t(SystemTable));
 
-        logging_t& log = *new logging_t(SystemTable);
+        logging_p& log = *static_cast<logging_p*>(services_.get<logging_p>());
 
         SystemTable->ConOut->SetAttribute(SystemTable->ConOut, 0x0A);
 
@@ -72,7 +77,7 @@ namespace Conurbation {
         return UEFI::status_t::Success;
     }
 
-    auto enumerate_acpi_tables(UEFI::efi_system_table_t* SystemTable, logging_t& log) -> void
+    auto enumerate_acpi_tables(UEFI::efi_system_table_t* SystemTable, logging_p& log) -> void
     {
         log.begin_group(u"ACPI Discovery");
 
@@ -113,7 +118,7 @@ namespace Conurbation {
         log.end_group();
     };
 
-    auto print_cpuid_info(UEFI::efi_system_table_t* SystemTable, logging_t& log) -> void
+    auto print_cpuid_info(UEFI::efi_system_table_t* SystemTable, logging_p& log) -> void
     {
         log.begin_group(u"CPU Info");
 
@@ -131,7 +136,7 @@ namespace Conurbation {
     }
 
     auto uefi_address_map_import(UEFI::efi_system_table_t* SystemTable, Conurbation::HwRes::address_space_t* Phy,
-        Conurbation::HwRes::address_space_t* Virt, logging_t& log) -> _<uintptr_t>
+        Conurbation::HwRes::address_space_t* Virt, logging_p& log) -> _<uintptr_t>
     {
         uintptr_t map_size = 2048;
         uintptr_t descr_size;

@@ -5,6 +5,7 @@
 #endif
 
 #include "numeric_types.hh"
+#include "conurbation/traits.hh"
 
 namespace Conurbation {
 
@@ -14,13 +15,15 @@ namespace Conurbation {
         // Error Conditions
         UnknownError = 0,
         MemoryAllocationError = -1,
-        NotFound = -2
+        NotFound = -2,
+        ServiceNotFound = -3
 
     };
 
     template <typename T> class expect_t {
     private:
-        T _val;
+        using storage_type = if_t<is_scalar_v<T>, T, add_pointer_t<remove_reference_t<T>>>;
+        storage_type _val;
         status_t _status;
 
     public:
