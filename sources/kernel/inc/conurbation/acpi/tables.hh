@@ -16,7 +16,7 @@ namespace Conurbation::ACPI
         uint8_t register_bit_offset;
         uint8_t reserved;
         uint64_t address;
-    };
+    } __attribute__((packed));
 
     struct acpi_sdt_header_t {
         char8_t signature[4];
@@ -48,5 +48,5 @@ namespace Conurbation::ACPI
         xsdt_table_t* xsdt_address;
         uint8_t extended_checksum;
         uint8_t reserved[3];
-    };
+    } __attribute__((packed));
 }

@@ -1,4 +1,5 @@
 #include "uefi/tables.h"
+#include "uefi/graphics_output.h"
 #include "conurbation/hwres/addrspace.hh"
 #include "conurbation/mem/liballoc.h"
 #include "conurbation/mem/pagealloc.hh"
@@ -8,7 +9,11 @@
 #include "conurbation/logging.hh"
 #include "conurbation/rng.hh"
 
+#include "string.h"
+
 #include "conurbation/acpi/tables.hh"
+#include "conurbation/acpi/madt.hh"
+#include "conurbation/acpi/hpet.hh"
 
 int sprintf(char16_t* buf, const char16_t* fmt, ...);
 extern "C" auto get_cpuid(uint32_t leaf, uint32_t subleaf, uint32_t* returns) -> void;
@@ -19,6 +24,7 @@ namespace Conurbation {
         Conurbation::HwRes::address_space_t* Virt, logging_p& log) -> _<uintptr_t>;
     auto print_cpuid_info(UEFI::efi_system_table_t* SystemTable, logging_p& log) -> void;
     auto enumerate_acpi_tables(UEFI::efi_system_table_t* SystemTable, logging_p& log) -> void;
+    auto uefi_gop_modes(UEFI::efi_system_table_t* SystemTable, service_locator_p& sl) -> void;
 
     extern "C" auto kernel_main(UEFI::handle_t ImageHandle, UEFI::efi_system_table_t* SystemTable) -> UEFI::status_t
     {
@@ -58,24 +64,7 @@ namespace Conurbation {
         log.info(u"UEFI", u"Current time: %d/%d/%d %d:%d:%d:%d", time.Day, time.Month, time.Year, time.Hour, time.Minute,
             time.Second, time.Nanosecond);
 
-        rng_service_p& rng = *static_cast<rng_service_p*>(services_.get<rng_service_p>());
-
-        log.begin_group(u"RNG test");
-        log.debug(u"test", u"0x%16x", rng.generate());
-        log.debug(u"test", u"0x%16x", rng.generate());
-        log.debug(u"test", u"0x%16x", rng.generate());
-        log.debug(u"test", u"0x%16x", rng.generate());
-        log.debug(u"test", u"0x%16x", rng.generate());
-        log.end_group();
-
-        log.begin_group(u"test");
-        log.panic(u"test", u"PANIC!");
-        log.error(u"test", u"ERROR");
-        log.warn(u"test", u"Warning");
-        log.info(u"test", u"info");
-        log.trace(u"test", u"trace");
-        log.debug(u"test", u"debug");
-        log.end_group();
+        uefi_gop_modes(SystemTable, services_);
 
         print_cpuid_info(SystemTable, log);
         enumerate_acpi_tables(SystemTable, log);
@@ -124,7 +113,51 @@ namespace Conurbation {
                 rsdp->xsdt_address->ptrs[i]->signature[0], rsdp->xsdt_address->ptrs[i]->signature[1],
                 rsdp->xsdt_address->ptrs[i]->signature[2], rsdp->xsdt_address->ptrs[i]->signature[3],
                 rsdp->xsdt_address->ptrs[i]->length, rsdp->xsdt_address->ptrs[i]->length - sizeof(ACPI::acpi_sdt_header_t));
-            i++;
+
+            if (strncmp(rsdp->xsdt_address->ptrs[i]->signature, "HPET", 4) == 0) {
+                log.begin_group(u"High Precision Event Timer");
+                ACPI::hpet_table_t* hpet = reinterpret_cast<ACPI::hpet_table_t*>(rsdp->xsdt_address->ptrs[i]);
+                log.trace(
+                    u"ACPI", u"HPET with %d comparators (base address 0x%16x)", hpet->num_comparators, hpet->address.address);
+                log.end_group();
+            }
+
+            if (strncmp(rsdp->xsdt_address->ptrs[i]->signature, "APIC", 4) == 0) {
+                ACPI::madt_table_t* mt = reinterpret_cast<ACPI::madt_table_t*>(rsdp->xsdt_address->ptrs[i]);
+                size_t length = mt->length - sizeof(ACPI::madt_table_t);
+                size_t offset = sizeof(ACPI::madt_table_t);
+                log.begin_group(u"Multiple APIC Descriptor Table");
+                while (offset < length) {
+                    ACPI::madt_entry_header_t* me
+                        = reinterpret_cast<ACPI::madt_entry_header_t*>(reinterpret_cast<uintptr_t>(mt) + offset);
+                    switch (me->entry_type) {
+                        case ACPI::madt_entry_type_t::local_apic:
+                            log.trace(u"ACPI", u"Local APIC %d (processor: %d, flags: 0x%8x)",
+                                reinterpret_cast<ACPI::madt_entry_lapic_t*>(me)->apic_id,
+                                reinterpret_cast<ACPI::madt_entry_lapic_t*>(me)->processor_id,
+                                reinterpret_cast<ACPI::madt_entry_lapic_t*>(me)->flags);
+                            break;
+                        case ACPI::madt_entry_type_t::io_apic:
+                            log.trace(u"ACPI", u"IO APIC %d (apic base: 0x%16x, GSI base: %d)",
+                                reinterpret_cast<ACPI::madt_entry_ioapic_t*>(me)->apic_id,
+                                reinterpret_cast<ACPI::madt_entry_ioapic_t*>(me)->ioapic_address,
+                                reinterpret_cast<ACPI::madt_entry_ioapic_t*>(me)->gsi_base);
+                            break;
+                        case ACPI::madt_entry_type_t::int_src_override:
+                            log.trace(u"ACPI", u"Interrupt Source Override (bus %d, irq: %d, gsi: %d)",
+                                reinterpret_cast<ACPI::madt_entry_isoverride_t*>(me)->bus_source,
+                                reinterpret_cast<ACPI::madt_entry_isoverride_t*>(me)->irq_source,
+                                reinterpret_cast<ACPI::madt_entry_isoverride_t*>(me)->gsi);
+                        default:
+                            /* code */
+                            break;
+                    }
+                    offset += me->entry_length;
+                }
+                log.end_group();
+            }
+
+            ++i;
         }
         log.end_group();
 
@@ -147,6 +180,56 @@ namespace Conurbation {
             _buf_byte[11]);
 
         log.end_group();
+    }
+
+    auto uefi_gop_modes(UEFI::efi_system_table_t* SystemTable, service_locator_p& sl) -> void
+    {
+        logging_p& log = *static_cast<logging_p*>(sl.get<logging_p>());
+
+        guid_t gop_guid = UEFI::protocol_guid_v<UEFI::efi_graphics_output_p>;
+
+        UEFI::efi_graphics_output_p* gop;
+        UEFI::efi_graphics_output_mode_information_t* mi;
+        uintptr_t misize;
+        UEFI::status_t st = SystemTable->BootServices->LocateProtocol(&gop_guid, nullptr, reinterpret_cast<void**>(&gop));
+
+        if (st == UEFI::status_t::Success) {
+            log.begin_group(u"UEFI Graphics Output Protocol");
+            log.trace(u"UEFI", u"Active mode: %d", gop->Mode->Mode);
+
+            log.begin_group(u"Supported Modes");
+            for (int i = 0; i < gop->Mode->MaxMode; ++i) {
+                gop->QueryMode(gop, i, &misize, &mi);
+                switch (mi->PixelFormat) {
+                    case UEFI::efi_graphics_pixel_format_t::PixelBlueGreenRedReserved8BitPerColor:
+                        log.trace(u"UEFI", u"%d: %d*%d (%d ppsl) 32-bit BGR", i, mi->HorizontalResolution,
+                            mi->VerticalResolution, mi->PixelsPerScanLine);
+                        break;
+                    case UEFI::efi_graphics_pixel_format_t::PixelRedGreenBlueReserved8BitPerColor:
+                        log.trace(u"UEFI", u"%d: %d*%d (%d ppsl) 32-bit RGB", i, mi->HorizontalResolution,
+                            mi->VerticalResolution, mi->PixelsPerScanLine);
+                        break;
+                    case UEFI::efi_graphics_pixel_format_t::PixelBltOnly:
+                        log.trace(u"UEFI", u"%d: %d*%d (%d ppsl) BLT Only", i, mi->HorizontalResolution,
+                            mi->VerticalResolution, mi->PixelsPerScanLine);
+                        break;
+                    case UEFI::efi_graphics_pixel_format_t::PixelBitMask:
+                        log.trace(u"UEFI", u"%d: %d*%d (%d ppsl) %d:%d:%d", i, mi->HorizontalResolution,
+                            mi->VerticalResolution, mi->PixelsPerScanLine, __builtin_popcount(mi->PixelInformation.RedMask),
+                            __builtin_popcount(mi->PixelInformation.GreenMask),
+                            __builtin_popcount(mi->PixelInformation.BlueMask));
+                        break;
+                    default:
+                        log.trace(u"UEFI", u"%d: Unknown Mode", i);
+                }
+                /* code */
+            }
+            log.end_group();
+            log.end_group();
+        }
+        else {
+            log.warn(u"UEFI", u"Graphics Output Protocol not found");
+        }
     }
 
     auto uefi_address_map_import(UEFI::efi_system_table_t* SystemTable, Conurbation::HwRes::address_space_t* Phy,
