@@ -22,7 +22,10 @@ namespace Conurbation::Graphics
         return this;
     }
 
-    auto canvas_p::drawQuadBezier(uint64x2_t p0, uint64x2_t p1, uint64x2_t p2)->canvas_p *
+    auto canvas_p::drawQuadBezierSegment(uint64x2_t p0, uint64x2_t c0, uint64x2 p2, )
+
+        auto canvas_p::drawQuadBezier(uint64x2_t p0, uint64x2_t p1, uint64x2_t p2)
+            ->canvas_p *
     {
         if (euclidean_distance(p0, p2) <= 1) {
             drawPixel(p0);

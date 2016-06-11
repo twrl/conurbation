@@ -1,7 +1,7 @@
 #pragma once
 
-#include "conurbation/numeric_types.hh"
-#include "conurbation/vector_types.hh"
+#include "numeric_types.hh"
+#include "vector_types.hh"
 
 namespace Conurbation::Graphics
 {

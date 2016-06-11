@@ -12,7 +12,6 @@ namespace Conurbation::ACPI
     struct madt_table_t : acpi_sdt_header_t {
         uint32_t local_controller;
         uint32_t flags;
-        uint8_t madt_entry;
     };
 
     enum class madt_entry_type_t : uint8_t { local_apic = 0, io_apic = 1, int_src_override = 2 };

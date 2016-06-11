@@ -9,7 +9,7 @@ EFI_STATUS EFIAPI efi_main(EFI_HANDLE ImageHandle, EFI_SYSTEM_TABLE* SystemTable
 
     InitializeLib(ImageHandle, SystemTable);
 
-    Print(L"Hello World!\n");
+    Print(L"elf64ldr.efi - ELF64 Executable Stub Loader\n");
 
     Print(L"Image Handle: %lx\n", (UINTN)ImageHandle);
     Print(L"System Table: %lx\n", (UINTN)SystemTable);
