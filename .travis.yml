@@ -10,11 +10,9 @@ addons:
           - clang-3.8
           - ninja-build
           - nasm
+          - gnu-efi 
+          - binutils
 install:
-  - wget http://ftp.uk.debian.org/debian/pool/main/g/gnu-efi/gnu-efi_3.0.3-2_amd64.deb
-  - wget http://ftp.uk.debian.org/debian/pool/main/b/binutils/binutils_2.26-9_amd64.deb
-  - sudo dpkg -i gnu-efi_3.0.3-2_amd64.deb
-  - sudo dpkg -i binutils_2.26-9_amd64.deb
   - python ./build/depot_tools/download_from_google_storage.py -b chromium-gn -s ./build/tools/gn.sha1
 before_script:
   - ./build/tools/gn gen build/out
