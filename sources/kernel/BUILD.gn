@@ -9,6 +9,8 @@ executable("kernel") {
         "src/cxxabi.cc",
         "src/logging.cc",
         #"src/graphics/canvas.cc",
+        "src/stringbuilder.cc",
+        "src/string.cc",
         "src/hwres/addrspace.cc",
         "src/hwres/cpu.asm",
         "src/mem/liballoc.cc",
@@ -25,7 +27,7 @@ executable("kernel") {
 
     cflags = [ "-gline-tables-only", "-mfpmath=sse", "-msse3" ]
     cflags_cc = [ "-std=c++1z", "-nostdinc", "-ffreestanding", "-fno-exceptions", "-fno-rtti", "-fblocks" ]
-    ldflags = [  "-fuse-ld=gold", "-nostdlib", "-S", "-zmax-page-size=4096", "-gc-sections", "--no-ld-generated-unwind-info" ]
+    ldflags = [  "-fuse-ld=gold", "-nostdlib", "-zmax-page-size=4096", "--no-ld-generated-unwind-info" ]
 
 
 }

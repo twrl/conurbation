@@ -9,6 +9,8 @@
 #include "conurbation/logging.hh"
 #include "conurbation/rng.hh"
 
+#include "stringbuilder.hh"
+
 #include "string.h"
 
 #include "conurbation/acpi/tables.hh"
@@ -63,6 +65,21 @@ namespace Conurbation {
         SystemTable->RuntimeServices->GetTime(&time, nullptr);
         log.info(u"UEFI", u"Current time: %d/%d/%d %d:%d:%d:%d", time.Day, time.Month, time.Year, time.Hour, time.Minute,
             time.Second, time.Nanosecond);
+
+        log.begin_group(u"String Builder");
+        string_builder_t* sb = new string_builder_t();
+        sb->append(u"GUID: ").append("8868e871-e4f1-11d3-bc22-0080c73c8881"_guid);
+        log.info(u"test", sb->to_string());
+        delete sb;
+        sb = new string_builder_t();
+        sb->append(u"Signed: ").append(-3892).append(u' ').append(-3892L, u"x");
+        log.info(u"test", sb->to_string());
+        delete sb;
+        string_t& str = format(u"GUID {}, uint 0x{16x}", "8868e871-e4f1-11d3-bc22-0080c73c8881"_guid, uint8_t(14));
+        log.info(u"test", str);
+        log.end_group();
+
+        log.stack_trace(3);
 
         uefi_gop_modes(SystemTable, services_);
 
@@ -195,7 +212,9 @@ namespace Conurbation {
 
         if (st == UEFI::status_t::Success) {
             log.begin_group(u"UEFI Graphics Output Protocol");
-            log.trace(u"UEFI", u"Active mode: %d", gop->Mode->Mode);
+            log.trace(u"UEFI", u"Active mode: %d (%dx%d)", gop->Mode->Mode, gop->Mode->Info->HorizontalResolution,
+                gop->Mode->Info->VerticalResolution);
+            log.trace(u"UEFI", u"Framebuffer 0x%16x (%d bytes)", gop->Mode->FramebufferBase, gop->Mode->FramebufferSize);
 
             log.begin_group(u"Supported Modes");
             for (int i = 0; i < gop->Mode->MaxMode; ++i) {
@@ -272,15 +291,17 @@ namespace Conurbation {
         log.debug(u"UEFI", u"Memory map at 0x%16x-%16x (%d bytes) conatins %d descriptors of %d bytes", map_offset, map_limit,
             map_size, map_size / descr_size, descr_size);
 
-        log.trace(u"UEFI", u"    Base-Limit                         |  Pages  | Attributes         | Type    ")
-            .trace(
-                u"UEFI", u"  -------------------------------------+---------+--------------------+-------------------------");
+        log.trace(u"UEFI",
+               u"    Base-Limit                         | Physical Base      |  Pages  | Attributes         | Type    ")
+            .trace(u"UEFI", u"  "
+                            u"-------------------------------------+--------------------+--------------------+----------------"
+                            u"---------");
 
         while (map_offset < map_limit) {
             UEFI::memory_descriptor_t* descriptor = reinterpret_cast<UEFI::memory_descriptor_t*>(map_offset);
-            log.trace(u"UEFI", u"    %16x-%16x  | %6d  | 0x%16x | %s", descriptor->PhysicalStart,
-                descriptor->PhysicalStart + (4096 * descriptor->NumberOfPages) - 1, descriptor->NumberOfPages,
-                descriptor->Attribute, UEFI::efiMemoryTypeToString(descriptor->Type));
+            log.trace(u"UEFI", u"    %16x-%16x  | 0x%16x | %6d  | 0x%16x | %s", descriptor->VirtualStart,
+                descriptor->VirtualStart + (4096 * descriptor->NumberOfPages) - 1, descriptor->PhysicalStart,
+                descriptor->NumberOfPages, descriptor->Attribute, UEFI::efiMemoryTypeToString(descriptor->Type));
 
             /*HwRes::address_region_t* pr = Phy->define_region(descriptor->PhysicalStart, descriptor->NumberOfPages * 4096)
                                               ->backing_mode(HwRes::address_backing_t::self);
