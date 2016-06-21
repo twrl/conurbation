@@ -113,7 +113,7 @@ namespace Conurbation {
     template <typename T> constexpr bool_t is_floating_point_v = false;
     template <> constexpr bool_t is_floating_point_v<float32_t> = true;
     template <> constexpr bool_t is_floating_point_v<float64_t> = true;
-    template <> constexpr bool_t is_floating_point_v<float128_t> = true;
+    // template <> constexpr bool_t is_floating_point_v<float128_t> = true;
 
     template <typename T> constexpr bool_t is_arithmetic_v = is_integral_v<T> || is_floating_point_v<T>;
 

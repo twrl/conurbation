@@ -9,6 +9,7 @@
 #include "variadic.hh"
 #include "uefi/tables.h"
 #include "conurbation/obmodel/service.hh"
+#include "stringbuilder.hh"
 
 namespace Conurbation {
 
@@ -25,6 +26,8 @@ namespace Conurbation {
         virtual auto end_group() -> logging_p& = 0;
         virtual auto log(log_level_t level, const char16_t* source, const char16_t* message, va_list args) -> logging_p& = 0;
         virtual auto log(log_level_t level, const char16_t* source, const char16_t* message, ...) -> logging_p& = 0;
+
+        virtual auto stack_trace(size_t max_frames) -> logging_p& = 0;
 
         virtual auto debug(const char16_t* source, const char16_t* message, ...) -> logging_p& = 0;
         virtual auto trace(const char16_t* source, const char16_t* message, ...) -> logging_p& = 0;
@@ -50,6 +53,8 @@ namespace Conurbation {
         virtual auto begin_group(const char16_t* title) -> logging_t&;
         virtual auto end_group() -> logging_t&;
         virtual auto log(log_level_t level, const char16_t* source, const char16_t* message, va_list args) -> logging_t&;
+
+        virtual auto stack_trace(size_t max_frames) -> logging_t& final;
 
         virtual inline auto log(log_level_t level, const char16_t* source, const char16_t* message, ...) -> logging_t& final
         {

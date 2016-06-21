@@ -7,7 +7,7 @@ toolchain("clang") {
         depfile = "{{output}}.d"
         command = "clang-3.8 -MMD -MF $depfile {{defines}} {{include_dirs}} {{cflags}} {{cflags_c}} -c {{source}} -o {{output}}"
         #depsformat = "gcc"
-        description = "CC {{output}}"
+        description = "CC {{source}} -> {{output}}"
         outputs = [
             "{{source_out_dir}}/{{target_output_name}}.{{source_name_part}}.o"
         ]
@@ -16,7 +16,7 @@ toolchain("clang") {
         depfile = "{{output}}.d"
         command = "clang++-3.8 -MMD -MF $depfile {{defines}} {{include_dirs}} {{cflags}} {{cflags_cc}} -c {{source}} -o {{output}}"
         #depsformat = "gcc"
-        description = "CXX {{output}}"
+        description = "CXX {{source}} -> {{output}}"
         outputs = [
             "{{source_out_dir}}/{{target_output_name}}.{{source_name_part}}.o"
         ]
@@ -25,7 +25,7 @@ toolchain("clang") {
         depfile = "{{output}}.d"
         command = "nasm -MD $depfile {{defines}} -f elf64 -o {{output}} {{source}}"
         #depsformat = "gcc"
-        description = "ASM {{output}}"
+        description = "ASM {{source}} -> {{output}}"
         outputs = [
             "{{source_out_dir}}/{{target_output_name}}.{{source_name_part}}.o"
         ]

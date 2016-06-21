@@ -59,6 +59,8 @@ namespace Conurbation {
 
         auto append(guid_t value, const string_t& format = u"") -> string_builder_t&;
 
+        // template <typename T> auto append(T value) -> string_builder_t & { return append(value.to_string()); }
+
         auto to_string() -> char16_t*;
 
         operator string_t&();
@@ -71,6 +73,15 @@ namespace Conurbation {
             return this->append(format.substring(0, _i - 1))
                 .append(hval, format.substring(_i + 1, _j - 1))
                 .append_format(format.substring(_j + 1), tvals...);
+        }
+
+        template <typename THead> auto append_format(string_t& format, THead hval) -> string_builder_t &
+        {
+            auto _i = format.index_of(_od);
+            auto _j = format.index_after(_cd, _i + 1);
+            return this->append(format.substring(0, _i - 1))
+                .append(hval, format.substring(_i + 1, _j - 1))
+                .append(format.substring(_j + 1));
         }
 
         auto append_format(string_t& format) -> string_builder_t & { return append(format); }

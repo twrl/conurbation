@@ -25,7 +25,7 @@ _start:
 
         mov rdi, __init_array_start
         mov rsi, __init_array_end
-        call fun_array_fwd
+        call fun_array_preinit
 
         mov rdi, [_uefi_image_handle]
         mov rsi, [_uefi_system_table_ptr]

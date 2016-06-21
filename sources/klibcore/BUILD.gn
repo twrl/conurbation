@@ -13,7 +13,7 @@ source_set("klibcore") {
     sources = [
         "src/cstrings.cc",
         "src/mem.asm",
-        "src/blocks.cc"
+        "src/blocks.cc",
     ]
 
     all_dependent_configs = [ ":depend" ]

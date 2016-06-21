@@ -17,8 +17,12 @@
 #include "conurbation/acpi/madt.hh"
 #include "conurbation/acpi/hpet.hh"
 
-int sprintf(char16_t* buf, const char16_t* fmt, ...);
 extern "C" auto get_cpuid(uint32_t leaf, uint32_t subleaf, uint32_t* returns) -> void;
+
+[[gnu::constructor]] auto foo_fn(UEFI::handle_t ImageHandle, UEFI::efi_system_table_t* SystemTable) -> void
+{
+    SystemTable->ConOut->OutputString(SystemTable->ConOut, u"Foo Initializer");
+}
 
 namespace Conurbation {
 
@@ -75,7 +79,7 @@ namespace Conurbation {
         sb->append(u"Signed: ").append(-3892).append(u' ').append(-3892L, u"x");
         log.info(u"test", sb->to_string());
         delete sb;
-        string_t& str = format(u"GUID {}, uint 0x{16x}", "8868e871-e4f1-11d3-bc22-0080c73c8881"_guid, uint8_t(14));
+        string_t& str = format(u"GUID {}, uint 0x{x}", "8868e871-e4f1-11d3-bc22-0080c73c8881"_guid, uint8_t(14));
         log.info(u"test", str);
         log.end_group();
 

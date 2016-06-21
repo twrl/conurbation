@@ -39,7 +39,7 @@ typedef __UINTMAX_TYPE__ uintmax_t;
 
 typedef float float32_t;
 typedef double float64_t;
-typedef long double float128_t;
+// typedef long double float128_t;
 
 typedef __PTRDIFF_TYPE__ ptrdiff_t;
 typedef __SIZE_TYPE__ size_t;

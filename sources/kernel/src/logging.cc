@@ -1,7 +1,7 @@
 #include "conurbation/logging.hh"
 #include "conurbation/mem/liballoc.h"
 
-size_t vasprintf(char16_t* buf, const char16_t* fmt, va_list args);
+[[deprecated]] size_t vasprintf(char16_t* buf, const char16_t* fmt, va_list args);
 
 namespace Conurbation {
 
@@ -72,6 +72,25 @@ namespace Conurbation {
 
         kfree(buf);
 
+        return *this;
+    }
+
+    auto logging_t::stack_trace(size_t max_frames) -> logging_t &
+    {
+        uintptr_t* rbp;
+        asm volatile("movq %%rbp, %[bp]" : [bp] "=r"(rbp));
+        this->begin_group(u"Stack Trace");
+        for (size_t frame = 0; frame < max_frames; ++frame) {
+            uintptr_t rip = rbp[1];
+            if (rip == 0)
+                // No caller on stack
+                break;
+            // Unwind to previous stack frame
+            rbp = reinterpret_cast<uintptr_t*>(rbp[0]);
+            uintptr_t* arguments = &rbp[2];
+            this->trace(u"STACK", u"0x%16x", rip);
+        }
+        this->end_group();
         return *this;
     }
 }

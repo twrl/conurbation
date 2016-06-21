@@ -1,7 +1,6 @@
 #pragma once
 
 #include "char_types.hh"
-#include "iterable.hh"
 
 #include "conurbation/mem/liballoc.h"
 #include "string.h"
@@ -31,7 +30,7 @@ namespace Conurbation {
                 const_cast<void*>(reinterpret_cast<const void*>(str.string_)), str.size());
         }
 
-        string_t(const char16_t* cstring)
+        constexpr string_t(const char16_t* cstring)
             : string_(cstring)
         {
         }

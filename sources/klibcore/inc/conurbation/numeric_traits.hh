@@ -35,14 +35,14 @@ template <> constexpr float32_t Conurbation::numeric_max_v<float32_t> = __FLT_MA
 template <> constexpr float32_t Conurbation::numeric_min_v<float32_t> = __FLT_MIN__;
 template <> constexpr float64_t Conurbation::numeric_max_v<float64_t> = __DBL_MAX__;
 template <> constexpr float64_t Conurbation::numeric_min_v<float64_t> = __DBL_MIN__;
-template <> constexpr float128_t Conurbation::numeric_max_v<float128_t> = __LDBL_MAX__;
-template <> constexpr float128_t Conurbation::numeric_min_v<float128_t> = __LDBL_MIN__;
+// template <> constexpr float128_t Conurbation::numeric_max_v<float128_t> = __LDBL_MAX__;
+// template <> constexpr float128_t Conurbation::numeric_min_v<float128_t> = __LDBL_MIN__;
 
 namespace Conurbation {
 
     constexpr uintmax_t operator""_Ki(unsigned long long v) { return v * 1024; }
     constexpr uintmax_t operator""_Mi(unsigned long long v) { return v * 1024 * 1024; }
-    constexpr uintmax_t operator""_Gi(unsigned long long v) { return v * 1024 * 1024; }
+    constexpr uintmax_t operator""_Gi(unsigned long long v) { return v * 1024 * 1024 * 1024; }
 }
 
 #pragma clang diagnostic pop
