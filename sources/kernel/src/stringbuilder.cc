@@ -39,7 +39,7 @@ namespace Conurbation {
         return rc;
     }
 
-    auto string_builder_t::append(const char16_t* string) -> string_builder_t &
+    auto string_builder_t::append(const char16_t* string, const string_t& format) -> string_builder_t &
     {
         auto cat_len = string_length(string);
         if (buffer_size_ - buffer_pos_ <= cat_len) {
@@ -52,9 +52,12 @@ namespace Conurbation {
         return *this;
     }
 
-    auto string_builder_t::append(const string_t& string) -> string_builder_t & { return append(string.string_); }
+    auto string_builder_t::append(const string_t& string, const string_t& format) -> string_builder_t &
+    {
+        return append(string.string_);
+    }
 
-    auto string_builder_t::append(char16_t ch) -> string_builder_t &
+    auto string_builder_t::append(char16_t ch, const string_t& format) -> string_builder_t &
     {
         if (buffer_size_ - buffer_pos_ <= 2) {
             buffer_size_ += 64;

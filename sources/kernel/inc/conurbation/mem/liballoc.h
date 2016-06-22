@@ -1,11 +1,13 @@
 #pragma once
 
 #include "numeric_types.hh"
-#include "conurbation/mem/pagealloc.hh"
+#include "conurbation/services/memory.hh"
+//#include "conurbation/mem/pagealloc.hh"
 //#include "conurbation/obmodel/svclocate.hh"
 
 /*******************************************************************************
- * This is liballoc 1.1 taken from https://github.com/blanham/liballoc and originally by Durand Miller. I have modified it a
+ * This is liballoc 1.1 taken from https://github.com/blanham/liballoc and originally by Durand Miller. I have modified
+ *it a
  * lot. It's somewhat ambiguos whether the original is public domain or 3-clause BSD.
  ******************************************************************************/
 
@@ -63,13 +65,15 @@ inline int liballoc_unlock()
  */
 inline void* liballoc_alloc(size_t size)
 {
-    auto pasvc = Conurbation::service_locator_p::default_locator().get<Conurbation::page_alloc_service_p>();
+    Conurbation::Services::locator_p& _svc = Conurbation::Services::locator_p::get_locator();
+    return reinterpret_cast<void*>(_svc.page_allocator().allocate(size));
+    /*auto pasvc = Conurbation::service_locator_p::default_locator().get<Conurbation::page_alloc_service_p>();
     if (pasvc) {
         auto s = static_cast<Conurbation::page_alloc_service_p*>(pasvc.value())->allocate(size);
         if (s)
             return reinterpret_cast<void*>(s.value());
     }
-    return nullptr;
+    return nullptr;*/
 
     /*Conurbation::_<uintptr_t> s = Conurbation::ObModel::service_locator_t::page_alloc_service()->allocate(size);
     if (s)
@@ -88,12 +92,18 @@ inline void* liballoc_alloc(size_t size)
  */
 inline int liballoc_free(void* base, size_t num)
 {
+    Conurbation::Services::locator_p& _svc = Conurbation::Services::locator_p::get_locator();
+    _svc.page_allocator().deallocate(num, reinterpret_cast<uintptr_t>(base));
+    return 0;
+    /*
     auto pasvc = Conurbation::service_locator_p::default_locator().get<Conurbation::page_alloc_service_p>();
     if (pasvc) {
-        static_cast<Conurbation::page_alloc_service_p*>(pasvc.value())->deallocate(num, reinterpret_cast<uintptr_t>(base));
+        static_cast<Conurbation::page_alloc_service_p*>(pasvc.value())->deallocate(num,
+    reinterpret_cast<uintptr_t>(base));
     }
-    // Conurbation::ObModel::service_locator_t::page_alloc_service()->deallocate(num, reinterpret_cast<uintptr_t>(base));
-    return 0;
+    // Conurbation::ObModel::service_locator_t::page_alloc_service()->deallocate(num,
+    reinterpret_cast<uintptr_t>(base));
+    return 0;*/
 };
 
 extern void* PREFIX(malloc)(size_t); ///< The standard function.

@@ -95,5 +95,14 @@ namespace Conurbation {
         // inline auto operator+=(string_t& str) -> string_t & { return this->concat(str); }
 
         [[deprecated]] operator const char16_t*() const { return string_; }
+
+        auto operator=(const string_t& str) -> string_t &
+        {
+            kfree(const_cast<void*>(reinterpret_cast<const void*>(string_)));
+            string_ = reinterpret_cast<const char16_t*>(kmalloc(str.size()));
+            memcpy(const_cast<void*>(reinterpret_cast<const void*>(string_)),
+                const_cast<void*>(reinterpret_cast<const void*>(str.string_)), str.size());
+            return *this;
+        }
     };
 }

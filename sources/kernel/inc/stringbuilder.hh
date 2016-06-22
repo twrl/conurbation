@@ -41,9 +41,9 @@ namespace Conurbation {
 
         ~string_builder_t() { kfree(reinterpret_cast<void*>(buffer_)); }
 
-        auto append(const char16_t* string) -> string_builder_t&;
-        auto append(const string_t& string) -> string_builder_t&;
-        auto append(char16_t ch) -> string_builder_t&;
+        auto append(const char16_t* string, const string_t& format = u"") -> string_builder_t&;
+        auto append(const string_t& string, const string_t& format = u"") -> string_builder_t&;
+        auto append(char16_t ch, const string_t& format = u"") -> string_builder_t&;
 
         auto append(uint8_t value, const string_t& format = u"2x") -> string_builder_t&;
         auto append(uint16_t value, const string_t& format = u"4x") -> string_builder_t&;
@@ -66,7 +66,7 @@ namespace Conurbation {
         operator string_t&();
 
         template <typename THead, typename... TRest>
-        auto append_format(string_t& format, THead hval, TRest... tvals) -> string_builder_t &
+        auto append_format(const string_t& format, THead hval, TRest... tvals) -> string_builder_t &
         {
             auto _i = format.index_of(_od);
             auto _j = format.index_after(_cd, _i + 1);
@@ -75,7 +75,7 @@ namespace Conurbation {
                 .append_format(format.substring(_j + 1), tvals...);
         }
 
-        template <typename THead> auto append_format(string_t& format, THead hval) -> string_builder_t &
+        template <typename THead> auto append_format(const string_t& format, THead hval) -> string_builder_t &
         {
             auto _i = format.index_of(_od);
             auto _j = format.index_after(_cd, _i + 1);
@@ -84,13 +84,13 @@ namespace Conurbation {
                 .append(format.substring(_j + 1));
         }
 
-        auto append_format(string_t& format) -> string_builder_t & { return append(format); }
+        auto append_format(const string_t& format) -> string_builder_t & { return append(format); }
     };
 
     [[deprecated]] auto string_length(const char8_t* string) -> size_t;
     [[deprecated]] auto string_length(const char16_t* string) -> size_t;
 
-    template <typename... TArgs> auto format(string_t&& format_string, TArgs... args) -> string_t &
+    template <typename... TArgs> auto format(const string_t& format_string, TArgs... args) -> string_t &
     {
         string_builder_t sb;
         return sb.append_format(format_string, args...);

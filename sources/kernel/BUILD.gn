@@ -5,17 +5,17 @@ executable("kernel") {
     sources = [
         "src/start.asm",
         "src/main.cc",
-        "src/printf.cc",
         "src/cxxabi.cc",
-        "src/logging.cc",
-        #"src/graphics/canvas.cc",
         "src/stringbuilder.cc",
         "src/string.cc",
         "src/hwres/addrspace.cc",
         "src/hwres/cpu.asm",
         "src/mem/liballoc.cc",
-        "src/mem/efi_alloc_service.cc",
-        "src/obmodel/service_locator.cc"
+
+        "src/services/locator.cc",
+        "src/services/uefi/console.cc",
+        "src/services/uefi/pages.cc",
+        "src/services/directlog.cc"
 
     ]
 
