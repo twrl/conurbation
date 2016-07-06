@@ -2,12 +2,7 @@
 #include "uefi/graphics_output.h"
 #include "conurbation/hwres/addrspace.hh"
 #include "conurbation/mem/liballoc.h"
-//#include "conurbation/mem/pagealloc.hh"
-//#include "conurbation/obmodel/svclocate.hh"
-//#include "conurbation/obmodel/service.hh"
 #include "conurbation/status.hh"
-//#include "conurbation/logging.hh"
-//#include "conurbation/rng.hh"
 
 #include "stringbuilder.hh"
 
@@ -70,13 +65,13 @@ namespace Conurbation {
         print_cpuid_info(SystemTable, log);
         enumerate_acpi_tables(SystemTable, log);
 
-        HwRes::address_space_t* Phy = new HwRes::address_space_t(0, -1);
-        HwRes::address_space_t* Virt = new HwRes::address_space_t(0, -1);
+        // HwRes::address_space_t* Phy = new HwRes::address_space_t(0, -1);
+        // HwRes::address_space_t* Virt = new HwRes::address_space_t(0, -1);
         // FIXME: Use CPUID 8000_0008h to set the parameters for the Phy and Virt address spaces
-        Phy->first()->usage(HwRes::address_usage_t::noexist)->backing_mode(HwRes::address_backing_t::none);
-        Virt->first()->usage(HwRes::address_usage_t::noexist)->backing_mode(HwRes::address_backing_t::none);
+        // Phy->first()->usage(HwRes::address_usage_t::noexist)->backing_mode(HwRes::address_backing_t::none);
+        // Virt->first()->usage(HwRes::address_usage_t::noexist)->backing_mode(HwRes::address_backing_t::none);
 
-        _<uintptr_t> efi_map_key = uefi_address_map_import(SystemTable, Phy, Virt, log);
+        _<uintptr_t> efi_map_key = uefi_address_map_import(SystemTable, nullptr, nullptr, log);
 
         return UEFI::status_t::Success;
     }

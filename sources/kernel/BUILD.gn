@@ -8,7 +8,12 @@ executable("kernel") {
         "src/cxxabi.cc",
         "src/stringbuilder.cc",
         "src/string.cc",
+
+        "src/ecs/component.cc",
+        "src/ecs/entity.cc",
+
         "src/hwres/addrspace.cc",
+
         "src/hwres/cpu.asm",
         "src/mem/liballoc.cc",
 
