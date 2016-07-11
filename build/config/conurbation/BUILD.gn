@@ -5,4 +5,8 @@ config("conurbation") {
         "_Conurbation_Preinit_Heap_Pages=" + Conurbation_Preinit_Heap_Pages
     ]
 
+    cflags = [ "-gline-tables-only", "-mfpmath=sse", "-msse3" ]
+    cflags_cc = [ "-std=c++1z", "-nostdinc", "-ffreestanding", "-fno-exceptions", "-fno-rtti", "-fblocks" ]
+    ldflags = [  "-fuse-ld=gold", "-nostdlib", "-zmax-page-size=4096", "--no-ld-generated-unwind-info" ]
+
 }

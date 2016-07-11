@@ -1,0 +1,4 @@
+namespace {
+
+    void gndn() { return; }
+}

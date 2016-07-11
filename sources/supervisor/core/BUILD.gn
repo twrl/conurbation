@@ -1,0 +1,16 @@
+import("//build/config/conurbation/module.gni")
+
+kernel_module("core") {
+
+    sources = [
+        "src/main.cc",
+        "src/hwres/addrspace.cc",
+        "src/hwres/cpu.asm",
+        "src/mem/liballoc.cc",
+        "src/services/directlog.cc",
+        "src/services/locator.cc"
+    ]
+
+    configs = [ "../hal-x64-uefi:depend", "../acpi:depend" ]
+
+}

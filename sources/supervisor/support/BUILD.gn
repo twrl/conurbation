@@ -1,0 +1,37 @@
+import("//build/config/conurbation/module.gni")
+
+kernel_module("support") {
+
+    public = [
+        "inc/atomic_types.hh",
+        "inc/blocks.hh",
+        "inc/char_types.hh",
+        "inc/cpu_intrinsics.hh",
+        "inc/guid.h",
+        "inc/numeric_types.hh",
+        "inc/sse_intrinsics.hh",
+        "inc/string.h",
+        "inc/string.hh",
+        "inc/stringbuilder.hh",
+        "inc/time.hh",
+        "inc/variadic.hh",
+        "inc/vector_types.hh",
+        "inc/conurbation/numeric_traits.hh",
+        "inc/conurbation/object_traits.hh",
+        "inc/conurbation/traits.hh",
+        "inc/conurbation/vector_traits.hh"
+    ]
+
+    sources = [
+        "src/blocks.cc",
+        "src/cstrings.cc",
+        "src/cxxabi.cc",
+        "src/mem.asm",
+        "src/string.cc",
+        "src/stringbuilder.cc"
+    ]
+
+    configs = [ "../core:depend" ]
+
+}
+#

@@ -1,0 +1,12 @@
+import("//build/config/conurbation/module.gni")
+
+kernel_module("hal-x64-uefi") {
+
+    sources = [
+        "src/start.asm",
+        "src/tostring.cc",
+        "src/services/console.cc",
+        "src/services/pages.cc"
+    ]
+
+}

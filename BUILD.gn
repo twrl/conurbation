@@ -1,7 +1,7 @@
 group("root") {
     deps = [
         "//sources/elf64ldr",
-        "//sources/kernel",
+        "//sources/supervisor",
         "//build/vm"
     ]
 }

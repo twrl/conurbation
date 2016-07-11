@@ -1,6 +1,10 @@
 set_default_toolchain("//build/toolchain/clang")
 
 declare_args() {
+    # Number of pages to preinitialize the heap with
     Conurbation_Preinit_Heap_Pages = 16
+
+    # Default target type for kernel modules
+    Conurbation_Module_Type = "static_library"
 
 }

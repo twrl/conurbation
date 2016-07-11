@@ -1,0 +1,29 @@
+template("kernel_module") {
+    assert(defined(invoker.sources), "Need sources for kernel module $target_name")
+
+    config("depend") {
+        include_dirs = [ "inc" ]
+    }
+
+    target(Conurbation_Module_Type, target_name) {
+
+        forward_variables_from(invoker, "*")
+
+        if (!defined(deps)) { deps = [] }
+        if (target_name != "support") {
+            deps += [ "//sources/supervisor/support" ]
+            if (target_name != "core") {
+                deps += [ "//sources/supervisor/core" ]
+            }
+        }
+        #data_deps += [ "//sources/supervisor/support", "//sources/supervisor/core" ]
+
+        if (!defined(configs)) { configs = [] }
+        configs += [ "//build/config/conurbation" ]
+
+        if (!defined(public_configs)) { public_configs = [] }
+        public_configs += [ ":depend" ]
+
+    }
+
+}

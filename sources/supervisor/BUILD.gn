@@ -1,0 +1,12 @@
+executable("supervisor") {
+
+    output_extension = "sys"
+    output_name = "kernel"
+
+    deps = [
+        "support",
+        "core",
+        "hal-x64-uefi",
+    ]
+
+}

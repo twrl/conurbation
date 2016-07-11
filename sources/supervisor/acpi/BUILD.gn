@@ -1,0 +1,15 @@
+import("//build/config/conurbation/module.gni")
+
+kernel_module("acpi") {
+
+    public = [
+        "inc/conurbation/acpi/tables.hh",
+        "inc/conurbation/acpi/hpet.hh",
+        "inc/conurbation/acpi/madt.hh"
+    ]
+
+    sources = [
+        "src/dummy.cc"
+    ]
+
+}
