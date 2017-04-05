@@ -4,10 +4,10 @@ language: generic
 addons:
     apt:
         sources:
-          - sourceline: "deb http://httpredir.debian.org/debian sid main"
-            key_url: "https://ftp-master.debian.org/keys/archive-key-8.asc"
+          - sourceline: "deb http://apt.llvm.org/trusty/ llvm-toolchain-trusty-3.9 main"
+            key_url: "http://apt.llvm.org/llvm-snapshot.gpg.key"
         packages:
-          - clang-3.8
+          - clang-3.9
           - ninja-build
           - nasm
           - gnu-efi
