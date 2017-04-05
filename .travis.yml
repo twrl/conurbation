@@ -4,14 +4,14 @@ language: generic
 addons:
     apt:
         sources:
-          - sourceline: "ppa:kalon33/experimental-stuff"
+          - sourceline: "ppa:superm1/uefi"
           - sourceline: "deb http://apt.llvm.org/trusty/ llvm-toolchain-trusty-3.9 main"
             key_url: "http://apt.llvm.org/llvm-snapshot.gpg.key"
         packages:
           - clang-3.9
           - ninja-build
           - nasm
-          - gnu-efi
+          - gnu-efi=3.0.2-1ubuntu1~trusty1
           - binutils
 install:
   - python ./build/depot_tools/download_from_google_storage.py -b chromium-gn -s ./build/tools/gn.sha1
