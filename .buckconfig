@@ -1,0 +1,20 @@
+[alias]
+kernel = //sources/supervisor/kernel:kernel
+
+[cxx]
+cxx = /usr/bin/clang++-4.0
+cxxpp = /usr/bin/clang++-4.0
+cc = /usr/bin/clang-4.0
+cpp = /usr/bin/clang-4.0
+ld = /usr/lib/llvm-4.0/bin/ld.lld
+asm = /usr/bin/nasm
+asmflags = -v
+ldflags =
+cflags = -std=c11
+cxxflags = -std=c++1z
+
+[httpserver]
+port = 8080
+
+[project]
+ignore = .git

@@ -1,0 +1,10 @@
+cxx_binary(
+    name = "kernel",
+    deps = [
+        "//sources/supervisor/kcore:kcore",
+        "//sources/supervisor/kcore:start_asm"
+    ],
+    compiler_flags = [ "-nostdinc" ],
+    link_style = "static",
+    linker_flags = [ "-nostdlib", "-m", "elf_x86_64", "--whole-archive", "-z", "nodefaultlib", "$(location //sources/supervisor/kcore:start_asm)"]
+)
