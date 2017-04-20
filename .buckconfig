@@ -1,15 +1,16 @@
 [alias]
-kernel = //sources/supervisor/kernel:kernel
+kernel = //sources/supervisor/kernel:kernel#default,shared
+all = kernel
 
 [cxx]
 cxx = /usr/bin/clang++-4.0
 cxxpp = /usr/bin/clang++-4.0
 cc = /usr/bin/clang-4.0
 cpp = /usr/bin/clang-4.0
-ld = /usr/lib/llvm-4.0/bin/ld.lld
+ld = /usr/bin/clang-4.0
 asm = /usr/bin/nasm
 asmflags = -v
-ldflags =
+ldflags = -fuse-ld=lld
 cflags = -std=c11
 cxxflags = -std=c++1z
 
