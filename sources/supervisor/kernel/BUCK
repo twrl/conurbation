@@ -38,6 +38,15 @@ cxx_library(
     visibility = [ "//sources/supervisor/..."]
 )
 
+# genrule(
+#     name = "kernel_sys",
+#     out = "kernel.sys",
+#     #deps = [ ":kernel#default,shared" ],
+#     srcs = [ "$(location :kernel#default,shared) "],
+#     cmd = "cp $SRCS $OUT && elfedit --output-type exec --output-osabi none $OUT",
+#     visibility = [ "//sources/supervisor/..." ]
+# )
+
 genrule(
     name = "start_asm",
     out = "start.a",

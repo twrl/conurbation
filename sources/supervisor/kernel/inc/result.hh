@@ -4,7 +4,7 @@
 
 namespace Conurbation {
 
-  template <typename R>
+  template <typename T>
   class result_t {
   public:
 
@@ -22,6 +22,6 @@ namespace Conurbation {
     status_t status_;
     T retval_;
 
-  }
+  };
 
 }

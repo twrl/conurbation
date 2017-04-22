@@ -1,5 +1,5 @@
 [alias]
-kernel = //sources/supervisor/kernel:kernel#default,shared
+kernel = //sources/supervisor/kernel:kernel
 all = kernel
 
 [cxx]

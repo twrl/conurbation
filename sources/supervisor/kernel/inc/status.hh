@@ -5,7 +5,9 @@
 namespace Conurbation {
 
   enum class status_t {
-    success
+    success,
+
+    notImplemented
   };
 
 }
