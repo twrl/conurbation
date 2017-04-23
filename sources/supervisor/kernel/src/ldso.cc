@@ -1,5 +1,6 @@
 #include "conurbation/elf64.hh"
 #include "conurbation/kdso.hh"
+#include "conurbation/uefi/tables.hh"
 
 //extern "C" Elf64_Dyn* _DYNAMIC;
 
@@ -59,6 +60,23 @@ extern "C" elf64_dyn_t* _DYNAMIC;
 
 [[gnu::section(".text.startup")]]
 [[gnu::flatten]]
-extern "C" auto _start () -> void {
-//    parse_dynamic(&_dso_core);
+[[gnu::ms_abi]]
+extern "C" auto _start (Conurbation::UEFI::handle_t ImageHandle, Conurbation::UEFI::efi_system_table_t* SystemTable) -> void {
+    uintptr_t base_addr;
+    asm (
+        "callq _Ldl_T \n"
+        "_Ldl_T: \n"
+        "popq %0 \n"
+        : "=r"(base_addr)
+        :
+      );
+
+    extern uint8_t _Ldl_T;
+    base_addr -= reinterpret_cast<uintptr_t>(&_Ldl_T);
+
+    elf64_phdr_t* phdr = reinterpret_cast<elf64_phdr_t*>(base_addr + 64), *p = phdr;
+    while (p->p_type != -2) p++;
+    elf64_dyn_t* dyn = reinterpret_cast<elf64_dyn_t*>(p->p_vaddr + base_addr);
+
+
 }

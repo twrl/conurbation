@@ -1,0 +1,22 @@
+kernel("kernel") {
+
+    kobject = "io.github.twrl.conurbation.supervisor.core"
+
+    sources = [
+        "src/mem.asm",
+        #"src/start.asm",
+        "src/main.cc",
+        "src/cstrings.cc",
+        "src/ldso.cc",
+        "src/kdso.cc",
+        "src/heap/uefiheap.cc"
+    ]
+
+    cflags_cc = [ "-std=c++1z"]
+
+    public_deps = [
+        "//sources/supervisor/kcore",
+        "//sources/supervisor/kuefi" 
+        ]
+
+}

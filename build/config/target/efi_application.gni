@@ -1,0 +1,26 @@
+template("efi_application") {
+
+    executable(target_name) {
+
+        forward_variables_from(invoker, "*")
+
+        output_extension = "efi"
+
+        if (!defined(ldflags)) {
+            ldflags = []
+        }
+        ldflags += [ "/nodefaultlib", "/nxcompat:no", "/entry:efi_main", "/subsystem:efi_application", "/safeseh:no" ]
+
+        if (!defined(cflags)) {
+            cflags = []
+        }
+        cflags += [ "/Zl",  "/GR-", "/GX-", "/U__cpp_unicode_characters"]
+
+        if (!defined(deps)) {
+            deps = []
+        }
+        deps += [ "//sources/supervisor/kuefi" ]
+
+    }
+
+}

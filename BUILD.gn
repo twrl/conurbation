@@ -1,0 +1,9 @@
+group("all") {
+
+    deps = [
+        "//sources/supervisor/kernel",
+        "//sources/supervisor/km-foo",
+        "//sources/supervisor/jones(//build/config/toolchain/uefi-llvm)"
+    ]
+
+}

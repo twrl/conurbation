@@ -1,0 +1,68 @@
+toolchain("elf-llvm") {
+
+    tool("cc") {
+        command = "clang @{{output}}.rsp -c {{source}} -o {{output}}"
+        rspfile = "{{output}}.rsp"
+        rspfile_content = "{{cflags}} {{cflags_c}} {{defines}} {{include_dirs}} -MMD -MF {{output}}.d"
+        depfile = "{{output}}.d"
+        outputs = [ "{{target_gen_dir}}/{{source_name_part}}.o" ]
+        description = "    CC  {{output}}"
+    }
+
+    tool("cxx") {
+        command = "clang++ @{{output}}.rsp -c {{source}} -o {{output}}"
+        rspfile = "{{output}}.rsp"
+        rspfile_content = "{{cflags}} {{cflags_cc}} {{defines}} {{include_dirs}} -MMD -MF {{output}}.d"
+        depfile = "{{output}}.d"
+        outputs = [ "{{target_gen_dir}}/{{source_name_part}}.o" ]
+        description = "   CXX  {{output}}"
+    }
+
+    tool("asm") {
+        command = "nasm -f elf64 -MF {{output}}.d -o {{output}} {{source}}"
+        depfile = "{{output}}.d"
+        outputs = [ "{{target_gen_dir}}/{{source_name_part}}.o" ]
+        description = "  NASM  {{output}}"
+    }
+
+    tool("alink") {
+        command = "clang++ -Wl,-r @{{output}}.rsp -o {{output}}"
+        rspfile = "{{output}}.rsp"
+        rspfile_content = "{{arflags}} {{inputs}}"
+        outputs = [ "{{output_dir}}/{{target_output_name}}{{output_extension}}"]
+        default_output_extension = ".lo"
+        default_output_dir = "{{root_out_dir}}"
+        description = "    LD  {{output}}"
+    }
+
+    tool("solink") {
+        command = "clang++ -Wl,-shared @{{output}}.rsp -o {{output}}"
+        rspfile = "{{output}}.rsp"
+        rspfile_content = "{{ldflags}} {{inputs}} {{solibs}}"
+        outputs = [ "{{output_dir}}/{{target_output_name}}{{output_extension}}"]
+        default_output_extension = ".so"
+        default_output_dir = "{{root_out_dir}}"
+        description = "    LD  {{output}}"
+    }
+
+    tool("link") {
+        command = "clang++ @{{output}}.rsp -o {{output}}"
+        rspfile = "{{output}}.rsp"
+        rspfile_content = "{{ldflags}} {{inputs}} {{solibs}}"
+        outputs = [ "{{output_dir}}/{{target_output_name}}{{output_extension}}"]
+        default_output_extension = ""
+        default_output_dir = "{{root_out_dir}}"
+        description = "    LD  {{output}}"
+    }
+
+    tool("stamp") {
+        command = "touch {{output}}"
+        description = " STAMP  {{output}}"
+    }
+
+    tool("copy") {
+        command = "cp {{source}} {{output}}"
+        description = "  COPY  {{output}}"
+    }
+
+}

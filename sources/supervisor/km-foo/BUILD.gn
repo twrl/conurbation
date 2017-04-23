@@ -1,0 +1,11 @@
+kernel_module("km-foo") {
+
+    kobject = "org.example.foo"
+
+    sources = [
+        "src/dummy.cc"
+    ]
+
+    cflags_cc = [ "-std=c++1z"]
+
+}

@@ -1,0 +1,58 @@
+toolchain("uefi-llvm") {
+
+    tool("cc") {
+        command = "clang-cl {{defines}} {{include_dirs}} {{cflags}} {{cflags_c}} /TC /c /o {{output}} {{source}}"
+        outputs = [ "{{target_gen_dir}}/{{source_name_part}}.o" ]
+        description = "    CC  {{output}}"
+    }
+
+    tool("cxx") {
+        command = "clang-cl {{defines}} {{include_dirs}} {{cflags}} {{cflags_cc}} /TP /c /o {{output}} {{source}}"
+        outputs = [ "{{target_gen_dir}}/{{source_name_part}}.o" ]
+        description = "   CXX  {{output}}"
+    }
+
+    tool("asm") {
+        command = "nasm -f win64 -MF {{output}}.d -o {{output}} {{source}}"
+        depfile = "{{output}}.d"
+        outputs = [ "{{target_gen_dir}}/{{source_name_part}}.o" ]
+        description = "  NASM  {{output}}"
+    }
+
+    tool("alink") {
+        command = "clang++ -Wl,-r @{{output}}.rsp -o {{output}}"
+        rspfile = "{{output}}.rsp"
+        rspfile_content = "{{arflags}} {{inputs}}"
+        outputs = [ "{{output_dir}}/{{target_output_name}}{{output_extension}}"]
+        default_output_extension = ".lo"
+        default_output_dir = "{{root_out_dir}}"
+        description = "    LD  {{output}}"
+    }
+
+    tool("solink") {
+        command = "lld-link {{ldflags}} /dll /out:{{output}} {{inputs}}"
+        outputs = [ "{{output_dir}}/{{target_output_name}}{{output_extension}}"]
+        default_output_extension = ".dll"
+        default_output_dir = "{{root_out_dir}}"
+        description = "    LD  {{output}}"
+    }
+
+    tool("link") {
+        command = "lld-link {{ldflags}} /out:{{output}} {{inputs}}"
+        outputs = [ "{{output_dir}}/{{target_output_name}}{{output_extension}}"]
+        default_output_extension = ".exe"
+        default_output_dir = "{{root_out_dir}}"
+        description = "    LD  {{output}}"
+    }
+
+    tool("stamp") {
+        command = "touch {{output}}"
+        description = " STAMP  {{output}}"
+    }
+
+    tool("copy") {
+        command = "cp {{source}} {{output}}"
+        description = "  COPY  {{output}}"
+    }
+
+}

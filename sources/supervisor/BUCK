@@ -1,7 +1,0 @@
-cxx_binary(
-    name = "dummy",
-    deps = [
-        "//sources/supervisor/kernel:kernel",
-        "//sources/supervisor/km-foo:km-foo"
-    ]
-)

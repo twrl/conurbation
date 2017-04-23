@@ -1,0 +1,13 @@
+source_set("kuefi") {
+
+    all_dependent_configs = [ ":depcfg" ]
+
+    public_deps = [ "//sources/supervisor/kcore" ]
+
+}
+
+config("depcfg") {
+
+    include_dirs = [ "inc" ]
+
+}

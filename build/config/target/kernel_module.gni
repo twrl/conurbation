@@ -1,0 +1,30 @@
+template("kernel_module") {
+
+    dep_target_name = target_name + "_depend"
+
+    shared_library(target_name) {
+
+        forward_variables_from(invoker, "*")
+
+        assert(defined(kobject), "Kernel Object Internal name 'kobject' required")
+
+        if (!defined(all_dependent_configs)) {
+            all_dependent_configs = []
+        }
+        all_dependent_configs += [ ":" + dep_target_name ]
+
+
+        ldflags = [ "-Wl,--soname,kernel://" + kobject ]
+
+    }
+
+    config(dep_target_name) {
+
+        include_dirs = [ "inc/" ]
+
+        ldflags = [ "-fuse-ld=lld", "-nostdlib" ]
+        cflags = [ "-nostdinc", "-ffreestanding", "-fno-exceptions", "-fno-rtti" ]
+
+    }
+
+}

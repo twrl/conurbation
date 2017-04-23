@@ -1,0 +1,11 @@
+source_set("kcore") {
+
+    all_dependent_configs = [ ":depcfg" ]
+
+}
+
+config("depcfg") {
+
+    include_dirs = [ "inc" ]
+
+}

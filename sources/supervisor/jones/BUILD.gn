@@ -1,0 +1,11 @@
+efi_application("jones") {
+
+    sources = ["src/main.cc"]
+
+    #configs = ["//sources/supervisor/kernel:kernel_depend"]
+    include_dirs = [ "//sources/supervisor/kernel/inc" ]
+
+    cflags_cc = [ "-Xclang", "-std=c++1z"]
+    #ldflags = [ "/subsystem:10" ]
+
+}

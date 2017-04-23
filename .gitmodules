@@ -1,0 +1,3 @@
+[submodule "tools/gn"]
+	path = tools/gn
+	url = https://github.com/o-lim/generate-ninja.git
