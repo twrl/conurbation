@@ -9,18 +9,18 @@ namespace Conurbation::UEFI
     struct efi_file_p;
 
     typedef status_t(efiabi efi_file_open_f)(
-        efi_file_p * this, efi_file_p * *newHandle, const char16_t* fileName, uint64_t openMode, uint64_t attributes);
-    typedef status_t(efiabi efi_file_close_f)(efi_file_p * this);
-    typedef status_t(efiabi efi_file_delete_f)(efi_file_p * this);
-    typedef status_t(efiabi efi_file_read_f)(efi_file_p * this, uintptr_t * bufferSize, void* buffer);
-    typedef status_t(efiabi efi_file_write_f)(efi_file_p * this, uintptr_t * bufferSize, void* buffer);
-    typedef status_t(efiabi efi_file_set_position_f)(efi_file_p * this, uint64_t position);
-    typedef status_t(efiabi efi_file_get_position_f)(efi_file_p * this, uint64_t * position);
+        efi_file_p * file, efi_file_p * *newHandle, const char16_t* fileName, uint64_t openMode, uint64_t attributes);
+    typedef status_t(efiabi efi_file_close_f)(efi_file_p * file);
+    typedef status_t(efiabi efi_file_delete_f)(efi_file_p * file);
+    typedef status_t(efiabi efi_file_read_f)(efi_file_p * file, uintptr_t * bufferSize, void* buffer);
+    typedef status_t(efiabi efi_file_write_f)(efi_file_p * file, uintptr_t * bufferSize, void* buffer);
+    typedef status_t(efiabi efi_file_set_position_f)(efi_file_p * file, uint64_t position);
+    typedef status_t(efiabi efi_file_get_position_f)(efi_file_p * file, uint64_t * position);
     typedef status_t(efiabi efi_file_get_info_f)(
-        efi_file_p * this, guid_t * informationType, uintptr_t * bufferSize, void* buffer);
+        efi_file_p * file, guid_t * informationType, uintptr_t * bufferSize, void* buffer);
     typedef status_t(efiabi efi_file_set_info_f)(
-        efi_file_p * this, guid_t * informationType, uintptr_t bufferSize, void* buffer);
-    typedef status_t(efiabi efi_file_flush_f)(efi_file_p * this);
+        efi_file_p * file, guid_t * informationType, uintptr_t bufferSize, void* buffer);
+    typedef status_t(efiabi efi_file_flush_f)(efi_file_p * file);
 
     struct efi_file_p {
         uint64_t Revision;

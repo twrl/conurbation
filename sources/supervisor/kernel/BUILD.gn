@@ -12,11 +12,15 @@ kernel("kernel") {
         "src/heap/uefiheap.cc"
     ]
 
+    cflags = [ "-fno-stack-protector" ]
     cflags_cc = [ "-std=c++1z"]
 
     public_deps = [
         "//sources/supervisor/kcore",
-        "//sources/supervisor/kuefi" 
+        "//sources/supervisor/kuefi"
         ]
+
+    data_deps = [ "//sources/supervisor/jones:jonessvc(//build/config/toolchain/uefi-llvm)" ]
+    configs = [ "//sources/supervisor/jones:jonessvc_depend(//build/config/toolchain/uefi-llvm)" ]
 
 }

@@ -67,7 +67,7 @@ namespace Conurbation::UEFI
     typedef status_t(efiabi efi_calculate_crc32_f)(void* data, uintptr_t dataSize, uint32_t* crc32);
     typedef status_t(efiabi efi_close_event_f)(event_t event);
     typedef status_t(efiabi efi_close_protocol_f)(
-        handle_t handle, guid_t * protocol, handle_t agentHandle, handle_t controllerHandle);
+        handle_t handle, const guid_t * protocol, handle_t agentHandle, handle_t controllerHandle);
     typedef void(efiabi efi_copy_mem_f)(void* destination, void* source, uintptr_t length);
     typedef status_t(efiabi efi_create_event_f)(
         uint32_t type, tpl_t notifyTpl, event_notify_f * notifyFunction, void* notifyContext, event_t* event);
@@ -81,26 +81,26 @@ namespace Conurbation::UEFI
     typedef status_t(efiabi efi_get_memory_map_f)(uintptr_t * memoryMapSize, memory_descriptor_t * memoryMap,
         uintptr_t * mapKey, uintptr_t * descriptorSize, uint32_t * descriptorVersion);
     typedef status_t(efiabi efi_get_next_monotonic_count_f)(uint64_t * count);
-    typedef status_t(efiabi efi_handle_protocol_f)(handle_t handle, guid_t * protocol, void** interface);
-    typedef status_t(efiabi efi_install_configuration_table_f)(guid_t * guid, void* table);
+    typedef status_t(efiabi efi_handle_protocol_f)(handle_t handle, const guid_t * protocol, void** interface);
+    typedef status_t(efiabi efi_install_configuration_table_f)(const guid_t * guid, void* table);
     typedef status_t(efiabi efi_install_protocol_interface_f)(
-        handle_t * handle, guid_t * protocol, interface_type_t interfaceType, void* interface);
+        handle_t * handle, const guid_t * protocol, interface_type_t interfaceType, void* interface);
     typedef status_t(efiabi efi_load_image_f)(bool_t bootPolicy, handle_t parentImageHandle,
         efi_device_path_p * devicePath, void* sourcebuffer, uintptr_t sourceSize, handle_t* imageHandle);
     typedef status_t(efiabi efi_locate_device_path_f)(
-        guid_t * protocol, efi_device_path_p * *devicePath, handle_t * device);
+        const guid_t * protocol, efi_device_path_p * *devicePath, handle_t * device);
     typedef status_t(efiabi efi_locate_handle_f)(
-        locate_search_type_t searchType, guid_t * protocol, void* searchKey, uintptr_t* bufferSize, handle_t* buffer);
-    typedef status_t(efiabi efi_locate_protocol_f)(guid_t * protocol, void* registration, void** interface);
-    typedef status_t(efiabi efi_open_protocol_f)(handle_t handle, guid_t * protocol, void** interface,
+        locate_search_type_t searchType, const guid_t * protocol, void* searchKey, uintptr_t* bufferSize, handle_t* buffer);
+    typedef status_t(efiabi efi_locate_protocol_f)(const guid_t * protocol, void* registration, void** interface);
+    typedef status_t(efiabi efi_open_protocol_f)(handle_t handle, const guid_t * protocol, void** interface,
         handle_t agentHandle, handle_t controllerHandle, uint32_t attributes);
     typedef status_t(efiabi efi_open_protocol_information_f)(
-        handle_t handle, guid_t * protocol, open_protocol_information_entry_t * *entryBuffer, uintptr_t * entryCount);
+        handle_t handle, const guid_t * protocol, open_protocol_information_entry_t * *entryBuffer, uintptr_t * entryCount);
     typedef tpl_t(efiabi efi_raise_tpl_f)(tpl_t newTpl);
     typedef void(efiabi efi_restore_tpl_f)(tpl_t oldTpl);
     typedef status_t(efiabi efi_reinstall_protocol_interface_f)(
-        handle_t handle, guid_t * protocol, void* oldInterface, void* newInterface);
-    typedef status_t(efiabi efi_register_protocol_notify_f)(guid_t * protocol, event_t event, void** registration);
+        handle_t handle, const guid_t * protocol, void* oldInterface, void* newInterface);
+    typedef status_t(efiabi efi_register_protocol_notify_f)(const guid_t * protocol, event_t event, void** registration);
     typedef void(efiabi efi_set_mem_f)(void* buffer, uintptr_t size, uint8_t value);
     // set_event
     typedef status_t(efiabi efi_set_timer_f)(event_t event, timer_delay_t type, uint64_t triggerTime);
@@ -109,7 +109,7 @@ namespace Conurbation::UEFI
     typedef status_t(efiabi efi_signal_event_f)(event_t event);
     typedef status_t(efiabi efi_stall_f)(uintptr_t microseconds);
     typedef status_t(efiabi efi_start_image_f)(handle_t imageHandle, uintptr_t * exitDataSize, char16_t** exitData);
-    typedef status_t(efiabi efi_uninstall_protocol_interface_f)(handle_t handle, guid_t * protocol, void* interface);
+    typedef status_t(efiabi efi_uninstall_protocol_interface_f)(handle_t handle, const guid_t * protocol, void* interface);
     typedef status_t(efiabi efi_wait_for_event_f)(uintptr_t numberOfEvents, event_t * event, uintptr_t * index);
 
     typedef status_t(efiabi efi_check_event_f)(event_t event);
@@ -126,12 +126,12 @@ namespace Conurbation::UEFI
     // typedef EFI_STATUS(EFIAPI * EFI_PROTOCOLS_PER_HANDLE)(IN EFI_HANDLE Handle, OUT EFI_GUID
     // ***ProtocolBuffer, OUT UINTN *ProtocolBufferCount)
     typedef status_t(efiabi efi_protocols_per_handle_f)(
-        handle_t handle, guid_t * **protocolBuffer, uintptr_t * protocolBufferCount);
+        handle_t handle, const guid_t * **protocolBuffer, uintptr_t * protocolBufferCount);
     // typedef EFI_STATUS(EFIAPI * EFI_LOCATE_HANDLE_BUFFER)(IN EFI_LOCATE_SEARCH_TYPE SearchType, IN
     // EFI_GUID *Protocol, OPTIONAL IN VOID *SearchKey, OPTIONAL IN OUT UINTN *NoHandles, OUT EFI_HANDLE
     // **Buffer)
     typedef status_t(efiabi efi_locate_handle_buffer_f)(
-        locate_search_type_t searchType, guid_t * protocol, void* searchKey, uintptr_t* noHandles, handle_t** buffer);
+        locate_search_type_t searchType, const guid_t * protocol, void* searchKey, uintptr_t* noHandles, handle_t** buffer);
     typedef status_t(efiabi efi_install_multiple_protocol_interfaces_f)(handle_t * handle, ...);
     typedef status_t(efiabi efi_uninstall_multiple_protocol_interfaces_f)(handle_t * handle, ...);
 

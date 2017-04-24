@@ -1,4 +1,6 @@
-template("efi_application") {
+template("efi_boot_driver") {
+
+    dep_target_name = target_name + "_depend"
 
     executable(target_name) {
 
@@ -9,7 +11,7 @@ template("efi_application") {
         if (!defined(ldflags)) {
             ldflags = []
         }
-        ldflags += [ "/nodefaultlib", "/nxcompat:no", "/entry:efi_main", "/subsystem:efi_application", "/safeseh:no" ]
+        ldflags += [ "/nodefaultlib", "/nxcompat:no", "/entry:efi_main", "/subsystem:efi_boot_service_driver", "/safeseh:no" ]
 
         if (!defined(cflags)) {
             cflags = []
@@ -21,7 +23,16 @@ template("efi_application") {
         }
         deps += [ "//sources/supervisor/kuefi" ]
 
-        include_dirs = [ "inc" ]
+        if (!defined(all_dependent_configs)) {
+            all_dependent_configs = []
+        }
+        all_dependent_configs += [ ":" + dep_target_name ]
+
+    }
+
+    config(dep_target_name) {
+
+        include_dirs = [ "inc/" ]
 
     }
 

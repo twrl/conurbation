@@ -1,11 +1,19 @@
 efi_application("jones") {
 
-    sources = ["src/main.cc"]
+    sources = ["src/appmain.cc"]
 
-    #configs = ["//sources/supervisor/kernel:kernel_depend"]
-    include_dirs = [ "//sources/supervisor/kernel/inc" ]
 
     cflags_cc = [ "-Xclang", "-std=c++1z"]
     #ldflags = [ "/subsystem:10" ]
+
+    data_deps = [ ":jonessvc" ]
+
+}
+
+efi_boot_driver("jonessvc") {
+
+    sources = [ "src/drvmain.cc" ]
+
+    cflags_cc = [ "-Xclang", "-std=c++1z" ]
 
 }

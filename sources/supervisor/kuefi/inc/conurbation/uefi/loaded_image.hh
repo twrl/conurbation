@@ -9,7 +9,7 @@ namespace Conurbation::UEFI
 
     struct efi_loaded_image_p;
 
-    typedef efi_status_t(efiabi efi_image_unload_f)(handle_t imageHandle);
+    typedef status_t(efiabi efi_image_unload_f)(handle_t imageHandle);
 
     struct efi_loaded_image_p {
         uint32_t Revision;
