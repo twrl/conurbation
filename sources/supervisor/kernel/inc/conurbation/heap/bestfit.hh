@@ -1,20 +1,16 @@
 #pragma once
 
+#include "conurbation/numeric_types.hh"
 #include "conurbation/heap/allocator.hh"
-#include "conurbation/uefi/tables.hh"
 
-#include "conurbation/heap/selfdescribe.hh"
-
+namespace { struct free_node_t; }
 
 namespace Conurbation::Heap {
 
-    class uefi_heap_t: public allocator_p {
-    private:
-        Conurbation::UEFI::efi_system_table_t* system_table_;
-
+    class bestfit_t: public allocator_p {
     public:
-
-        uefi_heap_t(Conurbation::UEFI::efi_system_table_t* systab);
+        bestfit_t() noexcept;
+        bestfit_t(void* firstblock, size_t firstblockSize) noexcept;
 
         /// Attempt an allocation with the given size and alignment
         virtual auto allocate (size_t size, size_t align) -> result_t<void*> override;
@@ -25,7 +21,10 @@ namespace Conurbation::Heap {
         /// reallocate
         virtual auto reallocate (void* ptr, size_t old_size, size_t new_size, size_t align) -> result_t<void*> override;
 
-    };
 
+    private:
+        free_node_t* root_;
+
+    };
 
 }

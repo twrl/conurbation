@@ -9,18 +9,22 @@ kernel("kernel") {
         "src/cstrings.cc",
         "src/ldso.cc",
         "src/kdso.cc",
-        "src/heap/uefiheap.cc"
+#        "src/ssp.cc",
+        "src/heap/uefiheap.cc",
+        "src/heap/bestfit.cc"
     ]
 
-    cflags = [ "-fno-stack-protector" ]
-    cflags_cc = [ "-std=c++1z"]
+    cflags_cc = [  "-std=c++1z",]
+    ldflags = [  ]
 
     public_deps = [
         "//sources/supervisor/kcore",
         "//sources/supervisor/kuefi"
         ]
 
-    data_deps = [ "//sources/supervisor/jones:jonessvc(//build/config/toolchain/uefi-llvm)" ]
-    configs = [ "//sources/supervisor/jones:jonessvc_depend(//build/config/toolchain/uefi-llvm)" ]
+    include_dirs = [ "//sources/supervisor/jones/inc" ]
+
+    #data_deps = [ "//sources/supervisor/jones:jonessvc(//build/config/toolchain/uefi-llvm)" ]
+    #configs = [ "//sources/supervisor/jones:jonessvc_depend(//build/config/toolchain/uefi-llvm)" ]
 
 }

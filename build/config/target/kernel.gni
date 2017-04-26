@@ -15,11 +15,31 @@ template("kernel") {
         }
         all_dependent_configs += [ ":" + dep_target_name ]
 
-        ldflags = [ "-Wl,--soname,kernel://" + kobject,
-        "-Wl,--dynamic-linker,kernel://" + invoker.kobject,
-        "-Wl,--export-dynamic",
-        "-Wl,-z,combreloc",
-        "-Wl,--pie"
+        if (!defined(cflags)) {
+            cflags = []
+        }
+        cflags += [
+            "-nostdinc",
+            "-ffreestanding",
+            "-fno-exceptions",
+            "-fno-rtti",
+            "-mno-red-zone",
+            "-fno-stack-protector",
+            #"-mthread-model", "single",
+            "-Xclang", "-stack-protector", "-Xclang", "0"
+            ]
+
+        if (!defined(ldflags)) {
+            ldflags = []
+        }
+        ldflags += [
+            "-fuse-ld=lld",
+            "-nostdlib",
+            "-Wl,--soname,kernel://" + kobject,
+            "-Wl,--dynamic-linker,kernel://" + invoker.kobject,
+            "-Wl,--export-dynamic",
+            "-Wl,-z,combreloc",
+            "-Wl,--pie"
         ]
 
     }
@@ -29,13 +49,9 @@ template("kernel") {
         include_dirs = [ "inc/" ]
 
         ldflags = [
-            "-fuse-ld=lld",
-            "-nostdlib",
+
             ]
-        cflags = [
-            "-nostdinc",
-        #"-ffreestanding",
-        "-fno-exceptions", "-fno-rtti" ]
+
 
     }
 

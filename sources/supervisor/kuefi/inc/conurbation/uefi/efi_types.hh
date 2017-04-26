@@ -3,6 +3,7 @@
 #include "conurbation/numeric_types.hh"
 #include "conurbation/char_types.hh"
 #include "conurbation/guid.hh"
+#include "conurbation/uefi/abi.hh"
 
 namespace Conurbation::UEFI
 {
@@ -126,7 +127,7 @@ namespace Conurbation::UEFI
 
     enum class allocate_type_t { AllocateAnyPages, AllocateMaxAddress, AllocateAddress, MaxAllocateType };
 
-    typedef void(event_notify_f)(event_t event, void* context);
+    typedef void(efiabi event_notify_f)(event_t event, void* context);
 
     enum interface_type_t { EFI_NATIVE_INTERFACE };
 

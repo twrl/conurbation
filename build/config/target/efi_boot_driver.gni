@@ -23,10 +23,10 @@ template("efi_boot_driver") {
         }
         deps += [ "//sources/supervisor/kuefi" ]
 
-        if (!defined(all_dependent_configs)) {
-            all_dependent_configs = []
+        if (!defined(public_configs)) {
+            public_configs = []
         }
-        all_dependent_configs += [ ":" + dep_target_name ]
+        public_configs += [ ":" + dep_target_name ]
 
     }
 

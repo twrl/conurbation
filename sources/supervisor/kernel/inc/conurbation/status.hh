@@ -7,7 +7,10 @@ namespace Conurbation {
   enum class status_t {
     success,
 
-    notImplemented
+    notImplemented,
+    serviceUnavailable,
+
+    tooSmall
   };
 
 }

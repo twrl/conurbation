@@ -6,12 +6,12 @@
 
 using namespace Conurbation::UEFI;
 
+handle_t ImageHandle;
+efi_system_table_t* SystemTable;
+
 namespace Jones {
 
-    namespace {
-        handle_t ImageHandle;
-        efi_system_table_t* SystemTable;
-    }
+
 
     efiabi auto get_loader_(efi_device_path_p* image, jones_loadable_p** loadable) -> status_t {
 

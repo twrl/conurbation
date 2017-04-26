@@ -5,7 +5,7 @@ toolchain("elf-llvm") {
         rspfile = "{{output}}.rsp"
         rspfile_content = "{{cflags}} {{cflags_c}} {{defines}} {{include_dirs}} -MMD -MF {{output}}.d"
         depfile = "{{output}}.d"
-        outputs = [ "{{target_gen_dir}}/{{source_name_part}}.o" ]
+        outputs = [ "{{source_gen_dir}}/{{source_name_part}}.o" ]
         description = "    CC  {{output}}"
     }
 
@@ -14,14 +14,14 @@ toolchain("elf-llvm") {
         rspfile = "{{output}}.rsp"
         rspfile_content = "{{cflags}} {{cflags_cc}} {{defines}} {{include_dirs}} -MMD -MF {{output}}.d"
         depfile = "{{output}}.d"
-        outputs = [ "{{target_gen_dir}}/{{source_name_part}}.o" ]
+        outputs = [ "{{source_gen_dir}}/{{source_name_part}}.o" ]
         description = "   CXX  {{output}}"
     }
 
     tool("asm") {
         command = "nasm -f elf64 -MF {{output}}.d -o {{output}} {{source}}"
         depfile = "{{output}}.d"
-        outputs = [ "{{target_gen_dir}}/{{source_name_part}}.o" ]
+        outputs = [ "{{source_gen_dir}}/{{source_name_part}}.o" ]
         description = "  NASM  {{output}}"
     }
 

@@ -10,6 +10,7 @@ namespace Conurbation::Heap {
     class allocator_p {
 
     public:
+
         /// Attempt an allocation with the given size and alignment
         virtual auto allocate (size_t size, size_t align) -> result_t<void*> = 0;
 
@@ -19,9 +20,11 @@ namespace Conurbation::Heap {
         /// reallocate
         virtual auto reallocate (void* ptr, size_t old_size, size_t new_size, size_t align) -> result_t<void*> = 0;
 
-        /// Attempt to reallocate in place
-        virtual auto reallocate_in_place (void* ptr, size_t old_size, size_t new_size, size_t align) -> status_t = 0;
-
     };
 
 }
+
+/*void* operator new (size_t size, Conurbation::Heap::allocator_p& allocator) {}
+void* operator new[] (size_t size, Conurbation::Heap::allocator_p& allocator) {}
+void operator delete (void* ptr, Conurbation::Heap::allocator_p& allocator) {}
+void operator delete[] (void* ptr, Conurbation::Heap::allocator_p& allocator) {}*/

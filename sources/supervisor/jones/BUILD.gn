@@ -12,7 +12,7 @@ efi_application("jones") {
 
 efi_boot_driver("jonessvc") {
 
-    sources = [ "src/drvmain.cc" ]
+    sources = [ "src/drvmain.cc", "src/elf64loader.cc" ]
 
     cflags_cc = [ "-Xclang", "-std=c++1z" ]
 
