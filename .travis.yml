@@ -1,4 +1,4 @@
-sudo: false
+#sudo: false
 dist: trusty
 language: generic
 addons:
@@ -17,8 +17,7 @@ addons:
           - "python2.7"
           - "python2.7-dev"
 install:
-  - "git submodule update --init --recursive"
-  - "pushd tools/gn && make && popd"
+  - "make -C tools/gn"
 before_script:
   - tools/gn/out/Release/gn gen out 
 script:
