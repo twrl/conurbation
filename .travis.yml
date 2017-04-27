@@ -14,6 +14,8 @@ addons:
           - "lldb-4.0" 
           - "lld-4.0"
           - "nasm"
+          - "python2.7"
+          - "python2.7-dev"
 install:
   - "git submodule update --init --recursive"
   - "pushd tools/gn && make && popd"
