@@ -21,6 +21,7 @@ before_install:
   - export PATH=$HOME/.toolchain:$PATH
 install:
   - curl -L https://github.com/twrl/generate-ninja/releases/download/r2/gn > $HOME/.toolchain/gn
+  - chmod +x $HOME/.toolchain/gn
 before_script:
   - gn gen out
 script:
