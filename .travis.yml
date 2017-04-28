@@ -12,7 +12,6 @@ addons:
           - "lld-4.0"
           - "nasm"
           - "python2.7"
-          - "python2.7-dev"
           - "ninja-build"
 before_install:
   - mkdir -p $HOME/.toolchain

@@ -1,4 +1,0 @@
-[submodule "tools/gn"]
-	path = tools/gn
-	url = https://github.com/twrl/generate-ninja.git
-	branch = master
