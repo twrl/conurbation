@@ -19,8 +19,7 @@ toolchain("elf-llvm") {
     }
 
     tool("asm") {
-        command = "nasm -f elf64 -MF {{output}}.d -o {{output}} {{source}}"
-        depfile = "{{output}}.d"
+        command = "nasm -f elf64 -o {{output}} {{source}}"
         outputs = [ "{{source_gen_dir}}/{{source_name_part}}.o" ]
         description = "  NASM  {{output}}"
     }
