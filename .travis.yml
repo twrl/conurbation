@@ -20,7 +20,7 @@ before_install:
   - ln -s `which clang++-4.0` $HOME/.toolchain/clang++
   - export PATH=$HOME/.toolchain:$PATH
 install:
-  - curl https://github.com/twrl/generate-ninja/releases/download/r2/gn > $HOME/.toolchain/gn
+  - curl -L https://github.com/twrl/generate-ninja/releases/download/r2/gn > $HOME/.toolchain/gn
 before_script:
   - gn gen out
 script:
