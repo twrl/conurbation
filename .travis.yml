@@ -18,7 +18,7 @@ addons:
           - "python2.7-dev"
           - "ninja-build"
 install:
-  - "pushd tools/gn && env CC=clang-4.0 CXX=clang++-4.0 make"
+  - "pushd tools/gn && env CC=clang-4.0 CXX=clang++-4.0 make && popd"
 before_script:
   - tools/gn/out/Release/gn gen out 
 script:
