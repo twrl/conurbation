@@ -1,0 +1,30 @@
+sudo: false
+dist: trusty
+language: generic
+addons:
+    apt:
+        sources:
+          - llvm-toolchain-trusty-4.0
+          - sourceline: "ppa:ricotz/toolchain"
+        packages:
+          - "clang-4.0" 
+          - "lldb-4.0" 
+          - "lld-4.0"
+          - "nasm"
+          - "python2.7"
+          - "python2.7-dev"
+          - "ninja-build"
+before_install:
+  - mkdir -p $HOME/.toolchain 
+  - ln -s `which clang-4.0` $HOME/.toolchain/clang 
+  - ln -s `which clang++-4.0` $HOME/.toolchain/clang++
+  - ln -s `which clang-4.0` $HOME/.toolchain/gcc
+  - ln -s `which clang++-4.0` $HOME/.toolchain/g++ 
+  - export PATH=$HOME/.toolchain:$PATH
+install:
+  - pushd tools/gn && env CC=clang-4.0 CXX=clang++-4.0 make && popd
+  - alias gn=`readlink -f tools/gn/out/Release/gn`
+before_script:
+  - gn gen out 
+script:
+  - ninja -C out
