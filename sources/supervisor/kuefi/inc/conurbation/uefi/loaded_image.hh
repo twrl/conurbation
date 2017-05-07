@@ -3,6 +3,7 @@
 #include "conurbation/uefi/efi_types.hh"
 #include "conurbation/guid.hh"
 #include "conurbation/uefi/abi.hh"
+#include "conurbation/uefi/tables.hh"
 
 namespace Conurbation::UEFI
 {
@@ -27,5 +28,5 @@ namespace Conurbation::UEFI
         efi_image_unload_f* Unload;
     };
 
-    template <> constexpr guid_t protocol_guid_v<efi_loaded_image_p> = "5B1B31A1-9562-11d2-8E3F-00A0C969723B"_guid;
+
 }

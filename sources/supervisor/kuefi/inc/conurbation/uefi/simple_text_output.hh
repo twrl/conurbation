@@ -42,6 +42,5 @@ namespace Conurbation::UEFI
         efi_simple_text_output_mode_t* Mode;
     };
 
-    template <>
-    constexpr guid_t protocol_guid_v<efi_simple_text_output_p> = "387477c2-69c7-11d2-8e39-00a0c969723b"_guid;
+    
 }

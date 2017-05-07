@@ -1,13 +1,11 @@
-source_set("kuefi") {
+kernel_library("kuefi") {
 
-    all_dependent_configs = [ ":depcfg" ]
+    sources = [
+        "src/guids.cc"
+    ]
+
+    cflags_cc = [ "-std=c++1z" ]
 
     public_deps = [ "//sources/supervisor/kcore" ]
-
-}
-
-config("depcfg") {
-
-    include_dirs = [ "inc" ]
 
 }

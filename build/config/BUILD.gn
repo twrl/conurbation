@@ -1,0 +1,21 @@
+config("kernel_compile_link") {
+
+    cflags = [
+        "-nostdinc",
+        "-ffreestanding",
+        "-fno-exceptions",
+        "-fno-rtti",
+        "-mno-red-zone",
+        "-fno-stack-protector",
+        "-fpic",
+    ]
+
+    ldflags = [
+        "-fuse-ld=lld",
+        "-nostdlib",
+        "-Wl,--export-dynamic",
+        "-Wl,-z,combreloc",
+        "-Wl,--pie"
+    ]
+
+}

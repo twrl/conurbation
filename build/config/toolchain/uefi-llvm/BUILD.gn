@@ -1,13 +1,13 @@
 toolchain("uefi-llvm") {
 
     tool("cc") {
-        command = "clang-cl {{defines}} {{include_dirs}} {{cflags}} {{cflags_c}} /TC /c /o {{output}} {{source}}"
+        command = "clang-4.0 --target=x86_64-w64-mingw64 {{defines}} {{include_dirs}} {{cflags}} {{cflags_c}} -o {{output}} -c {{source}}"
         outputs = [ "{{target_gen_dir}}/{{source_name_part}}.o" ]
         description = "    CC  {{output}}"
     }
 
     tool("cxx") {
-        command = "clang-cl {{defines}} {{include_dirs}} {{cflags}} {{cflags_cc}} /TP /c /o {{output}} {{source}}"
+        command = "clang-4.0 --target=x86_64-w64-mingw64 {{defines}} {{include_dirs}} {{cflags}} {{cflags_cc}} -o {{output}} -c {{source}}"
         outputs = [ "{{target_gen_dir}}/{{source_name_part}}.o" ]
         description = "   CXX  {{output}}"
     }

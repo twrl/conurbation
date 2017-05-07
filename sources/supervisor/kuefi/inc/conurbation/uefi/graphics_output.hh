@@ -72,5 +72,5 @@ namespace Conurbation::UEFI
         efi_graphics_output_protocol_mode_t* Mode;
     };
 
-    template <> constexpr guid_t protocol_guid_v<efi_graphics_output_p> = "9042a9de-23dc-4a38-96fb-7aded080516a"_guid;
+    
 }

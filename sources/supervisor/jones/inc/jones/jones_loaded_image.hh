@@ -24,4 +24,4 @@ namespace Jones {
 
 }
 
-template <> guid_t Conurbation::UEFI::protocol_guid_v<Jones::jones_loaded_image_p> = "84e62bd3-32f7-46b7-b312-cb3dbf90fda8"_guid;
+//extern template <> guid_t Conurbation::UEFI::protocol_guid_v<Jones::jones_loaded_image_p>;

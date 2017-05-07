@@ -3,9 +3,10 @@ efi_application("jones") {
     sources = ["src/appmain.cc"]
 
 
-    cflags_cc = [ "-Xclang", "-std=c++1z"]
+    cflags_cc = [ "-std=c++1z" ]
     #ldflags = [ "/subsystem:10" ]
 
+    deps = [ ":jonesapi" ]
     data_deps = [ ":jonessvc" ]
 
 }
@@ -14,6 +15,19 @@ efi_boot_driver("jonessvc") {
 
     sources = [ "src/drvmain.cc", "src/elf64loader.cc" ]
 
-    cflags_cc = [ "-Xclang", "-std=c++1z" ]
+    cflags_cc = [ "-std=c++1z" ]
+
+    deps = [ ":jonesapi" ]
+
+}
+
+kernel_library("jonesapi") {
+
+    sources = [ "src/guids.cc" ]
+
+    cflags_cc =  [ "-std=c++1z" ]
+    include_dirs = [ "inc" ]
+
+    deps = [ "//sources/supervisor/kcore", "//sources/supervisor/kuefi" ]
 
 }

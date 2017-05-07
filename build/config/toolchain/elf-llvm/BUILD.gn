@@ -1,7 +1,7 @@
 toolchain("elf-llvm") {
 
     tool("cc") {
-        command = "clang @{{output}}.rsp -c {{source}} -o {{output}}"
+        command = "clang-4.0 @{{output}}.rsp -c {{source}} -o {{output}}"
         rspfile = "{{output}}.rsp"
         rspfile_content = "{{cflags}} {{cflags_c}} {{defines}} {{include_dirs}} -MMD -MF {{output}}.d"
         depfile = "{{output}}.d"
@@ -10,7 +10,7 @@ toolchain("elf-llvm") {
     }
 
     tool("cxx") {
-        command = "clang++ @{{output}}.rsp -c {{source}} -o {{output}}"
+        command = "clang-4.0 @{{output}}.rsp -c {{source}} -o {{output}}"
         rspfile = "{{output}}.rsp"
         rspfile_content = "{{cflags}} {{cflags_cc}} {{defines}} {{include_dirs}} -MMD -MF {{output}}.d"
         depfile = "{{output}}.d"
@@ -25,7 +25,7 @@ toolchain("elf-llvm") {
     }
 
     tool("alink") {
-        command = "clang++ -Wl,-r @{{output}}.rsp -o {{output}}"
+        command = "clang-4.0 -Wl,-r @{{output}}.rsp -o {{output}}"
         rspfile = "{{output}}.rsp"
         rspfile_content = "{{arflags}} {{inputs}}"
         outputs = [ "{{output_dir}}/{{target_output_name}}{{output_extension}}"]
@@ -35,7 +35,7 @@ toolchain("elf-llvm") {
     }
 
     tool("solink") {
-        command = "clang++ -Wl,-shared @{{output}}.rsp -o {{output}}"
+        command = "clang-4.0 -Wl,-shared @{{output}}.rsp -o {{output}}"
         rspfile = "{{output}}.rsp"
         rspfile_content = "{{ldflags}} {{inputs}} {{solibs}}"
         outputs = [ "{{output_dir}}/{{target_output_name}}{{output_extension}}"]
@@ -45,7 +45,7 @@ toolchain("elf-llvm") {
     }
 
     tool("link") {
-        command = "clang++ @{{output}}.rsp -o {{output}}"
+        command = "clang-4.0 @{{output}}.rsp -o {{output}}"
         rspfile = "{{output}}.rsp"
         rspfile_content = "{{ldflags}} {{inputs}} {{solibs}}"
         outputs = [ "{{output_dir}}/{{target_output_name}}{{output_extension}}"]

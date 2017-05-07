@@ -17,5 +17,4 @@ namespace Conurbation::UEFI
         event_t WaitForKey;
     };
 
-    template <> constexpr guid_t protocol_guid_v<efi_simple_text_input_p> = "387477c1-69c7-11d2-8e39-00a0c969723b"_guid;
 }

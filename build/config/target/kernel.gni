@@ -13,33 +13,14 @@ template("kernel") {
         if (!defined(all_dependent_configs)) {
             all_dependent_configs = []
         }
-        all_dependent_configs += [ ":" + dep_target_name ]
-
-        if (!defined(cflags)) {
-            cflags = []
-        }
-        cflags += [
-            "-nostdinc",
-            "-ffreestanding",
-            "-fno-exceptions",
-            "-fno-rtti",
-            "-mno-red-zone",
-            "-fno-stack-protector",
-            #"-mthread-model", "single",
-            "-Xclang", "-stack-protector", "-Xclang", "0"
-            ]
+        all_dependent_configs += [ ":" + dep_target_name, "//build/config:kernel_compile_link" ]
 
         if (!defined(ldflags)) {
             ldflags = []
         }
         ldflags += [
-            "-fuse-ld=lld",
-            "-nostdlib",
-            "-Wl,--soname,kernel://" + kobject,
-            "-Wl,--dynamic-linker,kernel://" + invoker.kobject,
-            "-Wl,--export-dynamic",
-            "-Wl,-z,combreloc",
-            "-Wl,--pie"
+            "-Wl,--dynamic-linker,kernel://" + kobject,
+            "-Wl,--soname,kernel://" + kobject
         ]
 
     }
@@ -47,11 +28,6 @@ template("kernel") {
     config(dep_target_name) {
 
         include_dirs = [ "inc/" ]
-
-        ldflags = [
-
-            ]
-
 
     }
 

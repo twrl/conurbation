@@ -2,5 +2,6 @@ set_default_toolchain("//build/config/toolchain/elf-llvm")
 
 import("//build/config/target/kernel.gni")
 import("//build/config/target/kernel_module.gni")
+import("//build/config/target/kernel_library.gni")
 import("//build/config/target/efi_application.gni")
 import("//build/config/target/efi_boot_driver.gni")

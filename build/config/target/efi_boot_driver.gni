@@ -16,7 +16,7 @@ template("efi_boot_driver") {
         if (!defined(cflags)) {
             cflags = []
         }
-        cflags += [ "/Zl",  "/GR-", "/GX-", "/GS-", "/U__cpp_unicode_characters"]
+        cflags += [ "-nostdinc", "-fno-rtti", "-fno-exceptions", "-fno-stack-protector", "-ffreestanding"]
 
         if (!defined(deps)) {
             deps = []
