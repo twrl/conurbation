@@ -9,7 +9,7 @@ template("kernel_library") {
         if (!defined(all_dependent_configs)) {
             all_dependent_configs = []
         }
-        all_dependent_configs += [ ":" + dep_target_name ]
+        all_dependent_configs += [ ":" + dep_target_name, "//build/config:kernel_compile_link" ]
 
 
 
@@ -18,7 +18,7 @@ template("kernel_library") {
     config(dep_target_name) {
 
         include_dirs = [ "inc/" ]
-        # 
+        #
         # ldflags = [ "-fuse-ld=lld", "-nostdlib" ]
         # cflags = [ "-nostdinc", "-ffreestanding", "-fno-exceptions", "-fno-rtti" ]
 
