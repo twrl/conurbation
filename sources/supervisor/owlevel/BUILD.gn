@@ -19,6 +19,6 @@ kernel_library("owlevel") {
     ]
     
     cflags_cc = [ "-std=c++1z" ]
-    arflags = [ "-Map", $root_out_dir + "/owlevel.lo.map" ]
+    arflags = [ "-Wl,-Map,owlevel.lo.map" ]
 
 }
