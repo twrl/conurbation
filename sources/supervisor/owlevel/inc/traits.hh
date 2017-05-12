@@ -83,7 +83,7 @@ template <bool_t Head> constexpr bool_t all_v<Head> = Head;
         };
         
         template <typename T>
-        struct enable_if_t<true> {
+        struct enable_if_t<true, T> {
             typedef T type;
         };
     }

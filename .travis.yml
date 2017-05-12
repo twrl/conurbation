@@ -24,4 +24,4 @@ install:
 before_script:
   - gn gen out
 script:
-  - ninja -C out
+  - ninja -C out -k 10
