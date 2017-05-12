@@ -17,7 +17,7 @@ template <bool_t Head, bool_t... Tail> constexpr bool_t all_v = Head&& all_v<Tai
 template <bool_t Head> constexpr bool_t all_v<Head> = Head;
 
 
-    namespace ll:_traits_internal {
+    namespace ll::_traits_internal {
         template <typename T> struct remove_const_t {
             typedef T type;
         };
@@ -145,7 +145,7 @@ template <bool_t Head> constexpr bool_t all_v<Head> = Head;
     template <typename T> constexpr bool_t is_volatile_v = false;
     template <typename T> constexpr bool_t is_volatile_v<volatile T> = true;
 
-    namespace ll:_traits_internal {
+    namespace ll::_traits_internal {
         template <bool_t If, typename Then, typename Else> struct if_t {
         };
         template <typename Then, typename Else> struct if_t<true, Then, Else> {
