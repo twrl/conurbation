@@ -1,6 +1,7 @@
 #pragma once 
 
 #include "char_types.hh"
+#include "numeric_types.hh"
 #include "ll/unicode_props.hh"
 
 namespace ll::Unicode {
@@ -21,9 +22,9 @@ namespace ll::Unicode {
         block block;
     };
     
-    extern ucd_name_t const* ucd_names;
-    extern ucd_category_t const* ucd_categories;
-    extern ucd_block_t const* ucd_blocks;
+    extern ucd_name_t const ucd_names[];
+    extern ucd_category_t const ucd_categories[];
+    extern ucd_block_t const ucd_blocks[];
     
     
 }
