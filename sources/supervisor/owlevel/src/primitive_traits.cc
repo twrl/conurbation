@@ -36,3 +36,5 @@ template <> constexpr float32_t numeric_max_v<float32_t> = __FLT_MAX__;
 template <> constexpr float32_t numeric_min_v<float32_t> = __FLT_MIN__;
 template <> constexpr float64_t numeric_max_v<float64_t> = __DBL_MAX__;
 template <> constexpr float64_t numeric_min_v<float64_t> = __DBL_MIN__;
+
+namespace { static void dummy() {} }
