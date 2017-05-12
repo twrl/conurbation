@@ -14,13 +14,13 @@ template("kernel_library") {
         if (!defined(cflags)) {
             cflags = []
         }
-        if (!defined(ldflags)) {
-            ldflags = []
+        if (!defined(arflags)) {
+            arflags = []
         }
         
         if (current_toolchain == default_toolchain) {
             cflags += [ "-mno-red-zone", "-ffunction-sections", "-fdata-sections" ]
-            ldflags += [ "-fuse-ld=lld", "-nostdlib", "-Wl,-z,combreloc" ]
+            arflags += [ "-fuse-ld=lld", "-nostdlib", "-Wl,-z,combreloc" ]
         }
 
 
