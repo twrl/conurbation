@@ -1,10 +1,10 @@
-#include "conurbation/uefi/device_path.hh"
-#include "conurbation/uefi/file.hh"
-#include "conurbation/uefi/graphics_output.hh"
-#include "conurbation/uefi/loaded_image.hh"
-#include "conurbation/uefi/simple_file_system.hh"
-#include "conurbation/uefi/simple_text_input.hh"
-#include "conurbation/uefi/simple_text_output.hh"
+#include "conurbation/uefi/protocol/device_path.hh"
+#include "conurbation/uefi/protocol/file.hh"
+#include "conurbation/uefi/protocol/graphics_output.hh"
+#include "conurbation/uefi/protocol/loaded_image.hh"
+#include "conurbation/uefi/protocol/simple_file_system.hh"
+#include "conurbation/uefi/protocol/simple_text_input.hh"
+#include "conurbation/uefi/protocol/simple_text_output.hh"
 
 using namespace Conurbation::UEFI;
 

@@ -3,7 +3,8 @@
 [SECTION .text]
 
 ; memcpy(void* dest rdi, void* src rsi, size_t count rdx) -> void*
-[GLOBAL memcpy:function (memcpy.end - memcpy)]
+;[SECTION .text.memcpy]
+[GLOBAL memcpy];:function (memcpy.end - memcpy)]
 memcpy:
         mov rax, rdi
         mov rcx, rdx
@@ -13,7 +14,8 @@ memcpy:
     .end:
 
 ; memmove(void* dest rdi, void* src rsi, size_t count rdx) -> void*
-[GLOBAL memmove:function (memmove.end - memmove)]
+;[SECTION .text.memmove]
+[GLOBAL memmove];:function (memmove.end - memmove)]
 memmove:
         mov rax, rdi
         mov rcx, rdx
@@ -34,7 +36,8 @@ memmove:
     .end:
 
 ; memset(void* dest rdi, char value rsi, size_t count rdx) -> void*
-[GLOBAL memset:function (memset.end - memset)]
+;[SECTION .text.memset]
+[GLOBAL memset];:function (memset.end - memset)]
 memset:
         mov rcx, rdx
         mov rdx, rdi
@@ -44,4 +47,3 @@ memset:
         mov rax, rdx
         ret
     .end:
-    

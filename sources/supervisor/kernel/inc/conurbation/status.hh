@@ -10,6 +10,8 @@ namespace Conurbation {
     notImplemented,
     serviceUnavailable,
 
+    incorrectSubtype,
+
     tooSmall
   };
 

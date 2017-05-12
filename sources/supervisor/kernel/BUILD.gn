@@ -3,22 +3,20 @@ kernel("kernel") {
     kobject = "io.github.twrl.conurbation.supervisor.core"
 
     sources = [
-        "src/mem.asm",
         #"src/start.asm",
-        "src/main.cc",
-        "src/cstrings.cc",
-        "src/ldso.cc",
+        #"src/main.cc",
+        #"src/ldso.cc",
         "src/kdso.cc",
 #        "src/ssp.cc",
-        "src/heap/uefiheap.cc",
-        "src/heap/bestfit.cc"
+        #"src/heap/uefiheap.cc",
+        #"src/heap/bestfit.cc"
     ]
 
     cflags_cc = [  "-std=c++1z",]
     ldflags = [  ]
 
     public_deps = [
-        "//sources/supervisor/kcore",
+        "//sources/supervisor/owlevel",
         "//sources/supervisor/kuefi"
         ]
 

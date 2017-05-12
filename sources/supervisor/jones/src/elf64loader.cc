@@ -1,9 +1,9 @@
 #include "conurbation/uefi/tables.hh"
 #include "conurbation/uefi/efi_types.hh"
-#include "conurbation/uefi/file.hh"
+#include "conurbation/uefi/protocol/file.hh"
 #include "jones/jones_loader.hh"
 #include "jones/jones_loadable.hh"
-#include "conurbation/elf64.hh"
+#include "ll/elf64.hh"
 
 using namespace Conurbation::UEFI;
 

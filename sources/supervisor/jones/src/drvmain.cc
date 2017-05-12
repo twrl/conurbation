@@ -1,5 +1,5 @@
 #include "conurbation/uefi/tables.hh"
-#include "conurbation/uefi/file.hh"
+#include "conurbation/uefi/protocol/file.hh"
 #include "jones/jones.hh"
 #include "jones/jones_loader.hh"
 #include "jones/jones_loadable.hh"

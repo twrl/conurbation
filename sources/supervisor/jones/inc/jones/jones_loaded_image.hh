@@ -3,7 +3,7 @@
 #include "conurbation/uefi/abi.hh"
 #include "conurbation/uefi/efi_types.hh"
 #include "conurbation/uefi/tables.hh"
-#include "conurbation/uefi/device_path.hh"
+#include "conurbation/uefi/protocol/device_path.hh"
 
 namespace Jones {
 

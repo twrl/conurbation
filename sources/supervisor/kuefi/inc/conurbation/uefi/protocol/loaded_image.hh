@@ -1,7 +1,6 @@
 #pragma once
 
 #include "conurbation/uefi/efi_types.hh"
-#include "conurbation/guid.hh"
 #include "conurbation/uefi/abi.hh"
 #include "conurbation/uefi/tables.hh"
 

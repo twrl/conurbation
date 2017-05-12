@@ -1,4 +1,4 @@
-#include "conurbation/guid.hh"
+#include "guid.hh"
 #include "jones/jones.hh"
 #include "jones/jones_loaded_image.hh"
 #include "jones/jones_loader.hh"

@@ -20,7 +20,10 @@ template("kernel") {
         }
         ldflags += [
             "-Wl,--dynamic-linker,kernel://" + kobject,
-            "-Wl,--soname,kernel://" + kobject
+            "-Wl,--soname,kernel://" + kobject,
+            "-Wl,--discard-all",
+            "-Wl,--Bsymbolic",
+            "-Wl,--pie"
         ]
 
     }

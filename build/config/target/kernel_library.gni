@@ -21,9 +21,8 @@ template("kernel_library") {
 
         if (current_toolchain == default_toolchain) {
             cflags += [ "-ffunction-sections", "-fdata-sections" ]
-            arflags += [ "-Wl,-z,combreloc" ]
+            arflags += [ "-Wl,-z,combreloc", "-Wl,--discard-all" ]
         }
-
 
     }
 

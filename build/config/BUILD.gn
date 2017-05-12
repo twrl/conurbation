@@ -16,16 +16,14 @@ config("kernel_compile_link") {
             "-fuse-ld=lld",
             "-nostdlib",
             "-Wl,--export-dynamic",
-            "-Wl,-z,combreloc",
-            "-Wl,--pie"
+            "-Wl,-z,combreloc"
         ]
 
         arflags = [
             "-fuse-ld=lld",
             "-nostdlib",
             "-Wl,--export-dynamic",
-            "-Wl,-z,combreloc",
-            "-Wl,--pie"
+            "-Wl,-z,combreloc"
         ]
 
     }

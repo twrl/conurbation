@@ -2,9 +2,9 @@
 
 #include "conurbation/uefi/efi_types.hh"
 #include "conurbation/uefi/abi.hh"
-#include "conurbation/uefi/device_path.hh"
-#include "conurbation/uefi/simple_text_input.hh"
-#include "conurbation/uefi/simple_text_output.hh"
+#include "conurbation/uefi/protocol/device_path.hh"
+#include "conurbation/uefi/protocol/simple_text_input.hh"
+#include "conurbation/uefi/protocol/simple_text_output.hh"
 
 namespace Conurbation::UEFI
 {

@@ -2,7 +2,7 @@
 
 #include "conurbation/uefi/abi.hh"
 #include "conurbation/uefi/efi_types.hh"
-#include "conurbation/uefi/file.hh"
+#include "conurbation/uefi/protocol/file.hh"
 #include "jones/jones_loadable.hh"
 
 namespace Jones {

@@ -1,11 +1,14 @@
 kernel_library("kuefi") {
 
     sources = [
-        "src/guids.cc"
+        "src/guids.cc",
+        "src/console_logging.cc"
     ]
 
+    #cflags = [ "-nostdinc", "-fno-rtti", "-fno-exceptions", "-fno-stack-protector", "-ffreestanding"]
     cflags_cc = [ "-std=c++1z" ]
 
-    public_deps = [ "//sources/supervisor/kcore" ]
+
+    public_deps = [ "//sources/supervisor/owlevel" ]
 
 }

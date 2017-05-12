@@ -1,14 +1,19 @@
 #include "conurbation/uefi/tables.hh"
-#include "conurbation/uefi/loaded_image.hh"
-#include "conurbation/uefi/simple_file_system.hh"
+#include "conurbation/uefi/protocol/loaded_image.hh"
+#include "conurbation/uefi/protocol/simple_file_system.hh"
 #include "jones/jones.hh"
 #include "jones/jones_loadable.hh"
+#include "string.h"
+
+#include "conurbation/uefi/console.hh"
 
 using namespace Conurbation::UEFI;
 
 namespace Jones {
 
     efiabi extern "C" auto efi_main(handle_t ImageHandle, efi_system_table_t* SystemTable) -> status_t {
+
+        console_logging_t* con = new (SystemTable) console_logging_t(SystemTable->ConOut);
 
         status_t status;
 
@@ -19,30 +24,31 @@ namespace Jones {
 
         efi_loaded_image_p* thisImage_;
         efi_simple_file_system_p* rootDevice_;
-        efi_device_path_utilities_p* devpathUtils;
+        efi_file_p* rootDir_;
 
-        // status = SystemTable->BootServices->LocateProtocol(&protocol_guid_v<efi_device_path_utilities_p>, nullptr, reinterpret_cast<void**>(&devpathUtils));
-        // if (status != status_t::Success) {
-        //     SystemTable->ConOut->OutputString(SystemTable->ConOut, u"Device Path Utilities Protocol not available\r\n");
-        //     return status_t::Aborted;
-        // }
+        con->info(u"Jones Loder Framework");
 
 
         status = SystemTable->BootServices->HandleProtocol(ImageHandle, &protocol_guid_v<efi_loaded_image_p>, reinterpret_cast<void**>(&thisImage_));
         status = SystemTable->BootServices->HandleProtocol(thisImage_->DeviceHandle, &protocol_guid_v<efi_simple_file_system_p>, reinterpret_cast<void**>(&rootDevice_));
 
-        SystemTable->ConOut->ClearScreen(SystemTable->ConOut);
-        SystemTable->ConOut->OutputString(SystemTable->ConOut, u"Jones Loader Framework...\r\n\r\n");
-
+        // if (status == status_t::Success) {
+        //     status = rootDevice_->OpenVolume(rootDevice_, &rootDir_);
+        // } else {
+        //     status = SystemTable->BootServices->HandleProtocol(thisImage_->DeviceHandle, &protocol_guid_v<efi_file_p>, reinterpret_cast<void**>(&rootDir_));
+        // }
+        // if (status != status_t::Success) {
+        //     con->error(u"Unable to open root file system");
+        //     return status;
+        // }
 
         status = SystemTable->BootServices->LocateProtocol(&protocol_guid_v<Jones::jones_p>, nullptr, reinterpret_cast<void**>(&jones_));
-        if (status == status_t::NotFound) {
-            // Load the driver and try again...
-            SystemTable->ConOut->SetAttribute(SystemTable->ConOut, 0x0D);
-            SystemTable->ConOut->OutputString(SystemTable->ConOut, u"    [WARN]  Could not connect to driver first time, attempting to load...\r\n");
+        if (status == status_t::Success) {
+            con->info(u"Connected to Jones service");
+        } else if (status == status_t::NotFound) {
+            con->warn(u"Could not connect to Jones service");
+            con->info(u"Attempting to load Jones service");
 
-            //efi_file_media_device_path_t dp{efi_device_path_type_t::media, 4, 52, u"\\uefi-llvm\\jonessvc.efi\0"};
-            SystemTable->ConOut->SetAttribute(SystemTable->ConOut, 0x07);
 
             return status_t::Aborted;
         }

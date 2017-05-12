@@ -2,7 +2,6 @@
 
 #include "conurbation/uefi/abi.hh"
 #include "conurbation/uefi/efi_types.hh"
-#include "conurbation/guid.hh"
 
 namespace Conurbation::UEFI
 {
@@ -72,5 +71,5 @@ namespace Conurbation::UEFI
         efi_graphics_output_protocol_mode_t* Mode;
     };
 
-    
+
 }

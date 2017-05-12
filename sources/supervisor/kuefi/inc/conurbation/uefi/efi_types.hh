@@ -1,8 +1,8 @@
 #pragma once
 
-#include "conurbation/numeric_types.hh"
-#include "conurbation/char_types.hh"
-#include "conurbation/guid.hh"
+#include "numeric_types.hh"
+#include "char_types.hh"
+#include "guid.hh"
 #include "conurbation/uefi/abi.hh"
 
 namespace Conurbation::UEFI
@@ -146,4 +146,6 @@ namespace Conurbation::UEFI
     };
 
     enum timer_delay_t { TimerCancel, TimerPeriodic, TimerRelative };
+
+    template <typename T> constexpr guid_t protocol_guid_v = "00000000-0000-0000-0000000000000000"_guid;
 }
