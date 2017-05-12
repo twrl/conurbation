@@ -1,24 +1,24 @@
 #include "traits.hh"
 #include "guid.hh"
 
-    template <> constexpr bool_t is_integral_v<uint8_t> = true;
-    template <> constexpr bool_t is_integral_v<uint16_t> = true;
-    template <> constexpr bool_t is_integral_v<uint32_t> = true;
-    template <> constexpr bool_t is_integral_v<uint64_t> = true;
-    template <> constexpr bool_t is_integral_v<int8_t> = true;
-    template <> constexpr bool_t is_integral_v<int16_t> = true;
-    template <> constexpr bool_t is_integral_v<int32_t> = true;
-    template <> constexpr bool_t is_integral_v<int64_t> = true;
-    template <> constexpr bool_t is_integral_v<bool_t> = true;
-    template <> constexpr bool_t is_integral_v<char8_t> = true;
-    template <> constexpr bool_t is_integral_v<char16_t> = true;
-    template <> constexpr bool_t is_integral_v<char32_t> = true;
-    
-    
-    template <> constexpr bool_t is_floating_point_v<float32_t> = true;
-    template <> constexpr bool_t is_floating_point_v<float64_t> = true;
-    
-    template <> constexpr uint8_t numeric_max_v<uint8_t> = __UINT8_MAX__;
+template <> constexpr bool_t is_integral_v<uint8_t> = true;
+template <> constexpr bool_t is_integral_v<uint16_t> = true;
+template <> constexpr bool_t is_integral_v<uint32_t> = true;
+template <> constexpr bool_t is_integral_v<uint64_t> = true;
+template <> constexpr bool_t is_integral_v<int8_t> = true;
+template <> constexpr bool_t is_integral_v<int16_t> = true;
+template <> constexpr bool_t is_integral_v<int32_t> = true;
+template <> constexpr bool_t is_integral_v<int64_t> = true;
+template <> constexpr bool_t is_integral_v<bool_t> = true;
+template <> constexpr bool_t is_integral_v<char8_t> = true;
+template <> constexpr bool_t is_integral_v<char16_t> = true;
+template <> constexpr bool_t is_integral_v<char32_t> = true;
+
+
+template <> constexpr bool_t is_floating_point_v<float32_t> = true;
+template <> constexpr bool_t is_floating_point_v<float64_t> = true;
+
+template <> constexpr uint8_t numeric_max_v<uint8_t> = __UINT8_MAX__;
 template <> constexpr uint16_t numeric_max_v<uint16_t> = __UINT16_MAX__;
 template <> constexpr uint32_t numeric_max_v<uint32_t> = __UINT32_MAX__;
 template <> constexpr uint64_t numeric_max_v<uint64_t> = __UINT64_MAX__;

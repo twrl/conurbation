@@ -19,8 +19,8 @@ template("kernel_library") {
         }
         
         if (current_toolchain == default_toolchain) {
-            cflags += [ "-mno-red-zone", "-ffunction-sections", "-fdata-sections" ]
-            arflags += [ "-fuse-ld=lld", "-nostdlib", "-Wl,-z,combreloc" ]
+            cflags += [ "-mno-red-zone", "-fno-exceptions", "-fno-rtti", "-ffunction-sections", "-fdata-sections" ]
+            arflags += [ "-fuse-ld=lld", "-nostdlib", "-Wl,-z,combreloc", "-Wl,-no-gc-sections" ]
         }
 
 
