@@ -1,4 +1,5 @@
 #include "traits.hh"
+#include "guid.hh"
 
     template <> constexpr bool_t is_integral_v<uint8_t> = true;
     template <> constexpr bool_t is_integral_v<uint16_t> = true;

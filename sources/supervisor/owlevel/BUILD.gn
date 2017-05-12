@@ -5,12 +5,15 @@ kernel_library("owlevel") {
         "char_types.hh",
         "numeric_types.hh",
         "traits.hh",
-        "vector_types.hh"
+        "vector_types.hh",
+        
+        "ll/ucd.hh",
+        "ll/unicode_props.hh",
     ]
     
     sources = [
         "src/primitive_traits.cc",
-        "src/ucd.cc",
+        #"src/ucd.cc",
         "src/icxxabi/virtual.cc"
     ]
     

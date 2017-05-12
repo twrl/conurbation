@@ -22,9 +22,15 @@ namespace ll::Unicode {
         block block;
     };
     
-    extern ucd_name_t const ucd_names[];
-    extern ucd_category_t const ucd_categories[];
-    extern ucd_block_t const ucd_blocks[];
+    constexpr ucd_name_t const ucd_names[] = {
+#include "./ucd/name.g.inl"
+    };
+    constexpr ucd_category_t const ucd_categories[] = {
+#include "./ucd/category.g.inl"        
+    };
+    constexpr ucd_block_t const ucd_blocks[] = {
+#include "./ucd/block.g.inl"        
+    };
     
     
 }
