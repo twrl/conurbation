@@ -13,10 +13,12 @@ kernel_library("owlevel") {
     
     sources = [
         "src/primitive_traits.cc",
-        #"src/ucd.cc",
+        
+        "src/icxxabi/guard.cc",
         "src/icxxabi/virtual.cc"
     ]
     
     cflags_cc = [ "-std=c++1z" ]
+    arflags = [ "-Map", $root_out_dir + "/owlevel.lo.map" ]
 
 }
