@@ -14,20 +14,20 @@ struct guid_t {
 };
 
 constexpr guid_t::guid_t(const char* string)
-    : data1((hton(string[0]) << 28) + (hton(string[1]) << 24) + (hton(string[2]) << 20) + (hton(string[3]) << 16)
-          + (hton(string[4]) << 12) + (hton(string[5]) << 8) + (hton(string[6]) << 4) + (hton(string[7])))
+    : data1((ll::Parse::hton(string[0]) << 28) + (ll::Parse::hton(string[1]) << 24) + (ll::Parse::hton(string[2]) << 20) + (ll::Parse::hton(string[3]) << 16)
+          + (ll::Parse::hton(string[4]) << 12) + (ll::Parse::hton(string[5]) << 8) + (ll::Parse::hton(string[6]) << 4) + (ll::Parse::hton(string[7])))
     , data2(static_cast<uint16_t>(
-          (hton(string[9]) << 12) + (hton(string[10]) << 8) + (hton(string[11]) << 4) + (hton(string[12]))))
+          (ll::Parse::hton(string[9]) << 12) + (ll::Parse::hton(string[10]) << 8) + (ll::Parse::hton(string[11]) << 4) + (ll::Parse::hton(string[12]))))
     , data3(static_cast<uint16_t>(
-          (hton(string[14]) << 12) + (hton(string[15]) << 8) + (hton(string[16]) << 4) + (hton(string[17]))))
-    , data4{ static_cast<uint8_t>((hton(string[19]) << 4) + hton(string[20])),
-        static_cast<uint8_t>((hton(string[21]) << 4) + hton(string[22])),
-        static_cast<uint8_t>((hton(string[24]) << 4) + hton(string[25])),
-        static_cast<uint8_t>((hton(string[26]) << 4) + hton(string[27])),
-        static_cast<uint8_t>((hton(string[28]) << 4) + hton(string[29])),
-        static_cast<uint8_t>((hton(string[30]) << 4) + hton(string[31])),
-        static_cast<uint8_t>((hton(string[32]) << 4) + hton(string[33])),
-        static_cast<uint8_t>((hton(string[34]) << 4) + hton(string[35])) }
+          (ll::Parse::hton(string[14]) << 12) + (ll::Parse::hton(string[15]) << 8) + (ll::Parse::hton(string[16]) << 4) + (ll::Parse::hton(string[17]))))
+    , data4{ static_cast<uint8_t>((ll::Parse::hton(string[19]) << 4) + ll::Parse::hton(string[20])),
+        static_cast<uint8_t>((ll::Parse::hton(string[21]) << 4) + ll::Parse::hton(string[22])),
+        static_cast<uint8_t>((ll::Parse::hton(string[24]) << 4) + ll::Parse::hton(string[25])),
+        static_cast<uint8_t>((ll::Parse::hton(string[26]) << 4) + ll::Parse::hton(string[27])),
+        static_cast<uint8_t>((ll::Parse::hton(string[28]) << 4) + ll::Parse::hton(string[29])),
+        static_cast<uint8_t>((ll::Parse::hton(string[30]) << 4) + ll::Parse::hton(string[31])),
+        static_cast<uint8_t>((ll::Parse::hton(string[32]) << 4) + ll::Parse::hton(string[33])),
+        static_cast<uint8_t>((ll::Parse::hton(string[34]) << 4) + ll::Parse::hton(string[35])) }
 {
 }
 
