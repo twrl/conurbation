@@ -9,7 +9,7 @@ namespace ll::Unicode {
     struct ucd_name_t {
         char32_t code_point;
         bool_t var;
-        char8_t* character_name;
+        const char8_t* character_name;
     };
     
     struct ucd_category_t {
