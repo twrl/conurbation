@@ -24,4 +24,7 @@ install:
 before_script:
   - gn gen out
 script:
-  - ninja -C out
+  - ninja -C out -k 10 -v
+after_success:
+  - cat out/owlevel.lo.map
+  - readelf -aW out/owlevel.lo 

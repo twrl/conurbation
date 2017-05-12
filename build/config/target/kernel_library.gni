@@ -2,7 +2,7 @@ template("kernel_library") {
 
     dep_target_name = target_name + "_depend"
 
-    source_set(target_name) {
+    static_library(target_name) {
 
         forward_variables_from(invoker, "*")
 
@@ -11,6 +11,18 @@ template("kernel_library") {
         }
         all_dependent_configs += [ ":" + dep_target_name, "//build/config:kernel_compile_link" ]
 
+
+        if (!defined(cflags)) {
+            cflags = []
+        }
+        if (!defined(arflags)) {
+            arflags = []
+        }
+
+        if (current_toolchain == default_toolchain) {
+            cflags += [ "-ffunction-sections", "-fdata-sections" ]
+            arflags += [ "-Wl,-z,combreloc" ]
+        }
 
 
     }

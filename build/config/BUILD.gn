@@ -6,16 +6,28 @@ config("kernel_compile_link") {
         "-fno-exceptions",
         "-fno-rtti",
         "-mno-red-zone",
-        "-fno-stack-protector",
-        "-fpic",
+        "-fno-stack-protector"
     ]
 
-    ldflags = [
-        "-fuse-ld=lld",
-        "-nostdlib",
-        "-Wl,--export-dynamic",
-        "-Wl,-z,combreloc",
-        "-Wl,--pie"
-    ]
+    if (current_toolchain == default_toolchain) {
+        cflags += [ "-fpic" ]
+
+        ldflags = [
+            "-fuse-ld=lld",
+            "-nostdlib",
+            "-Wl,--export-dynamic",
+            "-Wl,-z,combreloc",
+            "-Wl,--pie"
+        ]
+
+        arflags = [
+            "-fuse-ld=lld",
+            "-nostdlib",
+            "-Wl,--export-dynamic",
+            "-Wl,-z,combreloc",
+            "-Wl,--pie"
+        ]
+
+    }
 
 }
