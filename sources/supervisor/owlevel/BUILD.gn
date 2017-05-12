@@ -1,0 +1,18 @@
+kernel_library("owlevel") {
+
+    public = [
+        "atomic_types.hh",
+        "char_types.hh",
+        "numeric_types.hh",
+        "traits.hh",
+        "vector_types.hh"
+    ]
+    
+    sources = [
+        "src/primitive_traits.cc",
+        "src/icxxabi/virtual.cc"
+    ]
+    
+    cflags_cc = [ "-std=c++1z" ]
+
+}
