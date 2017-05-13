@@ -1,7 +1,7 @@
 #pragma once
 
-#include "conurbation/char_types.hh"
-#include "conurbation/elf64.hh"
+#include "char_types.hh"
+#include "ll/elf64.hh"
 
 namespace Conurbation {
 

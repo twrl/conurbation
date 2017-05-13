@@ -1,4 +1,10 @@
 kernel_library("kcore") {
 
+    sources = [
+        "src/cstrings.cc",
+        "src/mem.asm"
+    ]
+
+    cflags_cc = [ "-std=c++1z" ]
 
 }
