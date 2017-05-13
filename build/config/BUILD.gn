@@ -12,7 +12,6 @@ config("kernel_compile_link") {
     arflags = [
         "-nostdlib",
         "-Wl,--export-dynamic",
-        "-Wl,-z,combreloc"
     ]
 
     if (current_toolchain == default_toolchain) {
