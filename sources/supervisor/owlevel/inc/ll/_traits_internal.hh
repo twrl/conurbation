@@ -1,4 +1,4 @@
-#pragma once 
+#pragma once
 
 #include "numeric_types.hh"
 
@@ -65,16 +65,16 @@
         template <typename T> struct add_pointer_t<T*> {
             typedef T* type;
         };
-        
+
         template <bool_t Condition, typename T>
         struct enable_if_t {
         };
-        
+
         template <typename T>
         struct enable_if_t<true, T> {
             typedef T type;
         };
-        
+
         template <bool_t If, typename Then, typename Else> struct if_t {
         };
         template <typename Then, typename Else> struct if_t<true, Then, Else> {
@@ -83,7 +83,15 @@
         template <typename Then, typename Else> struct if_t<false, Then, Else> {
             typedef Else type;
         };
+
+        template <typename T> struct align_of_t {
+            static constexpr size_t value = alignof(T);
+        };
+
+        template <typename T> struct size_of_t {
+            static constexpr size_t value = sizeof(T);
+        };
     }
-    
+
 
 #pragma clang diagnostic pop

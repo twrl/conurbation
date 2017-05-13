@@ -74,6 +74,8 @@ template <typename T> constexpr bool_t is_const_v<const T> = true;
 template <typename T> constexpr bool_t is_volatile_v = false;
 template <typename T> constexpr bool_t is_volatile_v<volatile T> = true;
 
+template <typename T> constexpr intmax_t align_of_v = ll::_traits_internal::align_of_t<T>::value;
+template <typename T> constexpr intmax_t size_of_v = ll::_traits_internal::size_of_t<T>::value;
 
 template <bool_t If, typename Then, typename Else> using if_t = typename ll::_traits_internal::if_t<If, Then, Else>::type;
 
