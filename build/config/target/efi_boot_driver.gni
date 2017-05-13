@@ -11,7 +11,7 @@ template("efi_boot_driver") {
         if (!defined(ldflags)) {
             ldflags = []
         }
-        ldflags += [ "/nodefaultlib", "/nxcompat:no", "/entry:efi_main", "/subsystem:efi_boot_service_driver", "/safeseh:no" ]
+        ldflags += [ "-Wl,-nostdlib", "-Wl,--no-seh", "/entry:efi_main", "-Wl,--subsystem,11" ]
 
         if (!defined(cflags)) {
             cflags = []

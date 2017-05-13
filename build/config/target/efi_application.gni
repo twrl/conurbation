@@ -9,7 +9,7 @@ template("efi_application") {
         if (!defined(ldflags)) {
             ldflags = []
         }
-        ldflags += [ "/nodefaultlib", "/nxcompat:no", "/entry:efi_main", "/subsystem:efi_application", "/safeseh:no" ]
+        ldflags += [ "-Wl,-nostdlib", "-Wl,--no-seh", "/entry:efi_main", "-Wl,--subsystem,10" ]
 
         if (!defined(cflags)) {
             cflags = []
