@@ -5,8 +5,9 @@ Contents:
 
 .. toctree::
    :maxdepth: 3
+   :glob:
+   ../sources/supervisor/*/doc/index.rst
 
-.. doxygenindex::
 
 Indices and tables
 ==================
