@@ -19,7 +19,7 @@ toolchain("uefi-llvm") {
     }
 
     tool("alink") {
-        command = "clang++ --target=x86_64-w64-mingw64 -Wl,-r @{{output}}.rsp -o {{output}}"
+        command = "clang-4.0 --target=x86_64-w64-mingw64 -Wl,-r @{{output}}.rsp -o {{output}}"
         rspfile = "{{output}}.rsp"
         rspfile_content = "{{arflags}} {{inputs}}"
         outputs = [ "{{output_dir}}/{{target_output_name}}{{output_extension}}"]
@@ -29,7 +29,9 @@ toolchain("uefi-llvm") {
     }
 
     tool("solink") {
-        command = "lld-link {{ldflags}} /dll /out:{{output}} {{inputs}}"
+        command = "clang-4.0 --target=x86_64-w64-mingw64 @{{output}}.rsp -Wl,-shared -o {{output}}"
+        rspfile = "{{output}}.rsp"
+        rspfile_content = "{{ldflags}} {{inputs}} {{solibs}}"
         outputs = [ "{{output_dir}}/{{target_output_name}}{{output_extension}}"]
         default_output_extension = ".dll"
         default_output_dir = "{{root_out_dir}}"
@@ -37,7 +39,9 @@ toolchain("uefi-llvm") {
     }
 
     tool("link") {
-        command = "lld-link {{ldflags}} /out:{{output}} {{inputs}}"
+        command = "clang-4.0 --target=x86_64-w64-mingw64 @{{output}}.rsp -o {{output}}"
+        rspfile = "{{output}}.rsp"
+        rspfile_content = "{{ldflags}} {{inputs}} {{solibs}}"
         outputs = [ "{{output_dir}}/{{target_output_name}}{{output_extension}}"]
         default_output_extension = ".exe"
         default_output_dir = "{{root_out_dir}}"
