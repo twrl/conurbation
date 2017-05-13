@@ -19,7 +19,7 @@ toolchain("uefi-llvm") {
     }
 
     tool("alink") {
-        command = "clang++ -Wl,-r @{{output}}.rsp -o {{output}}"
+        command = "clang++ --target=x86_64-w64-mingw64 -Wl,-r @{{output}}.rsp -o {{output}}"
         rspfile = "{{output}}.rsp"
         rspfile_content = "{{arflags}} {{inputs}}"
         outputs = [ "{{output_dir}}/{{target_output_name}}{{output_extension}}"]
