@@ -1,7 +1,8 @@
 PROJECT_NAME = "Conurbation"
 OUTPUT_DIRECTORY = dox/
-INPUT = ../sources
+INPUT = ../sources/supervisor/owlevel
 RECURSIVE = YES
+QUIET = YES
 GENERATE_LATEX   = NO
 GENERATE_MAN     = NO
 GENERATE_RTF     = NO
