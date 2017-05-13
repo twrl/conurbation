@@ -8,6 +8,8 @@ extensions = [ 'sphinx.ext.autodoc', 'sphinx.ext.todo', 'sphinx.ext.viewcode', '
 breathe_projects = { "Conurbation": "dox/xml" }
 breathe_default_project = "Conurbation"
 
+master_doc = "index"
+
 def run_doxygen():
     try:
         subprocess.call("doxygen", shell = True)
