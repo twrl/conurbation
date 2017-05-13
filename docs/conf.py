@@ -1,6 +1,6 @@
 import os, subprocess, sys
 
-extensions = [ 'breathe' ]
+extensions = [ 'sphinx.ext.autodoc', 'sphinx.ext.todo', 'sphinx.ext.viewcode', 'breathe' ]
 
 breathe_projects = { "Conurbation": "dox/xml" }
 breathe_default_project = "Conurbation"
