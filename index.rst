@@ -5,7 +5,8 @@ Contents:
 
 .. toctree::
    :maxdepth: 2
-   Libowlevel <../sources/supervisor/owlevel/doc/index>
+   :glob:
+   sources/supervisor/*/doc/index
 
 
 Indices and tables
