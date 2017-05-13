@@ -4,8 +4,8 @@ Conurbation
 Contents:
 
 .. toctree::
-   :maxdepth: 3
-   ../sources/supervisor/owlevel/doc/index
+   :maxdepth: 2
+   Libowlevel <../sources/supervisor/owlevel/doc/index>
 
 
 Indices and tables
