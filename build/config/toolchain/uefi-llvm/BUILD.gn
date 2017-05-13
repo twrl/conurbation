@@ -13,8 +13,7 @@ toolchain("uefi-llvm") {
     }
 
     tool("asm") {
-        command = "nasm -f win64 -MF {{output}}.d -o {{output}} {{source}}"
-        depfile = "{{output}}.d"
+        command = "nasm -f win64 -o {{output}} {{source}}"
         outputs = [ "{{target_gen_dir}}/{{source_name_part}}.o" ]
         description = "  NASM  {{output}}"
     }
