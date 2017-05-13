@@ -7,6 +7,11 @@
 
 namespace ll {
 
+    template <class T, class... Types>
+    struct variant_traits {
+        typedef T type;
+    };
+
     template <typename ...Types>
     class variant_t {
     private:
@@ -15,6 +20,7 @@ namespace ll {
         static constexpr size_t data_align = max<_traits_internal::align_of_t, Types...>::value;
 
         using storage = aligned_storage_t<data_size, data_align>;
+        using first_type = typename first<Types...>::type;
 
         storage data_;
 
@@ -22,23 +28,26 @@ namespace ll {
 
     public:
 
-        template <class T>
         variant_t() {
-            // Must be default constructable
-            new (&data_) T();
+            new (&data_) first_type();
         };
 
-        template <class T>
+        template <class T, class Traits = variant_traits<T, Types...> >
         variant_t(T& value) {
             // Must be copy constructable
-            new (&data_) T(value);
+            new (&data_) typename Traits::type(value);
         };
 
-        template <class t>
+        template <class T, class Traits = variant_traits<T, Types...>>
         variant_t(T&& value) {
             // Must be move constructable
-            new (&data_) T(value);
+            new (&data_) typename Traits::type(value);
         };
+
+        template <class T>
+        auto get_unsafe() -> T& {
+            return *reinterpret_cast<T*>(&data_);
+        }
 
     };
 

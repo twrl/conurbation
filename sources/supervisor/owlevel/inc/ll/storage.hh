@@ -15,3 +15,5 @@ namespace ll {
     using aligned_storage_t = typename aligned_storage<Length, Alignment>::type;
 
 }
+
+void* operator new (size_t count, void* ptr) { return ptr; }

@@ -46,4 +46,10 @@ namespace ll {
         static constexpr auto value = Pred<TLast>::value;
     };
 
+    template <class T, class...>
+    struct first {
+        typedef T type;
+    };
+
+
 }
