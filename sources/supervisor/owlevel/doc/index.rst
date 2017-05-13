@@ -10,7 +10,7 @@ Modules and Features
 --------------------
 
 .. toctree::
-   :titlesonly:
+   
    primitives
 
 
