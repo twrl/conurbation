@@ -1,5 +1,5 @@
 PROJECT_NAME = "Conurbation"
-OUTPUT_DIRECTORY = out/docs/
+OUTPUT_DIRECTORY = dox/
 INPUT = sources/supervisor/owlevel
 RECURSIVE = YES
 QUIET = YES
