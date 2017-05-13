@@ -9,6 +9,12 @@ config("kernel_compile_link") {
         "-fno-stack-protector"
     ]
 
+    arflags = [
+        "-nostdlib",
+        "-Wl,--export-dynamic",
+        "-Wl,-z,combreloc"
+    ]
+
     if (current_toolchain == default_toolchain) {
         cflags += [ "-fpic" ]
 
@@ -21,9 +27,7 @@ config("kernel_compile_link") {
 
         arflags = [
             "-fuse-ld=lld",
-            "-nostdlib",
-            "-Wl,--export-dynamic",
-            "-Wl,-z,combreloc"
+
         ]
 
     }
