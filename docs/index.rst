@@ -5,8 +5,7 @@ Contents:
 
 .. toctree::
    :maxdepth: 3
-   :glob:
-   ../sources/supervisor/*/doc/index.rst
+   ../sources/supervisor/owlevel/doc/index
 
 
 Indices and tables
