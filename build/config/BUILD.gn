@@ -25,7 +25,7 @@ config("kernel_compile_link") {
             "-Wl,-z,combreloc"
         ]
 
-        arflags = [
+        arflags += [
             "-fuse-ld=lld",
 
         ]
