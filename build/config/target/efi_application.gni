@@ -14,7 +14,7 @@ template("efi_application") {
         if (!defined(cflags)) {
             cflags = []
         }
-        cflags += [ "-nostdinc", "-fno-rtti", "-fno-exceptions", "-fno-stack-protector", "-ffreestanding"]
+        cflags += [ "-nostdinc", "-fno-autolink", "-fno-rtti", "-fno-exceptions", "-fno-stack-protector", "-ffreestanding"]
 
         if (!defined(deps)) {
             deps = []
