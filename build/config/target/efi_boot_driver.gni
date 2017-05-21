@@ -11,7 +11,7 @@ template("efi_boot_driver") {
         if (!defined(ldflags)) {
             ldflags = []
         }
-        ldflags += [ "-Wl,-nostdlib", "-Wl,--no-seh", "-Wl,-e,efi_main", "-Wl,-static", "-Wl,--subsystem,11" ]
+        ldflags += [ "-Wl,-nostdlib", "-Wl,-dll", "-Wl,--no-seh", "-Wl,-e,efi_main", "-Wl,-static", "-Wl,--subsystem,11" ]
 
         if (!defined(cflags)) {
             cflags = []

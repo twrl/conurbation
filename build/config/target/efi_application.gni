@@ -9,7 +9,7 @@ template("efi_application") {
         if (!defined(ldflags)) {
             ldflags = []
         }
-        ldflags += [ "-Wl,-nostdlib", "-Wl,--no-seh", "-Wl,-e,efi_main", "-Wl,-static", "-Wl,--subsystem,10" ]
+        ldflags += [ "-Wl,-nostdlib", "-Wl,-dll", "-Wl,--no-seh", "-Wl,-e,efi_main", "-Wl,-static", "-Wl,--subsystem,10" ]
 
         if (!defined(cflags)) {
             cflags = []
