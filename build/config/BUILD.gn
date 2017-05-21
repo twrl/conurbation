@@ -11,16 +11,16 @@ config("kernel_compile_link") {
 
     arflags = [
         "-nostdlib",
-        "-Wl,--export-dynamic",
+#        "-Wl,--export-dynamic",
     ]
 
     if (current_toolchain == default_toolchain) {
-        cflags += [ "-fpic" ]
+#        cflags += [ "-fpic" ]
 
         ldflags = [
             "-fuse-ld=lld",
             "-nostdlib",
-            "-Wl,--export-dynamic",
+#            "-Wl,--export-dynamic",
             "-Wl,-z,combreloc"
         ]
 

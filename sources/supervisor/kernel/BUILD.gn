@@ -1,6 +1,6 @@
 kernel("kernel") {
 
-    kobject = "io.github.twrl.conurbation.supervisor.core"
+#    kobject = "io.github.twrl.conurbation.supervisor.core"
 
     sources = [
         #"src/start.asm",

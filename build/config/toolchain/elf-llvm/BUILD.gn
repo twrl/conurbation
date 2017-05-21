@@ -45,7 +45,7 @@ toolchain("elf-llvm") {
     }
 
     tool("link") {
-        command = "clang-4.0 -Wl,--pie @{{output}}.rsp -o {{output}}"
+        command = "clang-4.0 @{{output}}.rsp -o {{output}}"
         rspfile = "{{output}}.rsp"
         rspfile_content = "{{ldflags}} {{inputs}} {{solibs}}"
         outputs = [ "{{output_dir}}/{{target_output_name}}{{output_extension}}"]
