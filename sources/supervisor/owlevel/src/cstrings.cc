@@ -1,5 +1,7 @@
 #include "string.h"
 
+#include "ll/ucd.hh"
+
 // These functions are lifted verbatim from PDCLib
 //
 

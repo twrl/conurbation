@@ -12,10 +12,12 @@ kernel_library("owlevel") {
     ]
 
     sources = [
-        #"src/handlers.cc",
         "src/cstrings.cc",
         "src/mem.asm",
         "src/primitive_traits.cc",
+
+        "src/heap/bestfit_allocator.cc",
+        "src/heap/ffh_allocator.cc",
 
         "src/icxxabi/guard.cc",
         "src/icxxabi/virtual.cc"

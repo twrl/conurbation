@@ -45,6 +45,8 @@ template <typename T> constexpr size_t numeric_width_v = 8 * sizeof(T);
 
 template <typename T> constexpr bool_t is_arithmetic_v = is_integral_v<T> || is_floating_point_v<T>;
 
+template <typename T> constexpr bool_t is_literal_v = __is_literal_type(T);
+
 template <typename T> constexpr bool_t is_pointer_v = false;
 template <typename T> constexpr bool_t is_pointer_v<T*> = true;
 
