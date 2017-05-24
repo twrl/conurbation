@@ -10,7 +10,7 @@ config("kernel_compile_link") {
     ]
 
     ldflags = [
-        "-nostdlib"
+        "-nostdlib",
     ]
 
     arflags = [
@@ -22,7 +22,7 @@ config("kernel_compile_link") {
 #        cflags += [ "-fpic" ]
 
         ldflags += [
-            "-fuse-ld=lld",
+            "-fuse-ld=gold",
             "-nostdlib",
 #            "-Wl,--export-dynamic",
             "-Wl,-z,combreloc"

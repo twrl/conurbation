@@ -26,7 +26,5 @@ before_script:
 script:
   - ninja -C out -k 10 -v
 after_success:
-  - cat out/owlevel.lo.map
-  - readelf -aW out/owlevel.lo | c++filt -t
-  - readelf -aW out/kuefi.lo | c++filt -t
-  - readelf -aW out/kernel | c++filt -t
+  #- readelf -aW out/kernel | c++filt -t
+  - objdump -xtrR out/image/EFI/Conurbation/{jonessvc.efi,jones.efi,kernel} | c++filt -t
