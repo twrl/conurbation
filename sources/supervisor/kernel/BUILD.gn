@@ -3,10 +3,10 @@ kernel("kernel") {
 #    kobject = "io.github.twrl.conurbation.supervisor.core"
 
     sources = [
-        #"src/start.asm",
-        #"src/main.cc",
+        "src/start.asm",
+        "src/main.cc",
         #"src/ldso.cc",
-        "src/kdso.cc",
+#        "src/kdso.cc",
 #        "src/ssp.cc",
         #"src/heap/uefiheap.cc",
         #"src/heap/bestfit.cc"

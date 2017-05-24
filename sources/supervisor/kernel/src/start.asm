@@ -9,7 +9,7 @@
 [EXTERN __fini_array_start]
 [EXTERN __fini_array_end]
 
-[EXTERN kernel_main]
+[EXTERN _main]
 ;[EXTERN __cxa_finalize]
 
 [SECTION .text.startup]
@@ -32,7 +32,7 @@ _start:
         mov rdi, [_uefi_image_handle wrt ..sym]
         mov rsi, [_uefi_system_table_ptr wrt ..sym]
 
-        call kernel_main
+        call _main
 
         push rax
 

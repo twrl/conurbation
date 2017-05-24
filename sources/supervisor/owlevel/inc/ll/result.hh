@@ -6,7 +6,10 @@
 namespace ll {
 
     enum class status_t {
-        success
+        success,
+
+        size_mismatch,
+        type_mismatch
     };
 
     template <typename T>
