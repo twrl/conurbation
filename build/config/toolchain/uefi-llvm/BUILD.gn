@@ -19,7 +19,7 @@ toolchain("uefi-llvm") {
     }
 
     tool("alink") {
-        command = "clang-4.0 --target=x86_64-w64-mingw64 -Wl,-r @{{output}}.rsp -o {{output}}"
+        command = "clang-4.0 -v --target=x86_64-w64-mingw64 -Wl,-r @{{output}}.rsp -o {{output}}"
         rspfile = "{{output}}.rsp"
         rspfile_content = "{{arflags}} {{inputs}}"
         outputs = [ "{{output_dir}}/{{target_output_name}}{{output_extension}}"]
@@ -39,7 +39,7 @@ toolchain("uefi-llvm") {
     }
 
     tool("link") {
-        command = "clang-4.0 --target=x86_64-w64-mingw64 {{ldflags}} @{{output}}.rsp -o {{output}}"
+        command = "clang-4.0 -v --target=x86_64-w64-mingw64 {{ldflags}} @{{output}}.rsp -o {{output}}"
         rspfile = "{{output}}.rsp"
         rspfile_content = "{{inputs}} {{solibs}}"
         outputs = [ "{{output_dir}}/{{target_output_name}}{{output_extension}}"]
