@@ -21,7 +21,7 @@ config("kernel_compile_link") {
     if (current_toolchain == default_toolchain) {
 #        cflags += [ "-fpic" ]
 
-        ldflags = [
+        ldflags += [
             "-fuse-ld=lld",
             "-nostdlib",
 #            "-Wl,--export-dynamic",
