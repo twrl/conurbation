@@ -9,6 +9,10 @@ config("kernel_compile_link") {
         "-fno-stack-protector"
     ]
 
+    ldflags = [
+        "-nostdlib"
+    ]
+
     arflags = [
         "-nostdlib",
 #        "-Wl,--export-dynamic",
