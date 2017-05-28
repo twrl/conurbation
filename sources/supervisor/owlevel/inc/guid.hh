@@ -1,4 +1,4 @@
-#pragma once 
+#pragma once
 
 #include "numeric_types.hh"
 #include "ll/parse.hh"
@@ -40,4 +40,3 @@ constexpr bool guid_t::operator==(const guid_t& that)
 }
 
 constexpr guid_t operator""_guid(const char* lit, size_t sz) { return guid_t(lit); };
-
