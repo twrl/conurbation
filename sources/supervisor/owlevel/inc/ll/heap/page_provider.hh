@@ -1,7 +1,6 @@
 #pragma once
 
-#include "numeric_types.hh"
-#include "ll/result.hh"
+#include "ll.hh"
 
 namespace ll::Heap {
 

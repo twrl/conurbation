@@ -3,6 +3,6 @@
 -ffreestanding
 -fblocks
 -msse3
--I../kcore/inc
+-I../owlevel/inc
 -I../kuefi/inc
 -I../jones/inc

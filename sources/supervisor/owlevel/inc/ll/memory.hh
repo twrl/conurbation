@@ -14,8 +14,25 @@ namespace ll {
     public:
 
         constexpr memory_t(uintptr_t base, size_t size) : base_(base), size_(size) {}
+        memory_t (void* ptr, size_t size) : base_(reinterpret_cast<uintptr_t>(ptr)), size_(size) {}
 
         inline auto copy_to(memory_t& destination) -> status_t {
+            if (this->size_ != destination.size_) return status_t::size_mismatch;
+            if (this->base_ == destination.base_) return status_t::success;
+
+            if (this->base_ > destination.base_) {
+                for (ptrdiff_t i = 0; i < this->size_; ++i) {
+                    *reinterpret_cast<uint8_t*>(destination.base_ + i) = *reinterpret_cast<uint8_t*>(this->base_ + i);
+                }
+            } else {
+                for (ptrdiff_t i = this->size_ -1; i >= 0; --i) {
+                    *reinterpret_cast<uint8_t*>(destination.base_ + i) = *reinterpret_cast<uint8_t*>(this->base_ + i);
+                }
+            }
+            return status_t::success;
+        };
+        
+        inline auto copy_to(memory_t&& destination) -> status_t {
             if (this->size_ != destination.size_) return status_t::size_mismatch;
             if (this->base_ == destination.base_) return status_t::success;
 
@@ -39,6 +56,11 @@ namespace ll {
             }
             return status_t::success;
         };
+
+        inline auto subrange(ptrdiff_t offset, size_t length) -> memory_t {
+            // if (offset> 0 && offset < size && (offset + length) <= size)
+            return memory_t(base_ + offset, length);
+        }
 
         inline auto clear() -> status_t {
             return fill(uint8_t(0));

@@ -15,6 +15,7 @@ kernel_library("owlevel") {
         "src/cstrings.cc",
         "src/mem.asm",
         "src/primitive_traits.cc",
+        "src/rng.cc",
 
         "src/heap/bestfit_allocator.cc",
         "src/heap/ffh_allocator.cc",

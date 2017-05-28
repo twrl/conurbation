@@ -11,7 +11,6 @@
 #include "atomic_types.hh"
 #include "vector_types.hh"
 #include "guid.hh"
-#include "ll/variant.hh"
 #endif
 
 /// Define `libowlevel_except_results` to not include or set aliases for -lowlevel's result handling
@@ -20,6 +19,11 @@
 
 template <typename T>
 using _ = ll::result_t<T>;
+#endif
+
+#ifndef libowlevel_except_variant
+
+#include "ll/variant.hh"
 #endif
 
 /// Define `libowlevel_except_reflection` to not include or set aliases for -lowlevel's reflection subsystem

@@ -6,7 +6,11 @@ config("kernel_compile_link") {
         "-fno-exceptions",
         "-fno-rtti",
         "-mno-red-zone",
-        "-fno-stack-protector"
+        "-fno-stack-protector",
+        "-fsized-deallocation",
+        "-msse2",
+        #"-fembed-bitcode",
+        #"-finstrument-functions",
     ]
 
     ldflags = [
@@ -25,7 +29,9 @@ config("kernel_compile_link") {
             "-fuse-ld=gold",
             "-nostdlib",
 #            "-Wl,--export-dynamic",
-            "-Wl,-z,combreloc"
+            "-Wl,-z,combreloc",
+            "-Wl,--build-id=tree",
+            "-Wl,--no-gnu-unique",
         ]
 
         arflags += [
