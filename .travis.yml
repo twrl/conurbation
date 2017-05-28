@@ -2,31 +2,37 @@ sudo: false
 dist: trusty
 language: generic
 addons:
-    apt:
-        sources:
-          - llvm-toolchain-trusty-4.0
-          - sourceline: "ppa:ricotz/toolchain"
-        packages:
-          - "clang-4.0"
-          - "lldb-4.0"
-          - "lld-4.0"
-          - "nasm"
-          - "python2.7"
-          - "ninja-build"
+  apt:
+    sources:
+    - llvm-toolchain-trusty-4.0
+    - sourceline: ppa:ricotz/toolchain
+    packages:
+    - clang-4.0
+    - lldb-4.0
+    - lld-4.0
+    - nasm
+    - python2.7
+    - ninja-build
 before_install:
-  - mkdir -p $HOME/.toolchain
-  - ln -s `which clang-4.0` $HOME/.toolchain/clang
-  - ln -s `which clang++-4.0` $HOME/.toolchain/clang++
-  - export PATH=$HOME/.toolchain:$PATH
+- mkdir -p $HOME/.toolchain
+- export PATH=$HOME/.toolchain:$PATH
 install:
-  - curl -L https://github.com/twrl/generate-ninja/releases/download/r2/gn > $HOME/.toolchain/gn
-  - chmod +x $HOME/.toolchain/gn
+- curl -L https://github.com/twrl/generate-ninja/releases/download/r2/gn > $HOME/.toolchain/gn
+- chmod +x $HOME/.toolchain/gn
 before_script:
-  - gn gen out
+- gn gen out
 script:
-  - ninja -C out -k 10 -v
+- ninja -C out -k 10 -v
 after_success:
-  #- readelf -aW out/kernel | c++filt -t
-  - objdump -xtrR out/image/EFI/Conurbation/jonessvc.efi | c++filt -t
-  - objdump -xtrR out/image/EFI/Conurbation/jones.efi | c++filt -t
-  - readelf -aW out/image/EFI/Conurbation/kernel | c++filt -t
+- objdump -xtrw out/image/EFI/Conurbation/jonessvc.efi | c++filt -t
+- objdump -xtrw out/image/EFI/Conurbation/jones.efi | c++filt -t
+- readelf -aW out/image/EFI/Conurbation/kernel | c++filt -t
+- zip -r out/image.zip out/image
+deploy:
+  provider: releases
+  api_key:
+    secure: GrVaSyiRdD2k22V7XnyEkl3aynO1FrxuFH1LYt7LeJRWZKvwHJIFNvL62+uFYkjdlmlbwI6IUY8dnSsm7ut8fJhZkSkU3RVpMLgEuygpIWGs44rCmRNzPYD0KkFeDfkTX6pxNLPAgnIiyTkidA4MJoFUrHk0DkZvhDjL26qKHNg=
+  file: out/image.zip
+  on:
+    repo: twrl/conurbation
+    branch: takethree
