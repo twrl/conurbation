@@ -27,4 +27,6 @@ script:
   - ninja -C out -k 10 -v
 after_success:
   #- readelf -aW out/kernel | c++filt -t
-  - objdump -xtrR out/image/EFI/Conurbation/{jonessvc.efi,jones.efi,kernel} | c++filt -t
+  - objdump -xtrR out/image/EFI/Conurbation/jonessvc.efi | c++filt -t
+  - objdump -xtrR out/image/EFI/Conurbation/jones.efi | c++filt -t
+  - readelf -aW out/image/EFI/Conurbation/kernel | c++filt -t
