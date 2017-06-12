@@ -19,11 +19,12 @@ template("kernel") {
             ldflags = []
         }
         ldflags += [
-#            "-Wl,--dynamic-linker,kernel://" + kobject,
-#            "-Wl,--soname,kernel://" + kobject,
+            "-Wl,--dynamic-linker,kernel://" + kobject,
+            "-Wl,--soname,kernel://" + kobject,
             "-Wl,--discard-all",
-            "-Wl,--Bsymbolic",
-#            "-Wl,--pie"
+#            "-Wl,--Bsymbolic",
+            "-Wl,--pie",
+            "-Wl,-z,initfirst"
         ]
 
     }

@@ -1,9 +1,9 @@
 kernel("kernel") {
 
-#    kobject = "io.github.twrl.conurbation.supervisor.core"
+    kobject = "io.github.twrl.conurbation.supervisor.core"
 
     sources = [
-        "src/start.asm",
+#        "src/start.asm",
         "src/main.cc",
         #"src/ldso.cc",
 #        "src/kdso.cc",
@@ -16,11 +16,11 @@ kernel("kernel") {
     ldflags = [  ]
 
     public_deps = [
-        "//sources/supervisor/owlevel",
+        "//sources/superlibs/owlevel",
         "//sources/uefi/kuefi"
         ]
 
-    include_dirs = [ "//sources/supervisor/jones/inc" ]
+    include_dirs = [ "//sources/uefi/jonesapi/inc" ]
 
     #data_deps = [ "//sources/supervisor/jones:jonessvc(//build/config/toolchain/uefi-llvm)" ]
     #configs = [ "//sources/supervisor/jones:jonessvc_depend(//build/config/toolchain/uefi-llvm)" ]

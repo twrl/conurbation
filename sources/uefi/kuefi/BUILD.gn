@@ -9,6 +9,6 @@ kernel_library("kuefi") {
     cflags_cc = [ "-std=c++1z" ]
 
 
-    public_deps = [ "//sources/supervisor/owlevel" ]
+    public_deps = [ "//sources/superlibs/owlevel" ]
 
 }

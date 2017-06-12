@@ -2,8 +2,9 @@ group("all") {
 
     deps = [
         "//sources/supervisor/kernel",
-        "//sources/supervisor/jones(//build/config/toolchain/uefi-llvm)",
-        "//sources/supervisor/owlevel",
+        "//sources/uefi/jones(//build/config/toolchain/uefi-llvm)",
+        "//sources/uefi/jonessvc(//build/config/toolchain/uefi-llvm)",
+        "//sources/superlibs/owlevel",
         "//build/config/target:image"
     ]
 

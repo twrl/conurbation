@@ -19,7 +19,7 @@ template("efi_application") {
         if (!defined(deps)) {
             deps = []
         }
-        deps += [ "//sources/supervisor/kuefi" ]
+        deps += [ "//sources/uefi/kuefi" ]
 
         include_dirs = [ "inc" ]
 

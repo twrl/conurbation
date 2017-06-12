@@ -9,8 +9,8 @@ copy("image") {
 
     deps = [
         "//sources/supervisor/kernel",
-        "//sources/supervisor/jones:jones(//build/config/toolchain/uefi-llvm)",
-        "//sources/supervisor/jones:jonessvc(//build/config/toolchain/uefi-llvm)"
+        "//sources/uefi/jones(//build/config/toolchain/uefi-llvm)",
+        "//sources/uefi/jonessvc(//build/config/toolchain/uefi-llvm)"
     ]
 
 }

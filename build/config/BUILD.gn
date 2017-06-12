@@ -23,15 +23,17 @@ config("kernel_compile_link") {
     ]
 
     if (current_toolchain == default_toolchain) {
-#        cflags += [ "-fpic" ]
+        cflags += [ "-fPIC" ]
 
         ldflags += [
             "-fuse-ld=gold",
             "-nostdlib",
-#            "-Wl,--export-dynamic",
+            "-Wl,--export-dynamic",
             "-Wl,-z,combreloc",
             "-Wl,--build-id=tree",
             "-Wl,--no-gnu-unique",
+            "-Wl,--no-ld-generated-unwind-info",
+            "-Wl,-z,global"
         ]
 
         arflags += [
