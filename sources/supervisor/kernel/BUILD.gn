@@ -17,7 +17,7 @@ kernel("kernel") {
 
     public_deps = [
         "//sources/supervisor/owlevel",
-        "//sources/supervisor/kuefi"
+        "//sources/uefi/kuefi"
         ]
 
     include_dirs = [ "//sources/supervisor/jones/inc" ]

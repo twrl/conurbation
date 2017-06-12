@@ -1,0 +1,9 @@
+kernel_library("owuefi") {
+
+    public = []
+
+    sources = []
+
+    cflags_cc = [ "-std=c++1z" ]
+
+}
