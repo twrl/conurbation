@@ -1,17 +1,17 @@
-#include "conurbation/uefi/tables.hh"
-#include "conurbation/uefi/protocol/loaded_image.hh"
-#include "conurbation/uefi/protocol/simple_file_system.hh"
+#include "ll/uefi/tables/system.hh"
+#include "ll/uefi/protocols/loaded_image.hh"
+#include "ll/uefi/protocols/simple_file_system.hh"
 #include "jones/jones.hh"
 #include "jones/jones_loadable.hh"
 #include "string.h"
 
 #include "conurbation/uefi/console.hh"
 
-using namespace Conurbation::UEFI;
+using namespace ll::UEFI;
 
 namespace Jones {
 
-    efiabi extern "C" auto efi_main(handle_t ImageHandle, efi_system_table_t* SystemTable) -> status_t {
+    efiabi extern "C" auto efi_main(handle_t ImageHandle, Tables::system_table_t* SystemTable) -> status_t {
 
         console_logging_t* con = new (SystemTable) console_logging_t(SystemTable->ConOut);
 
@@ -20,17 +20,17 @@ namespace Jones {
         jones_p* jones_;
         jones_loadable_p* loadable_;
 
-        efi_device_path_p* imagePath_;
+        Protocols::device_path_p* imagePath_;
 
-        efi_loaded_image_p* thisImage_;
-        efi_simple_file_system_p* rootDevice_;
-        efi_file_p* rootDir_;
+        Protocols::loaded_image_p* thisImage_;
+        Protocols::simple_file_system_p* rootDevice_;
+        Protocols::file_p* rootDir_;
 
         con->info(u"Jones Loder Framework");
 
 
-        status = SystemTable->BootServices->HandleProtocol(ImageHandle, &protocol_guid_v<efi_loaded_image_p>, reinterpret_cast<void**>(&thisImage_));
-        status = SystemTable->BootServices->HandleProtocol(thisImage_->DeviceHandle, &protocol_guid_v<efi_simple_file_system_p>, reinterpret_cast<void**>(&rootDevice_));
+        status = SystemTable->BootServices->HandleProtocol(ImageHandle, &protocol_guid_v<Protocols::loaded_image_p>, reinterpret_cast<void**>(&thisImage_));
+        status = SystemTable->BootServices->HandleProtocol(thisImage_->DeviceHandle, &protocol_guid_v<Protocols::simple_file_system_p>, reinterpret_cast<void**>(&rootDevice_));
 
         // if (status == status_t::Success) {
         //     status = rootDevice_->OpenVolume(rootDevice_, &rootDir_);

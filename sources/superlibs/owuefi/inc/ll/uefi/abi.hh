@@ -7,12 +7,21 @@
 #include "guid.hh"
 #include "ll/variant.hh"
 
-#define efiabi __attribute__((ms_abi));
+#define efiabi __attribute__((ms_abi))
 
 namespace ll::UEFI {
 
     typedef void* handle_t;
     typedef void* event_t;
+
+    enum class variable_attributes_t : uint32_t {
+        nonVolatile = 0x00000001,
+        bootServiceAccess = 0x00000002,
+        runtimeAccess = 0x00000004,
+        hardwareErrorRecord = 0x00000008,
+        authenticatedWriteAccess = 0x00000010
+
+    };
 
     typedef uintptr_t tpl_t;
 

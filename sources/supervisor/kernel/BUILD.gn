@@ -17,12 +17,12 @@ kernel("kernel") {
 
     public_deps = [
         "//sources/superlibs/owlevel",
-        "//sources/uefi/kuefi"
-        ]
+        "//sources/uefi/jonesapi"
+    ]
 
-    include_dirs = [ "//sources/uefi/jonesapi/inc" ]
-
-    #data_deps = [ "//sources/supervisor/jones:jonessvc(//build/config/toolchain/uefi-llvm)" ]
-    #configs = [ "//sources/supervisor/jones:jonessvc_depend(//build/config/toolchain/uefi-llvm)" ]
+    deps = [
+        "//sources/supervisor/executive",
+        "//sources/supervisor/hal-x64-uefi"
+    ]
 
 }

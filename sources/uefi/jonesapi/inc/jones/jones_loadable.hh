@@ -1,14 +1,13 @@
 #pragma once
 
-#include "conurbation/uefi/abi.hh"
-#include "conurbation/uefi/efi_types.hh"
+#include "ll/uefi/abi.hh"
 
 namespace Jones {
 
     struct jones_loadable_p;
 
-    typedef Conurbation::UEFI::status_t (efiabi load_image_f)(jones_loadable_p* loadable);
-    typedef Conurbation::UEFI::status_t (efiabi run_image_f)(jones_loadable_p* loadable);
+    typedef ll::UEFI::status_t (efiabi load_image_f)(jones_loadable_p* loadable);
+    typedef ll::UEFI::status_t (efiabi run_image_f)(jones_loadable_p* loadable);
 
     struct jones_loadable_p {
         load_image_f* Load;

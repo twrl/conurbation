@@ -1,0 +1,13 @@
+kernel_module("executive") {
+
+    kobject = "io.github.twrl.conurbation.supervisor.executive"
+
+    sources = []
+
+    cflags_cc = [  "-std=c++1z" ]
+    public_deps = [
+        "//sources/superlibs/owlevel",
+        "//sources/supervisor/superapi"
+    ]
+
+}

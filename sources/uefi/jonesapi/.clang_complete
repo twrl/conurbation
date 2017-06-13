@@ -5,6 +5,4 @@
 -msse3
 -I./inc
 -I../../superlibs/owlevel/inc
--I../superapi/inc
--I../../uefi/kuefi/inc
--I../../uefi/jones/inc
+-I../kuefi/inc

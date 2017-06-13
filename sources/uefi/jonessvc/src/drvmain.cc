@@ -1,19 +1,19 @@
-#include "conurbation/uefi/tables.hh"
-#include "conurbation/uefi/protocol/file.hh"
+#include "ll/uefi/tables/system.hh"
+#include "ll/uefi/protocols/file.hh"
 #include "jones/jones.hh"
 #include "jones/jones_loader.hh"
 #include "jones/jones_loadable.hh"
 
-using namespace Conurbation::UEFI;
+using namespace ll::UEFI;
 
 handle_t ImageHandle;
-efi_system_table_t* SystemTable;
+Tables::system_table_t* SystemTable;
 
 namespace Jones {
 
 
 
-    efiabi auto get_loader_(efi_device_path_p* image, jones_loadable_p** loadable) -> status_t {
+    efiabi auto get_loader_(Protocols::device_path_p* image, jones_loadable_p** loadable) -> status_t {
 
         status_t status;
 
@@ -25,12 +25,12 @@ namespace Jones {
 
         jones_loader_p* loader;
 
-        efi_device_path_p* img_path = image;
+        Protocols::device_path_p* img_path = image;
         handle_t fileHandle;
-        efi_file_p* fileProto;
+        Protocols::file_p* fileProto;
 
-        SystemTable->BootServices->LocateDevicePath(&protocol_guid_v<efi_file_p>, &img_path, &fileHandle);
-        SystemTable->BootServices->OpenProtocol(fileHandle, &protocol_guid_v<efi_file_p>, reinterpret_cast<void**>(&fileProto), ImageHandle, nullptr, 2);
+        SystemTable->BootServices->LocateDevicePath(&protocol_guid_v<Protocols::file_p>, &img_path, &fileHandle);
+        SystemTable->BootServices->OpenProtocol(fileHandle, &protocol_guid_v<Protocols::file_p>, reinterpret_cast<void**>(&fileProto), ImageHandle, nullptr, 2);
 
         for (size_t i = 0; i < numLoaders; i++) {
             status = SystemTable->BootServices->OpenProtocol(buffer[i], &protocol_guid_v<jones_loader_p>, reinterpret_cast<void**>(&loader), ImageHandle, nullptr, 2);
@@ -51,7 +51,7 @@ namespace Jones {
 
     jones_p loader_ = { &get_loader_ };
 
-    efiabi extern "C" auto efi_main(handle_t imageHandle, efi_system_table_t* systemTable) -> status_t {
+    efiabi extern "C" auto efi_main(handle_t imageHandle, Tables::system_table_t* systemTable) -> status_t {
 
         ImageHandle = imageHandle;
         SystemTable = systemTable;

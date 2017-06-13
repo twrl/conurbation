@@ -2,7 +2,12 @@ kernel_library("owuefi") {
 
     public = []
 
-    sources = []
+    sources = [
+        "src/uefi_page_provider.cc",
+        "src/guid.cc"
+    ]
+
+    public_deps = [ "//sources/superlibs/owlevel" ]
 
     cflags_cc = [ "-std=c++1z" ]
 

@@ -6,5 +6,3 @@
 -I./inc
 -I../../superlibs/owlevel/inc
 -I../superapi/inc
--I../../uefi/kuefi/inc
--I../../uefi/jones/inc

@@ -21,7 +21,7 @@ template("efi_boot_driver") {
         if (!defined(deps)) {
             deps = []
         }
-        deps += [ "//sources/uefi/kuefi" ]
+        deps += [ "//sources/superlibs/owuefi" ]
 
         if (!defined(public_configs)) {
             public_configs = []

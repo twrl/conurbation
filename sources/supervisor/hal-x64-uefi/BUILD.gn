@@ -1,0 +1,14 @@
+kernel_module("hal-x64-uefi") {
+
+    kobject = "io.github.twrl.conurbation.supervisor.hal.x64-uefi"
+
+    sources = []
+
+    cflags_cc = [  "-std=c++1z" ]
+    public_deps = [
+        "//sources/superlibs/owlevel",
+        "//sources/superlibs/owuefi",
+        "//sources/supervisor/superapi"
+    ]
+
+}
