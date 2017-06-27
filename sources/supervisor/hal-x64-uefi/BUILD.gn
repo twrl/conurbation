@@ -2,7 +2,10 @@ kernel_module("hal-x64-uefi") {
 
     kobject = "io.github.twrl.conurbation.supervisor.hal.x64-uefi"
 
-    sources = []
+    sources = [
+        "src/start.cc",
+        "src/start_util.asm"
+    ]
 
     cflags_cc = [  "-std=c++1z" ]
     public_deps = [

@@ -2,7 +2,9 @@ kernel_module("executive") {
 
     kobject = "io.github.twrl.conurbation.supervisor.executive"
 
-    sources = []
+    sources = [
+        "src/main.cc"
+    ]
 
     cflags_cc = [  "-std=c++1z" ]
     public_deps = [

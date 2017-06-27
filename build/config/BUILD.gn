@@ -11,6 +11,8 @@ config("kernel_compile_link") {
         "-msse2",
         #"-fembed-bitcode",
         #"-finstrument-functions",
+        "-pedantic",
+        "-fcolor-diagnostics"
     ]
 
     ldflags = [
@@ -26,14 +28,15 @@ config("kernel_compile_link") {
         cflags += [ "-fPIC" ]
 
         ldflags += [
-            "-fuse-ld=gold",
+            "-fuse-ld=lld",
             "-nostdlib",
             "-Wl,--export-dynamic",
             "-Wl,-z,combreloc",
             "-Wl,--build-id=tree",
             "-Wl,--no-gnu-unique",
-            "-Wl,--no-ld-generated-unwind-info",
-            "-Wl,-z,global"
+            "-Wl,-z,global",
+            "-Wl,--enable-new-dtags",
+            "-Wl,--pie"
         ]
 
         arflags += [

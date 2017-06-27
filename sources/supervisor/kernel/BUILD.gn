@@ -4,7 +4,7 @@ kernel("kernel") {
 
     sources = [
 #        "src/start.asm",
-        "src/main.cc",
+#        "src/main.cc",
         #"src/ldso.cc",
 #        "src/kdso.cc",
 #        "src/ssp.cc",

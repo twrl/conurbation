@@ -3,8 +3,6 @@
 #include "traits.hh"
 #include "ll/variant.hh"
 
-ll::variant_t<uint8_t, guid_t, uintptr_t> v;
-
 template <> constexpr bool_t is_integral_v<uint8_t> = true;
 template <> constexpr bool_t is_integral_v<uint16_t> = true;
 template <> constexpr bool_t is_integral_v<uint32_t> = true;

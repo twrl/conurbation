@@ -5,4 +5,4 @@
 -msse3
 -I./inc
 -I../../superlibs/owlevel/inc
--I../kuefi/inc
+-I../../superlibs/owuefi/inc

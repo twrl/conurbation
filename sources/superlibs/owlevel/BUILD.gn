@@ -13,6 +13,7 @@ kernel_library("owlevel") {
 
     sources = [
         "src/cstrings.cc",
+        "src/locks.asm",
         "src/mem.asm",
         "src/primitive_traits.cc",
         "src/rng.cc",
@@ -21,7 +22,9 @@ kernel_library("owlevel") {
         "src/heap/ffh_allocator.cc",
 
         "src/icxxabi/guard.cc",
-        "src/icxxabi/virtual.cc"
+        "src/icxxabi/virtual.cc",
+
+    #    "src/reflection/decl.cc"
     ]
 
     cflags_cc = [ "-std=c++1z" ]

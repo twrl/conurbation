@@ -5,15 +5,11 @@
 #include "jones/jones_loadable.hh"
 #include "string.h"
 
-#include "conurbation/uefi/console.hh"
-
 using namespace ll::UEFI;
 
 namespace Jones {
 
     efiabi extern "C" auto efi_main(handle_t ImageHandle, Tables::system_table_t* SystemTable) -> status_t {
-
-        console_logging_t* con = new (SystemTable) console_logging_t(SystemTable->ConOut);
 
         status_t status;
 
@@ -26,7 +22,7 @@ namespace Jones {
         Protocols::simple_file_system_p* rootDevice_;
         Protocols::file_p* rootDir_;
 
-        con->info(u"Jones Loder Framework");
+        SystemTable->console_out->OutputString(SystemTable->console_out, u"Jones Loder Framework\r\n");
 
 
         status = SystemTable->BootServices->HandleProtocol(ImageHandle, &protocol_guid_v<Protocols::loaded_image_p>, reinterpret_cast<void**>(&thisImage_));
@@ -44,10 +40,10 @@ namespace Jones {
 
         status = SystemTable->BootServices->LocateProtocol(&protocol_guid_v<Jones::jones_p>, nullptr, reinterpret_cast<void**>(&jones_));
         if (status == status_t::Success) {
-            con->info(u"Connected to Jones service");
+            SystemTable->console_out->OutputString(SystemTable->console_out, u"Connected to Jones service\r\n");
         } else if (status == status_t::NotFound) {
-            con->warn(u"Could not connect to Jones service");
-            con->info(u"Attempting to load Jones service");
+            SystemTable->console_out->OutputString(SystemTable->console_out, u"Could not connect to Jones service\r\n");
+            SystemTable->console_out->OutputString(SystemTable->console_out, u"Attempting to load Jones service\r\n");
 
 
             return status_t::Aborted;

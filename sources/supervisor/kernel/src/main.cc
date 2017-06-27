@@ -13,7 +13,7 @@ auto kernel_main(ll::UEFI::handle_t ImageHandle, ll::UEFI::Tables::system_table_
 
 }
 
-
-[[gnu::weak]]
-[[gnu::alias("_Z11kernel_mainPvPN2ll4UEFI6Tables14system_table_tE")]]
-extern "C" auto _main(ll::UEFI::handle_t ImageHandle, ll::UEFI::Tables::system_table_t* SystemTable) -> ll::UEFI::status_t;
+// 
+// [[gnu::weak]]
+// [[gnu::alias("_Z11kernel_mainPvPN2ll4UEFI6Tables14system_table_tE")]]
+// extern "C" auto _main(ll::UEFI::handle_t ImageHandle, ll::UEFI::Tables::system_table_t* SystemTable) -> ll::UEFI::status_t;

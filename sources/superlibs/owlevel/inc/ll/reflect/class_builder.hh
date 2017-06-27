@@ -10,6 +10,9 @@ namespace ll::Reflect {
         template <typename... TParams>
         auto constructor() -> class_builder_t&;
 
+        template <typename TBase>
+        auto inherits() -> class_builder_t&;
+
         template <typename TProperty>
         auto property(cstring8_t name, TProperty (T::*getter)()) -> class_builder_t&;
 
@@ -28,6 +31,6 @@ namespace ll::Reflect {
         template <typename TValue>
         auto tag(cstring8_t name, const TValue value) -> class_builder_t&;
 
-    }
+    };
 
 }
