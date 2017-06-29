@@ -1,0 +1,11 @@
+efi_application("bootstub") {
+
+    sources = [
+        "src/bootstub.cc"
+    ]
+
+    cflags_cc = [ "-std=c++1z" ]
+
+    deps = [ "//sources/superlibs/owlevel", "//sources/superlibs/owuefi" ]
+
+}

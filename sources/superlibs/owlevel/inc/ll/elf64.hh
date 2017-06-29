@@ -47,14 +47,38 @@ struct elf64_sym_t{
 
 };
 
+enum class elf64_reloc_type_t: uint32_t {
+    amd64_none = 0,
+    amd64_64,
+    amd64_pc32,
+    amd64_got32,
+    amd64_plt32,
+    amd64_copy,
+    amd64_glob_dat,
+    amd64_jump_slot,
+    amd64_relative,
+    amd64_gotpcrel,
+    amd64_32,
+    amd64_32s,
+    amd64_16,
+    amd64_pc16,
+    amd64_8,
+    amd64_pc8,
+    amd64_pc64 = 24,
+    amd64_gotoff64,
+    amd64_gotpc32,
+    amd64_size32 = 32,
+    amd64_size64
+};
+
 struct elf64_rel_t {
     uint64_t r_offset;
     uint64_t r_info;
 
     inline auto symbol() -> const uint32_t { return (r_info >> 32); }
-    inline auto symbol(const uint32_t s) -> elf64_rel_t& { r_info = ((uint64_t)s << 32) + (type() & 0xFFFFFFFFL); return *this; }
-    inline auto type() -> const uint32_t { return (uint32_t)(r_info & 0xFFFFFFFFL); }
-    inline auto type(const uint32_t t) -> elf64_rel_t& { r_info = ((uint64_t)symbol() << 32) + (t & 0xFFFFFFFFL); return *this; }
+    inline auto symbol(const uint32_t s) -> elf64_rel_t& { r_info = ((uint64_t)s << 32) + (static_cast<uint32_t>(type()) & 0xFFFFFFFFL); return *this; }
+    inline auto type() -> const elf64_reloc_type_t { return static_cast<elf64_reloc_type_t>(r_info & 0xFFFFFFFFL); }
+    inline auto type(const elf64_reloc_type_t t) -> elf64_rel_t& { r_info = ((uint64_t)symbol() << 32) + (static_cast<uint32_t>(t) & 0xFFFFFFFFL); return *this; }
 };
 
 struct elf64_rela_t {
@@ -63,9 +87,9 @@ struct elf64_rela_t {
     int64_t r_addend;
 
     inline auto symbol() -> const uint32_t { return (r_info >> 32); }
-    inline auto symbol(const uint32_t s) -> elf64_rela_t& { r_info = ((uint64_t)s << 32) + (type() & 0xFFFFFFFFL); return *this; }
-    inline auto type() -> const uint32_t { return (uint32_t)(r_info & 0xFFFFFFFFL); }
-    inline auto type(const uint32_t t) -> elf64_rela_t& { r_info = ((uint64_t)symbol() << 32) + (t & 0xFFFFFFFFL); return *this; }
+    inline auto symbol(const uint32_t s) -> elf64_rela_t& { r_info = ((uint64_t)s << 32) + (static_cast<uint32_t>(type()) & 0xFFFFFFFFL); return *this; }
+    inline auto type() -> const elf64_reloc_type_t { return static_cast<elf64_reloc_type_t>(r_info & 0xFFFFFFFFL); }
+    inline auto type(const elf64_reloc_type_t t) -> elf64_rela_t& { r_info = ((uint64_t)symbol() << 32) + (static_cast<uint32_t>(t) & 0xFFFFFFFFL); return *this; }
 };
 
 #define ELF64_R_SYM(i) ((i) >> 32)

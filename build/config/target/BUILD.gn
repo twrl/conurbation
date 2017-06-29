@@ -1,16 +1,18 @@
 copy("image") {
 
     sources = [
-        "$root_build_dir/kernel",
-        "$root_build_dir/uefi-llvm/jones.efi",
-        "$root_build_dir/uefi-llvm/jonessvc.efi"
+        "$root_build_dir/kernel.sys",
+        #"$root_build_dir/uefi-llvm/jones.efi",
+        #"$root_build_dir/uefi-llvm/jonessvc.efi",
+        "$root_build_dir/uefi-llvm/bootstub.efi"
     ]
     outputs = [ "$root_build_dir/image/EFI/Conurbation/{{source_file_part}}" ]
 
     deps = [
         "//sources/supervisor/kernel",
-        "//sources/uefi/jones(//build/config/toolchain/uefi-llvm)",
-        "//sources/uefi/jonessvc(//build/config/toolchain/uefi-llvm)"
+        "//sources/supervisor/bootstub(//build/config/toolchain/uefi-llvm)"
+        #"//sources/uefi/jones(//build/config/toolchain/uefi-llvm)",
+        #"//sources/uefi/jonessvc(//build/config/toolchain/uefi-llvm)"
     ]
 
 }

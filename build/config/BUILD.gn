@@ -36,7 +36,6 @@ config("kernel_compile_link") {
             "-Wl,--no-gnu-unique",
             "-Wl,-z,global",
             "-Wl,--enable-new-dtags",
-            "-Wl,--pie"
         ]
 
         arflags += [

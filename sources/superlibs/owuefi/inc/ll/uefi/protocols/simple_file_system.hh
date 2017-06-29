@@ -16,3 +16,6 @@ namespace ll::UEFI::Protocols {
     };
 
 }
+
+template <> constexpr guid_t ll::UEFI::protocol_guid_v<ll::UEFI::Protocols::simple_file_system_p> = "964e5b22-6459-11d2-8e39-00a0c969723b"_guid;
+//"964e5b22-6459-11d2-8e39-00a0c969723b"_guid;

@@ -24,7 +24,8 @@ template("kernel") {
             "-Wl,--discard-all",
 #            "-Wl,--Bsymbolic",
             "-Wl,--pie",
-            "-Wl,-z,initfirst"
+            "-Wl,-z,initfirst",
+            "-W,-z,bindnow"
         ]
 
     }

@@ -7,7 +7,7 @@ namespace ll::UEFI::Protocols {
     struct file_p;
 
     typedef status_t(efiabi file_open_f)(
-        file_p * file, file_p * *newHandle, const char16_t* fileName, uint64_t openMode, uint64_t attributes);
+        file_p * file, file_p** newHandle, const char16_t* fileName, uint64_t openMode, uint64_t attributes);
     typedef status_t(efiabi file_close_f)(file_p * file);
     typedef status_t(efiabi file_delete_f)(file_p * file);
     typedef status_t(efiabi file_read_f)(file_p * file, uintptr_t * bufferSize, void* buffer);

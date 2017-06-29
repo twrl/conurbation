@@ -4,7 +4,7 @@ kernel_library("owuefi") {
 
     sources = [
         "src/uefi_page_provider.cc",
-        "src/guid.cc"
+        #"src/guid.cc"
     ]
 
     public_deps = [ "//sources/superlibs/owlevel" ]

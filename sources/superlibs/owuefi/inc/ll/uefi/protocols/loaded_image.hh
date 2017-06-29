@@ -25,4 +25,8 @@ namespace ll::UEFI::Protocols {
         image_unload_f* Unload;
     };
 
+    typedef status_t (efiabi efi_entry_point_f)(handle_t, Tables::system_table_t);
+
 }
+
+template <> constexpr guid_t ll::UEFI::protocol_guid_v<ll::UEFI::Protocols::loaded_image_p> = "5b1b31a1-9562-11d2-8e3f-00a0c969723b"_guid;
