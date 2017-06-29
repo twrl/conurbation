@@ -4,23 +4,11 @@ kernel("kernel") {
 
     output_extension = "sys"
 
-    sources = [
-#        "src/start.asm",
-#        "src/main.cc",
-        #"src/ldso.cc",
-#        "src/kdso.cc",
-#        "src/ssp.cc",
-        #"src/heap/uefiheap.cc",
-        #"src/heap/bestfit.cc"
-    ]
+    sources = []
 
     cflags_cc = [  "-std=c++1z",]
     ldflags = [  ]
 
-    public_deps = [
-        "//sources/superlibs/owlevel",
-        "//sources/uefi/jonesapi"
-    ]
 
     deps = [
         "//sources/supervisor/executive",

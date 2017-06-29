@@ -1,7 +1,0 @@
--std=c++1z
--nostdinc
--ffreestanding
--fblocks
--msse3
--I./inc
--I../../superlibs/owlevel/inc

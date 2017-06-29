@@ -1,6 +1,6 @@
-kernel_module("executive") {
+kernel_library("executive") {
 
-    kobject = "io.github.twrl.conurbation.supervisor.executive"
+    #kobject = "io.github.twrl.conurbation.supervisor.executive"
 
     sources = [
         "src/main.cc"
@@ -8,8 +8,7 @@ kernel_module("executive") {
 
     cflags_cc = [  "-std=c++1z" ]
     public_deps = [
-        "//sources/superlibs/owlevel",
-        "//sources/supervisor/superapi"
+        "//sources/superlibs/owlevel"
     ]
 
 }
