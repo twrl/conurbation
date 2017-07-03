@@ -28,9 +28,10 @@ config("kernel_compile_link") {
         cflags += [ "-fPIC" ]
 
         ldflags += [
-            "-fuse-ld=lld",
+            "-fuse-ld=gold",
             "-nostdlib",
             "-Wl,--export-dynamic",
+            "-Wl,--no-ld-generated-unwind-info",
             "-Wl,-z,combreloc",
             "-Wl,--build-id=tree",
             "-Wl,--no-gnu-unique",
@@ -40,6 +41,7 @@ config("kernel_compile_link") {
             "-Wl,-z,nodefaultlib",
             "-Wl,-z,now",
             "-Wl,--enable-new-dtags",
+            "-Wl,--demangle,-M,--cref"
         ]
 
         arflags += [
