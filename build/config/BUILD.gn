@@ -28,13 +28,17 @@ config("kernel_compile_link") {
         cflags += [ "-fPIC" ]
 
         ldflags += [
-            "-fuse-ld=gold",
+            "-fuse-ld=lld",
             "-nostdlib",
             "-Wl,--export-dynamic",
             "-Wl,-z,combreloc",
             "-Wl,--build-id=tree",
             "-Wl,--no-gnu-unique",
             "-Wl,-z,global",
+            "-Wl,-z,initfirst",
+            "-Wl,-z,nodelete",
+            "-Wl,-z,nodefaultlib",
+            "-Wl,-z,now",
             "-Wl,--enable-new-dtags",
         ]
 
