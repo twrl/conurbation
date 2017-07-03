@@ -18,3 +18,8 @@ typedef int64_t int64x2_t __attribute__((vector_size(16)));
 
 typedef float32_t float32x4_t __attribute__((vector_size(16)));
 typedef float64_t float64x2_t __attribute__((vector_size(16)));
+
+template <typename T, typename U>
+inline auto vector_cast(U src) -> T {
+    return __builtin_convertvector(src, T);
+}

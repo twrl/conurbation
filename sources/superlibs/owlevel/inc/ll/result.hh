@@ -33,3 +33,6 @@ namespace ll {
     };
 
 }
+
+template <typename TResult>
+using _ = ll::result_t<TResult, ll::status_t>;

@@ -3,12 +3,19 @@ kernel_library("executive") {
     #kobject = "io.github.twrl.conurbation.supervisor.executive"
 
     sources = [
-        "src/main.cc"
+        "src/main.cc",
+
+        "src/graphics/primitive.line.cc",
+        "src/graphics/primitive.quadbez.cc",
+        "src/graphics/primitive.cubebez.cc",
+
+
     ]
 
     cflags_cc = [  "-std=c++1z" ]
     public_deps = [
-        "//sources/superlibs/owlevel"
+        "//sources/superlibs/owlevel",
+        "//sources/superlibs/owpenlibm"
     ]
 
 }

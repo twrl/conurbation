@@ -7,7 +7,7 @@
 extern elf64_dyn_t _DYNAMIC[];
 
 namespace Conurbation {
-auto exec_main() -> void;
+auto hal_main(ll::UEFI::handle_t ImageHandle, ll::UEFI::Tables::system_table_t* SystemTable) -> ll::UEFI::status_t;
 }
 
 namespace {
@@ -97,12 +97,15 @@ efiabi extern "C" auto _start(ll::UEFI::handle_t ImageHandle, ll::UEFI::Tables::
         preinit_array[i](ImageHandle, SystemTable);
     }
 
+    // We can now make non-trivial calls
+
+    // Init
     for (int i = 0; i < init_array_count; ++i)
     {
         init_array[i]();
     }
 
-    return ll::UEFI::status_t::Success;
+    return Conurbation::hal_main(ImageHandle, SystemTable);
 
     // We're going to want to self-relocate into the higher-half, but we can't do that before ExitBootServices.
     // So gather ye data from UEFI now...
@@ -123,7 +126,6 @@ efiabi extern "C" auto _start(ll::UEFI::handle_t ImageHandle, ll::UEFI::Tables::
 
     //SystemTable->RuntimeServices->SetVirtualAddressMap();
 
-    Conurbation::exec_main();
     __builtin_unreachable();
 
 }

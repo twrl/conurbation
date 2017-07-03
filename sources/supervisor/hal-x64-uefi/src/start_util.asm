@@ -13,14 +13,3 @@ enable_sse:
         mov cr4, rax
         ret
     .end:
-
-
-[SECTION .note.Conurbation.Boot alloc]
-
-note_c_boot:
-        dd .1 - .0
-        dd .3 - .2
-    .0: db "Conurbation"
-    .1: align 4
-    .2: db "Bootable"
-    .3: align 4

@@ -28,7 +28,7 @@ config("kernel_compile_link") {
         cflags += [ "-fPIC" ]
 
         ldflags += [
-            "-fuse-ld=lld",
+            "-fuse-ld=gold",
             "-nostdlib",
             "-Wl,--export-dynamic",
             "-Wl,-z,combreloc",

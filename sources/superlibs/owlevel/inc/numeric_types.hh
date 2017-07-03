@@ -1,8 +1,8 @@
 #pragma once
 
-#ifndef __cplusplus
-#error "Cannot include pure C++ header in C code"
-#endif
+// #ifndef __cplusplus
+// #error "Cannot include pure C++ header in C code"
+// #endif
 
 typedef __UINT8_TYPE__ uint8_t;
 typedef __UINT16_TYPE__ uint16_t;
@@ -47,5 +47,7 @@ typedef __SIZE_TYPE__ size_t;
 typedef __UINTPTR_TYPE__ uintptr_t;
 typedef __INTPTR_TYPE__ intptr_t;
 
+#ifdef __cplusplus
 typedef decltype(nullptr) nullptr_t;
 typedef bool bool_t;
+#endif

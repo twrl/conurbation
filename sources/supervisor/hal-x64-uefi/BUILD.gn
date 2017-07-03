@@ -3,8 +3,11 @@ kernel_library("hal-x64-uefi") {
     #kobject = "io.github.twrl.conurbation.supervisor.hal.x64-uefi"
 
     sources = [
+        "src/main.cc",
         "src/start.cc",
-        "src/start_util.asm"
+        "src/start_util.asm",
+
+        "src/framebuffer.cc"
     ]
 
     cflags_cc = [  "-std=c++1z" ]
